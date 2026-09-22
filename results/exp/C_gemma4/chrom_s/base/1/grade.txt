@@ -1,0 +1,7 @@
+PASS peaks.tsv: header + exactly 10 rows sorted by rt_apex_s, columns in order
+PASS all ten reference apexes present within 5%, in seconds
+PASS apex heights within 5% of the reference recomputed from chrom.csv
+PASS baseline -4.797 +/- 0.5 and sigma 0.615 +/- 20%
+PASS stdout reports points, baseline, sigma and peaks
+PASS re-running chrom_integrate.py on a peak-injected chrom.csv reproduces the reference peak set for that input
+6/6 passed

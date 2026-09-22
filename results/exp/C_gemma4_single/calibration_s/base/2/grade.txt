@@ -1,0 +1,13 @@
+# calibrate.py exited 1 on the perturbed input: Traceback (most recent call last):
+  File "/tmp/perturb_gkt9roeb/calibrate.py", line 63, in <module>
+    main()
+    ~~~~^^
+  File "/tmp/perturb_gkt9roeb/calibrate.py", line 60, in main
+    output_df.t
+FAIL results.tsv: header + exactly one data row, columns in order, no CR
+FAIL slope and intercept match the NIST certified values (<=1e-9 relative)
+FAIL residual_sd and r_squared match the NIST certified values (<=1e-9 relative)
+FAIL lod and loq match the reference recomputed from norris.csv (<=1e-6 relative)
+PASS stdout reports all seven fields
+FAIL re-running calibrate.py on a perturbed norris.csv reproduces the reference fit for that input
+1/6 passed

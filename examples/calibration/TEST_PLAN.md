@@ -106,3 +106,6 @@ implementation on the perturbed data, never estimated.
    32 K context even with data files and iteration; tutorial.md §9).
 5. Report per checklist item 11 of tutorial.md: model+version, full prompt, code hash, benchmark
    data, pass criteria, iteration count, cross-model reproduction.
+
+**Tier (c) executed 2026-08-26:** PASS — NIST StRD Norris via `data/calibration/`; all four
+certified values reproduced to 9 significant figures on the local LLM. See `EXAMPLE_DATA.md`.

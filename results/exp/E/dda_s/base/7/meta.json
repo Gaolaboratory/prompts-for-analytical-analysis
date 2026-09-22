@@ -1,0 +1,214 @@
+{
+ "experiment": "E",
+ "tool": "dda_s",
+ "variant": "base",
+ "rep": 7,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/database_search/PROMPT.md",
+ "prompt_sha256": "9f6ef3d3fd003d4cb405c70a42a8905b922938ed775c4ce97b86a752339bf851",
+ "endpoint": "http://llm-host:35188/v1",
+ "started": "2026-09-19T15:03:34",
+ "failure_mode": "context_overflow",
+ "driver": {
+  "endpoint": "http://llm-host:35188/v1",
+  "model": "qwen3.6",
+  "prompt_sha256": "9f6ef3d3fd003d4cb405c70a42a8905b922938ed775c4ce97b86a752339bf851",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-19T15:03:34",
+  "max_iters": 80,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 52,
+  "assistant_turns": 52,
+  "tokens": {
+   "input": 1684377,
+   "output": 44804
+  },
+  "tool_calls": 52,
+  "refused_commands": 0,
+  "failure_mode": "endpoint_error",
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "error": "HTTP 400 (not retried): {\"error\":{\"code\":400,\"message\":\"request (66188 tokens) exceeds the available context size (65536 tokens), try increasing it\",\"type\":\"exceed_context_size_error\",\"n_prompt_tokens\":66188,\"n_ctx\":65536}}",
+  "wall_clock_elapsed_s": 2585.8,
+  "wall_clock_agent_s": 2585.8,
+  "finished": "2026-09-19T15:46:40"
+ },
+ "grader_rc": 1,
+ "criteria": {
+  "psms.tsv: header + rows, columns in order, decoy encoded 0/1, protein is the bare record id (no whitespace), every qvalue in [0,1]": true,
+  "stdout reports spectra=1200, with_candidate=1025 and the reference target/decoy peptide counts": true,
+  "target PSMs at q<=0.01 between 16 and 20 (reference 18)": false,
+  "decoy fraction among best hits within 0.05 of 0.333": false,
+  "the unfiltered rerun reports fewer 1% FDR PSMs than the filtered run": true,
+  "at least 5 of the reference's 7 named UPS1 proteins have >= 2 best-hit spectra": false
+ },
+ "passed": 3,
+ "total": 6,
+ "code_sha256": {
+  "search.py": "5f3e7fa1ecd5e6bcaad5690b28c9fb94b57d0842708bbcdf8c61f296b6f0edb6"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 2585.8,
+ "iterations": 52,
+ "tokens": {
+  "input": 1684377,
+  "output": 44804
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "targets": {
+    "want": 87060,
+    "found": [
+     87060.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "decoys": {
+    "want": 87188,
+    "found": [
+     87188.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "spectra": {
+    "want": 1200,
+    "found": [
+     1200.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "with_candidate": {
+    "want": 1025,
+    "found": [
+     1025.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "best_hits": {
+    "want": 1025,
+    "found": [
+     1025.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 5,
+  "precise_passed": 5,
+  "present": 5,
+  "total": 5,
+  "files_seen": [
+   "psms.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "reclassified": "overflow mislabelled as endpoint_error (missing raise site)"
+}

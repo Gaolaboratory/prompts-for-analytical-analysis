@@ -1,0 +1,2507 @@
+{
+  "tools": {
+    "calibration_s": {
+      "cells": [
+        {
+          "criteria": [
+            {
+              "detail": "got 1.05557440113451 want 1.0555744011345078",
+              "name": "slope matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got -5.26277619111596 want -5.2627761911158535",
+              "name": "intercept matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 46.7158501508362 want 46.7158501508362",
+              "name": "residual_sd matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.984529714719181 want 0.9845297147191809",
+              "name": "r_squared matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 146.045892484764 want 146.04589248476395",
+              "name": "lod matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 442.563310559891 want 442.5633105598908",
+              "name": "loq matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "n=36 slope=1.05557440113 intercept=-5.26277619112 residual_sd=46.7158501508 r_squared=0.984529714719 lod=146.045892485 loq=442.56331056",
+              "name": "stdout reports all seven fields",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.6791324615478516,
+          "outcome": "pass",
+          "perturbation": "subset_scale",
+          "rep": 1,
+          "tool": "calibration_s",
+          "wall_s": 1.697
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 1.00174398588229 want 1.0017439858822905",
+              "name": "slope matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.99395987338562 want 0.9939598733859104",
+              "name": "intercept matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 1.71479462279094 want 1.7147946227909445",
+              "name": "residual_sd matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.99997649180911 want 0.9999764918091103",
+              "name": "r_squared matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 5.6489705303557 want 5.648970530355701",
+              "name": "lod matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 17.1180925162294 want 17.118092516229396",
+              "name": "loq matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "n=36 slope=1.00174398588 intercept=0.993959873386 residual_sd=1.71479462279 r_squared=0.999976491809 lod=5.64897053036 loq=17.1180925162",
+              "name": "stdout reports all seven fields",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.744431972503662,
+          "outcome": "pass",
+          "perturbation": "tail_ramp",
+          "rep": 1,
+          "tool": "calibration_s",
+          "wall_s": 1.76
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 1.055574401134508 want 1.0555744011345078",
+              "name": "slope matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got -5.262776191115853 want -5.2627761911158535",
+              "name": "intercept matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 46.7158501508362 want 46.7158501508362",
+              "name": "residual_sd matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.9845297147191809 want 0.9845297147191809",
+              "name": "r_squared matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 146.045892484764 want 146.04589248476395",
+              "name": "lod matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 442.5633105598908 want 442.5633105598908",
+              "name": "loq matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "n=36 slope=1.055574401134508e+00 intercept=-5.262776191115853e+00 residual_sd=4.671585015083620e+01 r_squared=9.845297147191809e-01 lod=1.460458924847640e+02 loq=4.425633105598908e+02",
+              "name": "stdout reports all seven fields",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 3.4180774688720703,
+          "outcome": "pass",
+          "perturbation": "subset_scale",
+          "rep": 2,
+          "tool": "calibration_s",
+          "wall_s": 3.435
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 1.001743985882291 want 1.0017439858822905",
+              "name": "slope matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.9939598733859104 want 0.9939598733859104",
+              "name": "intercept matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 1.714794622790945 want 1.7147946227909445",
+              "name": "residual_sd matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.9999764918091103 want 0.9999764918091103",
+              "name": "r_squared matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 5.648970530355701 want 5.648970530355701",
+              "name": "lod matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 17.1180925162294 want 17.118092516229396",
+              "name": "loq matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "n=36 slope=1.001743985882291e+00 intercept=9.939598733859104e-01 residual_sd=1.714794622790945e+00 r_squared=9.999764918091103e-01 lod=5.648970530355701e+00 loq=1.711809251622940e+01",
+              "name": "stdout reports all seven fields",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 3.4082648754119873,
+          "outcome": "pass",
+          "perturbation": "tail_ramp",
+          "rep": 2,
+          "tool": "calibration_s",
+          "wall_s": 3.427
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 1.05557440113451 want 1.0555744011345078",
+              "name": "slope matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got -5.26277619111596 want -5.2627761911158535",
+              "name": "intercept matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 46.7158501508362 want 46.7158501508362",
+              "name": "residual_sd matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.984529714719181 want 0.9845297147191809",
+              "name": "r_squared matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 146.045892484764 want 146.04589248476395",
+              "name": "lod matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 442.563310559891 want 442.5633105598908",
+              "name": "loq matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "n=36 slope=1.05557440113451 intercept=-5.26277619111596 residual_sd=46.7158501508362 r_squared=0.984529714719181 lod=146.045892484764 loq=442.563310559891",
+              "name": "stdout reports all seven fields",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 3.203812837600708,
+          "outcome": "pass",
+          "perturbation": "subset_scale",
+          "rep": 3,
+          "tool": "calibration_s",
+          "wall_s": 3.22
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 1.00174398588229 want 1.0017439858822905",
+              "name": "slope matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.993959873385677 want 0.9939598733859104",
+              "name": "intercept matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 1.71479462279094 want 1.7147946227909445",
+              "name": "residual_sd matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.999976491809111 want 0.9999764918091103",
+              "name": "r_squared matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 5.64897053035568 want 5.648970530355701",
+              "name": "lod matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "got 17.1180925162293 want 17.118092516229396",
+              "name": "loq matches reference (<=1e-6 relative)",
+              "passed": true
+            },
+            {
+              "detail": "n=36 slope=1.00174398588229 intercept=0.993959873385677 residual_sd=1.71479462279094 r_squared=0.999976491809111 lod=5.64897053035568 loq=17.1180925162293",
+              "name": "stdout reports all seven fields",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 3.204106330871582,
+          "outcome": "pass",
+          "perturbation": "tail_ramp",
+          "rep": 3,
+          "tool": "calibration_s",
+          "wall_s": 3.22
+        }
+      ],
+      "perturbation_effects": {
+        "subset_scale": "every 4th row's y scaled by 1.20, rest untouched -- slope 1.002117 -> 1.055574, intercept -0.262323 -> -5.262776, r_squared 0.99999375 -> 0.98452971",
+        "tail_ramp": "increasing ramp added to y for the last third of rows -- slope 1.002117 -> 1.001744, intercept -0.262323 -> 0.993960, r_squared 0.99999375 -> 0.99997649"
+      },
+      "skip_notes": [
+        "NIST-certified slope/intercept/residual_sd/r_squared (Norris StRD): meaningless once the input is perturbed away from the certified file."
+      ],
+      "tool": "calibration_s"
+    },
+    "chrom_s": {
+      "cells": [
+        {
+          "criteria": [
+            {
+              "detail": "got 9 want 9",
+              "name": "peak count matches reference (9)",
+              "passed": true
+            },
+            {
+              "detail": "matched 9/9",
+              "name": "every reference apex matched within 2 s / height within 10%",
+              "passed": true
+            },
+            {
+              "detail": "got (-4.7972,0.6154) want (-4.797,0.615)",
+              "name": "stdout baseline/sigma match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.605438232421875,
+          "outcome": "pass",
+          "perturbation": "remove_peak",
+          "rep": 1,
+          "tool": "chrom_s",
+          "wall_s": 1.622
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 11 want 11",
+              "name": "peak count matches reference (11)",
+              "passed": true
+            },
+            {
+              "detail": "matched 11/11",
+              "name": "every reference apex matched within 2 s / height within 10%",
+              "passed": true
+            },
+            {
+              "detail": "got (-4.7972,0.6154) want (-4.797,0.615)",
+              "name": "stdout baseline/sigma match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.6131796836853027,
+          "outcome": "pass",
+          "perturbation": "inject_peak",
+          "rep": 1,
+          "tool": "chrom_s",
+          "wall_s": 1.634
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 9 want 9",
+              "name": "peak count matches reference (9)",
+              "passed": true
+            },
+            {
+              "detail": "matched 9/9",
+              "name": "every reference apex matched within 2 s / height within 10%",
+              "passed": true
+            },
+            {
+              "detail": "got (-4.7972,0.6154) want (-4.797,0.615)",
+              "name": "stdout baseline/sigma match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.6271109580993652,
+          "outcome": "pass",
+          "perturbation": "remove_peak",
+          "rep": 2,
+          "tool": "chrom_s",
+          "wall_s": 1.644
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 11 want 11",
+              "name": "peak count matches reference (11)",
+              "passed": true
+            },
+            {
+              "detail": "matched 11/11",
+              "name": "every reference apex matched within 2 s / height within 10%",
+              "passed": true
+            },
+            {
+              "detail": "got (-4.7972,0.6154) want (-4.797,0.615)",
+              "name": "stdout baseline/sigma match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.7219161987304688,
+          "outcome": "pass",
+          "perturbation": "inject_peak",
+          "rep": 2,
+          "tool": "chrom_s",
+          "wall_s": 1.743
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 9 want 9",
+              "name": "peak count matches reference (9)",
+              "passed": true
+            },
+            {
+              "detail": "matched 9/9",
+              "name": "every reference apex matched within 2 s / height within 10%",
+              "passed": true
+            },
+            {
+              "detail": "got (-4.79722023,0.6154076155499999) want (-4.797,0.615)",
+              "name": "stdout baseline/sigma match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.771608829498291,
+          "outcome": "pass",
+          "perturbation": "remove_peak",
+          "rep": 3,
+          "tool": "chrom_s",
+          "wall_s": 1.79
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 11 want 11",
+              "name": "peak count matches reference (11)",
+              "passed": true
+            },
+            {
+              "detail": "matched 11/11",
+              "name": "every reference apex matched within 2 s / height within 10%",
+              "passed": true
+            },
+            {
+              "detail": "got (-4.79722023,0.6154076155499999) want (-4.797,0.615)",
+              "name": "stdout baseline/sigma match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.806481122970581,
+          "outcome": "pass",
+          "perturbation": "inject_peak",
+          "rep": 3,
+          "tool": "chrom_s",
+          "wall_s": 1.829
+        }
+      ],
+      "perturbation_effects": {
+        "inject_peak": "Gaussian bump injected at 450.0 s -- npeaks 10 -> 11; apexes [325.3, 383.3, 424.9, 474.1, 518.1, 539.7, 596.1, 637.7, 664.5, 694.1] -> [325.3, 383.3, 424.9, 474.1, 518.1, 539.7, 596.1, 637.7, 664.5, 694.1, 739.7]",
+        "remove_peak": "linearly bridges across the ~474 s peak (+/-30 s) -- npeaks 10 -> 9; apexes [325.3, 383.3, 424.9, 474.1, 518.1, 539.7, 596.1, 637.7, 664.5, 694.1] -> [325.3, 383.3, 424.9, 518.1, 539.7, 596.1, 637.7, 664.5, 694.1]"
+      },
+      "skip_notes": [
+        "peak area: data/chrom/README.md notes peaks 7-10 ride a wandering baseline, so area is convention-dependent and was never graded in tier (a) either."
+      ],
+      "tool": "chrom_s"
+    },
+    "dda_s": {
+      "cells": [
+        {
+          "criteria": [
+            {
+              "detail": "got 87060.0",
+              "name": "stdout targets matches reference (87060)",
+              "passed": true
+            },
+            {
+              "detail": "got 87188.0",
+              "name": "stdout decoys matches reference (87188)",
+              "passed": true
+            },
+            {
+              "detail": "got 400.0",
+              "name": "stdout spectra matches reference (400)",
+              "passed": true
+            },
+            {
+              "detail": "got 262.0",
+              "name": "stdout with_candidate matches reference (262)",
+              "passed": true
+            },
+            {
+              "detail": "got 262.0",
+              "name": "stdout best_hits matches reference (262)",
+              "passed": true
+            },
+            {
+              "detail": "got 80.0",
+              "name": "stdout decoy_hits matches reference (76)",
+              "passed": false
+            },
+            {
+              "detail": "got 9.0",
+              "name": "stdout psms_1pct matches reference (8)",
+              "passed": false
+            },
+            {
+              "detail": "got 32",
+              "name": "psms.tsv-derived proteins_ge2 matches reference (35)",
+              "passed": false
+            }
+          ],
+          "elapsed_s": 0.6419146060943604,
+          "outcome": "fail",
+          "perturbation": "truncate_mgf",
+          "rep": 1,
+          "tool": "dda_s",
+          "wall_s": 0.784
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 87083.0",
+              "name": "stdout targets matches reference (87083)",
+              "passed": true
+            },
+            {
+              "detail": "got 87203.0",
+              "name": "stdout decoys matches reference (87203)",
+              "passed": true
+            },
+            {
+              "detail": "got 1200.0",
+              "name": "stdout spectra matches reference (1200)",
+              "passed": true
+            },
+            {
+              "detail": "got 1025.0",
+              "name": "stdout with_candidate matches reference (1025)",
+              "passed": true
+            },
+            {
+              "detail": "got 1025.0",
+              "name": "stdout best_hits matches reference (1025)",
+              "passed": true
+            },
+            {
+              "detail": "got 346.0",
+              "name": "stdout decoy_hits matches reference (347)",
+              "passed": false
+            },
+            {
+              "detail": "got 20.0",
+              "name": "stdout psms_1pct matches reference (18)",
+              "passed": false
+            },
+            {
+              "detail": "got 127",
+              "name": "psms.tsv-derived proteins_ge2 matches reference (125)",
+              "passed": false
+            }
+          ],
+          "elapsed_s": 1.4696626663208008,
+          "outcome": "fail",
+          "perturbation": "mutate_fasta",
+          "rep": 1,
+          "tool": "dda_s",
+          "wall_s": 1.573
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 183.0",
+              "name": "stdout targets matches reference (87060)",
+              "passed": false
+            },
+            {
+              "detail": "got 79.0",
+              "name": "stdout decoys matches reference (87188)",
+              "passed": false
+            },
+            {
+              "detail": "got 400.0",
+              "name": "stdout spectra matches reference (400)",
+              "passed": true
+            },
+            {
+              "detail": "got 262.0",
+              "name": "stdout with_candidate matches reference (262)",
+              "passed": true
+            },
+            {
+              "detail": "got 262.0",
+              "name": "stdout best_hits matches reference (262)",
+              "passed": true
+            },
+            {
+              "detail": "got 79.0",
+              "name": "stdout decoy_hits matches reference (76)",
+              "passed": false
+            },
+            {
+              "detail": "got 9.0",
+              "name": "stdout psms_1pct matches reference (8)",
+              "passed": false
+            },
+            {
+              "detail": "got 32",
+              "name": "psms.tsv-derived proteins_ge2 matches reference (35)",
+              "passed": false
+            }
+          ],
+          "elapsed_s": 4.245929002761841,
+          "outcome": "fail",
+          "perturbation": "truncate_mgf",
+          "rep": 2,
+          "tool": "dda_s",
+          "wall_s": 4.377
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 680.0",
+              "name": "stdout targets matches reference (87083)",
+              "passed": false
+            },
+            {
+              "detail": "got 345.0",
+              "name": "stdout decoys matches reference (87203)",
+              "passed": false
+            },
+            {
+              "detail": "got 1200.0",
+              "name": "stdout spectra matches reference (1200)",
+              "passed": true
+            },
+            {
+              "detail": "got 1025.0",
+              "name": "stdout with_candidate matches reference (1025)",
+              "passed": true
+            },
+            {
+              "detail": "got 1025.0",
+              "name": "stdout best_hits matches reference (1025)",
+              "passed": true
+            },
+            {
+              "detail": "got 345.0",
+              "name": "stdout decoy_hits matches reference (347)",
+              "passed": false
+            },
+            {
+              "detail": "got 20.0",
+              "name": "stdout psms_1pct matches reference (18)",
+              "passed": false
+            },
+            {
+              "detail": "got 127",
+              "name": "psms.tsv-derived proteins_ge2 matches reference (125)",
+              "passed": false
+            }
+          ],
+          "elapsed_s": 13.093033075332642,
+          "outcome": "fail",
+          "perturbation": "mutate_fasta",
+          "rep": 2,
+          "tool": "dda_s",
+          "wall_s": 13.186
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 87060.0",
+              "name": "stdout targets matches reference (87060)",
+              "passed": true
+            },
+            {
+              "detail": "got 87188.0",
+              "name": "stdout decoys matches reference (87188)",
+              "passed": true
+            },
+            {
+              "detail": "got 400.0",
+              "name": "stdout spectra matches reference (400)",
+              "passed": true
+            },
+            {
+              "detail": "got 262.0",
+              "name": "stdout with_candidate matches reference (262)",
+              "passed": true
+            },
+            {
+              "detail": "got 261.0",
+              "name": "stdout best_hits matches reference (262)",
+              "passed": false
+            },
+            {
+              "detail": "got 80.0",
+              "name": "stdout decoy_hits matches reference (76)",
+              "passed": false
+            },
+            {
+              "detail": "got 9.0",
+              "name": "stdout psms_1pct matches reference (8)",
+              "passed": false
+            },
+            {
+              "detail": "got 32",
+              "name": "psms.tsv-derived proteins_ge2 matches reference (35)",
+              "passed": false
+            }
+          ],
+          "elapsed_s": 2.097754955291748,
+          "outcome": "fail",
+          "perturbation": "truncate_mgf",
+          "rep": 3,
+          "tool": "dda_s",
+          "wall_s": 2.233
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 87083.0",
+              "name": "stdout targets matches reference (87083)",
+              "passed": true
+            },
+            {
+              "detail": "got 87203.0",
+              "name": "stdout decoys matches reference (87203)",
+              "passed": true
+            },
+            {
+              "detail": "got 1200.0",
+              "name": "stdout spectra matches reference (1200)",
+              "passed": true
+            },
+            {
+              "detail": "got 1025.0",
+              "name": "stdout with_candidate matches reference (1025)",
+              "passed": true
+            },
+            {
+              "detail": "got 1020.0",
+              "name": "stdout best_hits matches reference (1025)",
+              "passed": false
+            },
+            {
+              "detail": "got 346.0",
+              "name": "stdout decoy_hits matches reference (347)",
+              "passed": false
+            },
+            {
+              "detail": "got 20.0",
+              "name": "stdout psms_1pct matches reference (18)",
+              "passed": false
+            },
+            {
+              "detail": "got 125",
+              "name": "psms.tsv-derived proteins_ge2 matches reference (125)",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 5.887707710266113,
+          "outcome": "fail",
+          "perturbation": "mutate_fasta",
+          "rep": 3,
+          "tool": "dda_s",
+          "wall_s": 5.974
+        }
+      ],
+      "perturbation_effects": {
+        "mutate_fasta": "residue 10 of every 5th protein point-mutated -- targets 87060->87083; decoys 87188->87203; spectra 1200->1200; with_candidate 1025->1025; best_hits 1025->1025; decoy_hits 341->347; psms_1pct 18->18; proteins_ge2 126->125",
+        "truncate_mgf": "first 400 of 1200 spectra kept -- targets 87060->87060; decoys 87188->87188; spectra 1200->400; with_candidate 1025->262; best_hits 1025->262; decoy_hits 341->76; psms_1pct 18->8; proteins_ge2 126->35"
+      },
+      "skip_notes": [
+        "psms_1pct_unfiltered and decoy_fraction: not graded here (would require a second, unfiltered search re-run per rep); the filtered counts above already exercise the same code path.",
+        "'>= 5 of 7 named UPS1 proteins' (tier(a) criterion 6): the named proteins are specific to the unperturbed file; replaced here by proteins_ge2 recomputed from the perturbed input."
+      ],
+      "tool": "dda_s"
+    },
+    "features_s": {
+      "cells": [
+        {
+          "criteria": [
+            {
+              "detail": "matched 79/100 (of 151 rows written)",
+              "name": "top-100-by-intensity reference features matched (mz+/-0.01, rt+/-10s): >= 70/100",
+              "passed": true
+            },
+            {
+              "detail": "got 191.0",
+              "name": "stdout ms1_scans matches reference (191)",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 11.957730293273926,
+          "outcome": "pass",
+          "perturbation": "decimate_ms1_interleaved",
+          "rep": 1,
+          "tool": "features_s",
+          "wall_s": 12.128
+        },
+        {
+          "criteria": [
+            {
+              "detail": "matched 79/100 (of 162 rows written)",
+              "name": "top-100-by-intensity reference features matched (mz+/-0.01, rt+/-10s): >= 70/100",
+              "passed": true
+            },
+            {
+              "detail": "got 200.0",
+              "name": "stdout ms1_scans matches reference (200)",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 9.595201253890991,
+          "outcome": "pass",
+          "perturbation": "drop_tail_ms1",
+          "rep": 1,
+          "tool": "features_s",
+          "wall_s": 9.795
+        },
+        {
+          "criteria": [
+            {
+              "detail": "matched 100/100 (of 267 rows written)",
+              "name": "top-100-by-intensity reference features matched (mz+/-0.01, rt+/-10s): >= 70/100",
+              "passed": true
+            },
+            {
+              "detail": "got 191.0",
+              "name": "stdout ms1_scans matches reference (191)",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.6870698928833008,
+          "outcome": "pass",
+          "perturbation": "decimate_ms1_interleaved",
+          "rep": 2,
+          "tool": "features_s",
+          "wall_s": 1.828
+        },
+        {
+          "criteria": [
+            {
+              "detail": "matched 100/100 (of 261 rows written)",
+              "name": "top-100-by-intensity reference features matched (mz+/-0.01, rt+/-10s): >= 70/100",
+              "passed": true
+            },
+            {
+              "detail": "got 200.0",
+              "name": "stdout ms1_scans matches reference (200)",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 2.3285903930664062,
+          "outcome": "pass",
+          "perturbation": "drop_tail_ms1",
+          "rep": 2,
+          "tool": "features_s",
+          "wall_s": 2.544
+        },
+        {
+          "criteria": [
+            {
+              "detail": "matched 94/100 (of 183 rows written)",
+              "name": "top-100-by-intensity reference features matched (mz+/-0.01, rt+/-10s): >= 70/100",
+              "passed": true
+            },
+            {
+              "detail": "got 191.0",
+              "name": "stdout ms1_scans matches reference (191)",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 11.604016304016113,
+          "outcome": "pass",
+          "perturbation": "decimate_ms1_interleaved",
+          "rep": 3,
+          "tool": "features_s",
+          "wall_s": 11.747
+        },
+        {
+          "criteria": [
+            {
+              "detail": "matched 98/100 (of 208 rows written)",
+              "name": "top-100-by-intensity reference features matched (mz+/-0.01, rt+/-10s): >= 70/100",
+              "passed": true
+            },
+            {
+              "detail": "got 200.0",
+              "name": "stdout ms1_scans matches reference (200)",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 9.031644105911255,
+          "outcome": "pass",
+          "perturbation": "drop_tail_ms1",
+          "rep": 3,
+          "tool": "features_s",
+          "wall_s": 9.278
+        }
+      ],
+      "perturbation_effects": {
+        "decimate_ms1_interleaved": "every 3rd MS1 scan dropped -- ms1_scans 286 -> 191, windows 200 -> 200, features 240 -> 179",
+        "drop_tail_ms1": "last 30% of MS1 scans dropped -- ms1_scans 286 -> 200, windows 200 -> 200, features 240 -> 206"
+      },
+      "skip_notes": [
+        "data/feature_extraction/README.md's literal top-10 (mz, RT) table for the shipped file: replaced by the top-100-by-intensity match against the reference recomputed from the perturbed mzML."
+      ],
+      "tool": "features_s"
+    },
+    "formula_s": {
+      "cells": [
+        {
+          "criteria": [
+            {
+              "detail": "35 lines",
+              "name": "ranked.tsv is bounded (<2,000,000 lines; 1947 bytes)",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C8H10N4O2', 'calc_mass': '194.080376', 'error_ppm': '-3.122408', 'score': '3.122433'} want {'rank': 1, 'formula': 'C8H10N4O2', 'calc_mass': 194.080376, 'error_ppm': -3.1224079441476102, 'score': 3.1224327917396035}",
+              "name": "CAFFEINE: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C8H9NO2', 'calc_mass': '151.063329', 'error_ppm': '0.191973', 'score': '0.191987'} want {'rank': 1, 'formula': 'C8H9NO2', 'calc_mass': 151.063329, 'error_ppm': 0.19197250432134852, 'score': 0.19198677081516555}",
+              "name": "ACETAMINOPHEN: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C10H11N3O3S', 'calc_mass': '253.052113', 'error_ppm': '0.051373', 'score': '0.051423'} want {'rank': 1, 'formula': 'C10H11N3O3S', 'calc_mass': 253.052113, 'error_ppm': 0.051372820046148064, 'score': 0.05142265718966287}",
+              "name": "SULFAMETHOXAZOLE: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'CH6NO3P', 'calc_mass': '111.008531', 'error_ppm': '4.008717', 'score': '4.008767'} want {'rank': 1, 'formula': 'CH6NO3P', 'calc_mass': 111.008531, 'error_ppm': 4.00871698660889, 'score': 4.008767262422872}",
+              "name": "AMPA: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got 4.0",
+              "name": "stdout blocks=4",
+              "passed": true
+            },
+            {
+              "detail": "got 34.0 want 34",
+              "name": "stdout candidates matches reference (+/-20%, capped at 10x)",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.7975084781646729,
+          "outcome": "pass",
+          "perturbation": "mass_shift_subset",
+          "rep": 1,
+          "tool": "formula_s",
+          "wall_s": 1.814
+        },
+        {
+          "criteria": [
+            {
+              "detail": "36 lines",
+              "name": "ranked.tsv is bounded (<2,000,000 lines; 2000 bytes)",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C8H10N4O2', 'calc_mass': '194.080376', 'error_ppm': '-0.12366', 'score': '0.123685'} want {'rank': 1, 'formula': 'C8H10N4O2', 'calc_mass': 194.080376, 'error_ppm': -0.12366009136548174, 'score': 0.12368493895747523}",
+              "name": "CAFFEINE: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C8H9NO2', 'calc_mass': '151.063329', 'error_ppm': '0.191973', 'score': '0.191987'} want {'rank': 1, 'formula': 'C8H9NO2', 'calc_mass': 151.063329, 'error_ppm': 0.19197250432134852, 'score': 0.19198677081516555}",
+              "name": "ACETAMINOPHEN: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C2H15N5O5S2', 'calc_mass': '253.051462', 'error_ppm': '-2.52122', 'score': '7.106059'} want {'rank': 1, 'formula': 'C2H15N5O5S2', 'calc_mass': 253.05146200000001, 'error_ppm': -2.52121993842699, 'score': 7.106059274150131}",
+              "name": "SULFAMETHOXAZOLE: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'CH6NO3P', 'calc_mass': '111.008531', 'error_ppm': '0.009008', 'score': '0.009059'} want {'rank': 1, 'formula': 'CH6NO3P', 'calc_mass': 111.008531, 'error_ppm': 0.009008316853543575, 'score': 0.009058592667525348}",
+              "name": "AMPA: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got 4.0",
+              "name": "stdout blocks=4",
+              "passed": true
+            },
+            {
+              "detail": "got 35.0 want 35",
+              "name": "stdout candidates matches reference (+/-20%, capped at 10x)",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.8180711269378662,
+          "outcome": "pass",
+          "perturbation": "isotope_perturb",
+          "rep": 1,
+          "tool": "formula_s",
+          "wall_s": 1.836
+        },
+        {
+          "criteria": [
+            {
+              "detail": "35 lines",
+              "name": "ranked.tsv is bounded (<2,000,000 lines; 2627 bytes)",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C8H10N4O2', 'calc_mass': '194.080376', 'error_ppm': '-3.1224079441476102', 'score': '3.122432791739602'} want {'rank': 1, 'formula': 'C8H10N4O2', 'calc_mass': 194.080376, 'error_ppm': -3.1224079441476102, 'score': 3.1224327917396035}",
+              "name": "CAFFEINE: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C8H9NO2', 'calc_mass': '151.063329', 'error_ppm': '0.19197250432134852', 'score': '0.19198677081516563'} want {'rank': 1, 'formula': 'C8H9NO2', 'calc_mass': 151.063329, 'error_ppm': 0.19197250432134852, 'score': 0.19198677081516555}",
+              "name": "ACETAMINOPHEN: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C10H11N3O3S', 'calc_mass': '253.052113', 'error_ppm': '0.051372820046148064', 'score': '0.05142265718966287'} want {'rank': 1, 'formula': 'C10H11N3O3S', 'calc_mass': 253.052113, 'error_ppm': 0.051372820046148064, 'score': 0.05142265718966287}",
+              "name": "SULFAMETHOXAZOLE: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'CH6NO3P', 'calc_mass': '111.008531', 'error_ppm': '4.00871698660889', 'score': '4.008767262422872'} want {'rank': 1, 'formula': 'CH6NO3P', 'calc_mass': 111.008531, 'error_ppm': 4.00871698660889, 'score': 4.008767262422872}",
+              "name": "AMPA: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got 4.0",
+              "name": "stdout blocks=4",
+              "passed": true
+            },
+            {
+              "detail": "got 34.0 want 34",
+              "name": "stdout candidates matches reference (+/-20%, capped at 10x)",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 8.167731285095215,
+          "outcome": "pass",
+          "perturbation": "mass_shift_subset",
+          "rep": 2,
+          "tool": "formula_s",
+          "wall_s": 8.185
+        },
+        {
+          "criteria": [
+            {
+              "detail": "36 lines",
+              "name": "ranked.tsv is bounded (<2,000,000 lines; 2711 bytes)",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C8H10N4O2', 'calc_mass': '194.080376', 'error_ppm': '-0.12366009136548174', 'score': '0.12368493895747384'} want {'rank': 1, 'formula': 'C8H10N4O2', 'calc_mass': 194.080376, 'error_ppm': -0.12366009136548174, 'score': 0.12368493895747523}",
+              "name": "CAFFEINE: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C8H9NO2', 'calc_mass': '151.063329', 'error_ppm': '0.19197250432134852', 'score': '0.19198677081516563'} want {'rank': 1, 'formula': 'C8H9NO2', 'calc_mass': 151.063329, 'error_ppm': 0.19197250432134852, 'score': 0.19198677081516555}",
+              "name": "ACETAMINOPHEN: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C2H15N5O5S2', 'calc_mass': '253.05146200000001', 'error_ppm': '-2.52121993842699', 'score': '7.106059274150131'} want {'rank': 1, 'formula': 'C2H15N5O5S2', 'calc_mass': 253.05146200000001, 'error_ppm': -2.52121993842699, 'score': 7.106059274150131}",
+              "name": "SULFAMETHOXAZOLE: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'CH6NO3P', 'calc_mass': '111.008531', 'error_ppm': '0.009008316853543575', 'score': '0.009058592667525348'} want {'rank': 1, 'formula': 'CH6NO3P', 'calc_mass': 111.008531, 'error_ppm': 0.009008316853543575, 'score': 0.009058592667525348}",
+              "name": "AMPA: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got 4.0",
+              "name": "stdout blocks=4",
+              "passed": true
+            },
+            {
+              "detail": "got 35.0 want 35",
+              "name": "stdout candidates matches reference (+/-20%, capped at 10x)",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 7.8966569900512695,
+          "outcome": "pass",
+          "perturbation": "isotope_perturb",
+          "rep": 2,
+          "tool": "formula_s",
+          "wall_s": 7.916
+        },
+        {
+          "criteria": [
+            {
+              "detail": "35 lines",
+              "name": "ranked.tsv is bounded (<2,000,000 lines; 2634 bytes)",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C8H10N4O2', 'calc_mass': '194.080376', 'error_ppm': '-3.1224079441476102', 'score': '3.1224327917396035'} want {'rank': 1, 'formula': 'C8H10N4O2', 'calc_mass': 194.080376, 'error_ppm': -3.1224079441476102, 'score': 3.1224327917396035}",
+              "name": "CAFFEINE: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C8H9NO2', 'calc_mass': '151.063329', 'error_ppm': '0.19197250432134852', 'score': '0.19198677081516563'} want {'rank': 1, 'formula': 'C8H9NO2', 'calc_mass': 151.063329, 'error_ppm': 0.19197250432134852, 'score': 0.19198677081516555}",
+              "name": "ACETAMINOPHEN: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C10H11N3O3S', 'calc_mass': '253.052113', 'error_ppm': '0.051372820046148064', 'score': '0.05142265718966287'} want {'rank': 1, 'formula': 'C10H11N3O3S', 'calc_mass': 253.052113, 'error_ppm': 0.051372820046148064, 'score': 0.05142265718966287}",
+              "name": "SULFAMETHOXAZOLE: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'CH6NO3P', 'calc_mass': '111.008531', 'error_ppm': '4.00871698660889', 'score': '4.008767262422872'} want {'rank': 1, 'formula': 'CH6NO3P', 'calc_mass': 111.008531, 'error_ppm': 4.00871698660889, 'score': 4.008767262422872}",
+              "name": "AMPA: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got 4.0",
+              "name": "stdout blocks=4",
+              "passed": true
+            },
+            {
+              "detail": "got 34.0 want 34",
+              "name": "stdout candidates matches reference (+/-20%, capped at 10x)",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 3.123674154281616,
+          "outcome": "pass",
+          "perturbation": "mass_shift_subset",
+          "rep": 3,
+          "tool": "formula_s",
+          "wall_s": 3.141
+        },
+        {
+          "criteria": [
+            {
+              "detail": "36 lines",
+              "name": "ranked.tsv is bounded (<2,000,000 lines; 2715 bytes)",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C8H10N4O2', 'calc_mass': '194.080376', 'error_ppm': '-0.12366009136548174', 'score': '0.12368493895747515'} want {'rank': 1, 'formula': 'C8H10N4O2', 'calc_mass': 194.080376, 'error_ppm': -0.12366009136548174, 'score': 0.12368493895747523}",
+              "name": "CAFFEINE: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C8H9NO2', 'calc_mass': '151.063329', 'error_ppm': '0.19197250432134852', 'score': '0.19198677081516563'} want {'rank': 1, 'formula': 'C8H9NO2', 'calc_mass': 151.063329, 'error_ppm': 0.19197250432134852, 'score': 0.19198677081516555}",
+              "name": "ACETAMINOPHEN: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'C2H15N5O5S2', 'calc_mass': '253.05146200000001', 'error_ppm': '-2.52121993842699', 'score': '7.106059274150131'} want {'rank': 1, 'formula': 'C2H15N5O5S2', 'calc_mass': 253.05146200000001, 'error_ppm': -2.52121993842699, 'score': 7.106059274150131}",
+              "name": "SULFAMETHOXAZOLE: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'formula': 'CH6NO3P', 'calc_mass': '111.008531', 'error_ppm': '0.009008316853543575', 'score': '0.009058592667525348'} want {'rank': 1, 'formula': 'CH6NO3P', 'calc_mass': 111.008531, 'error_ppm': 0.009008316853543575, 'score': 0.009058592667525348}",
+              "name": "AMPA: rank-1 formula/calc_mass/error_ppm match reference",
+              "passed": true
+            },
+            {
+              "detail": "got 4.0",
+              "name": "stdout blocks=4",
+              "passed": true
+            },
+            {
+              "detail": "got 35.0 want 35",
+              "name": "stdout candidates matches reference (+/-20%, capped at 10x)",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 4.863767385482788,
+          "outcome": "pass",
+          "perturbation": "isotope_perturb",
+          "rep": 3,
+          "tool": "formula_s",
+          "wall_s": 4.897
+        }
+      ],
+      "perturbation_effects": {
+        "isotope_perturb": "SULFAMETHOXAZOLE M1/M2 replaced with a false pattern -- CAFFEINE: rank1 C8H10N4O2(-0.124ppm)->C8H10N4O2(-0.124ppm); ACETAMINOPHEN: rank1 C8H9NO2(0.192ppm)->C8H9NO2(0.192ppm); SULFAMETHOXAZOLE: rank1 C10H11N3O3S(0.051ppm)->C2H15N5O5S2(-2.521ppm); AMPA: rank1 CH6NO3P(0.009ppm)->CH6NO3P(0.009ppm); candidates 35->35",
+        "mass_shift_subset": "CAFFEINE +3ppm, AMPA -4ppm, other two rows untouched -- CAFFEINE: rank1 C8H10N4O2(-0.124ppm)->C8H10N4O2(-3.122ppm); ACETAMINOPHEN: rank1 C8H9NO2(0.192ppm)->C8H9NO2(0.192ppm); SULFAMETHOXAZOLE: rank1 C10H11N3O3S(0.051ppm)->C10H11N3O3S(0.051ppm); AMPA: rank1 CH6NO3P(0.009ppm)->CH6NO3P(4.009ppm); candidates 35->34"
+      },
+      "skip_notes": [
+        "candidates is graded loosely (+/-20%, floor 2) rather than exactly: tie-breaking at the ppm-window edge can legitimately differ by a candidate or two between an equally-correct implementation and the reference's own enumeration order."
+      ],
+      "tool": "formula_s"
+    },
+    "mass_reader_s": {
+      "cells": [
+        {
+          "criteria": [
+            {
+              "detail": "got 'spectra=26 ms1=6 ms2=20 rt_first=1503.03125 rt_last=1589.81811523438 tic=26982662.0' want spectra=26 ms1=6 ms2=20",
+              "name": "mzml_reader.py stdout: spectra/ms1/ms2 match reference",
+              "passed": true
+            },
+            {
+              "detail": "want rt_first=1503.03125 rt_last=1589.81811523438",
+              "name": "mzml_reader.py stdout: rt_first/rt_last match reference (+/-1e-3 s)",
+              "passed": true
+            },
+            {
+              "detail": "want tic=26982664.486056447",
+              "name": "mzml_reader.py stdout: tic matches reference (+/-0.1%)",
+              "passed": true
+            },
+            {
+              "detail": "got {'n': 48, 'total_residues': 19929, 'first_id': 'sp|P00509|AAT_ECOLI', 'first_len': 396} want n=48 total_residues=19929",
+              "name": "fasta_reader.py: record count and total residues match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'n': 48, 'total_residues': 19929, 'first_id': 'sp|P00509|AAT_ECOLI', 'first_len': 396} want 'sp|P00509|AAT_ECOLI'/396",
+              "name": "fasta_reader.py: first record id/length match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 0.7640724182128906,
+          "outcome": "pass",
+          "perturbation": "decimate_mzml",
+          "rep": 1,
+          "tool": "mass_reader_s",
+          "wall_s": 0.92
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 'spectra=40 ms1=10 ms2=30 rt_first=1501.41394042969 rt_last=1590.18725585938 tic=45709744.0' want spectra=40 ms1=10 ms2=30",
+              "name": "mzml_reader.py stdout: spectra/ms1/ms2 match reference",
+              "passed": true
+            },
+            {
+              "detail": "want rt_first=1501.41394042969 rt_last=1590.18725585938",
+              "name": "mzml_reader.py stdout: rt_first/rt_last match reference (+/-1e-3 s)",
+              "passed": true
+            },
+            {
+              "detail": "want tic=45709750.399179935",
+              "name": "mzml_reader.py stdout: tic matches reference (+/-0.1%)",
+              "passed": true
+            },
+            {
+              "detail": "got {'n': 43, 'total_residues': 18310, 'first_id': 'sp|P00509|AAT_ECOLI', 'first_len': 396} want n=43 total_residues=18310",
+              "name": "fasta_reader.py: record count and total residues match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'n': 43, 'total_residues': 18310, 'first_id': 'sp|P00509|AAT_ECOLI', 'first_len': 396} want 'sp|P00509|AAT_ECOLI'/396",
+              "name": "fasta_reader.py: first record id/length match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 0.8002481460571289,
+          "outcome": "pass",
+          "perturbation": "truncate_fasta",
+          "rep": 1,
+          "tool": "mass_reader_s",
+          "wall_s": 0.952
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 'spectra=26 ms1=6 ms2=20 rt_first=1503.03125 rt_last=1589.81811523438 tic=26982664.28552246' want spectra=26 ms1=6 ms2=20",
+              "name": "mzml_reader.py stdout: spectra/ms1/ms2 match reference",
+              "passed": true
+            },
+            {
+              "detail": "want rt_first=1503.03125 rt_last=1589.81811523438",
+              "name": "mzml_reader.py stdout: rt_first/rt_last match reference (+/-1e-3 s)",
+              "passed": true
+            },
+            {
+              "detail": "want tic=26982664.486056447",
+              "name": "mzml_reader.py stdout: tic matches reference (+/-0.1%)",
+              "passed": true
+            },
+            {
+              "detail": "got {'n': 48, 'total_residues': 19929, 'first_id': 'sp|P00509|AAT_ECOLI', 'first_len': 396} want n=48 total_residues=19929",
+              "name": "fasta_reader.py: record count and total residues match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'n': 48, 'total_residues': 19929, 'first_id': 'sp|P00509|AAT_ECOLI', 'first_len': 396} want 'sp|P00509|AAT_ECOLI'/396",
+              "name": "fasta_reader.py: first record id/length match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 0.8276998996734619,
+          "outcome": "pass",
+          "perturbation": "decimate_mzml",
+          "rep": 2,
+          "tool": "mass_reader_s",
+          "wall_s": 0.99
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 'spectra=40 ms1=10 ms2=30 rt_first=1501.41394042969 rt_last=1590.18725585938 tic=45709749.99655151' want spectra=40 ms1=10 ms2=30",
+              "name": "mzml_reader.py stdout: spectra/ms1/ms2 match reference",
+              "passed": true
+            },
+            {
+              "detail": "want rt_first=1501.41394042969 rt_last=1590.18725585938",
+              "name": "mzml_reader.py stdout: rt_first/rt_last match reference (+/-1e-3 s)",
+              "passed": true
+            },
+            {
+              "detail": "want tic=45709750.399179935",
+              "name": "mzml_reader.py stdout: tic matches reference (+/-0.1%)",
+              "passed": true
+            },
+            {
+              "detail": "got {'n': 43, 'total_residues': 18310, 'first_id': 'sp|P00509|AAT_ECOLI', 'first_len': 396} want n=43 total_residues=18310",
+              "name": "fasta_reader.py: record count and total residues match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'n': 43, 'total_residues': 18310, 'first_id': 'sp|P00509|AAT_ECOLI', 'first_len': 396} want 'sp|P00509|AAT_ECOLI'/396",
+              "name": "fasta_reader.py: first record id/length match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 0.8008949756622314,
+          "outcome": "pass",
+          "perturbation": "truncate_fasta",
+          "rep": 2,
+          "tool": "mass_reader_s",
+          "wall_s": 0.952
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 'spectra=26 ms1=6 ms2=20 rt_first=1503.03125 rt_last=1589.81811523438 tic=26982664.486056447' want spectra=26 ms1=6 ms2=20",
+              "name": "mzml_reader.py stdout: spectra/ms1/ms2 match reference",
+              "passed": true
+            },
+            {
+              "detail": "want rt_first=1503.03125 rt_last=1589.81811523438",
+              "name": "mzml_reader.py stdout: rt_first/rt_last match reference (+/-1e-3 s)",
+              "passed": true
+            },
+            {
+              "detail": "want tic=26982664.486056447",
+              "name": "mzml_reader.py stdout: tic matches reference (+/-0.1%)",
+              "passed": true
+            },
+            {
+              "detail": "got {'n': 48, 'total_residues': 19929, 'first_id': 'sp|P00509|AAT_ECOLI', 'first_len': 396} want n=48 total_residues=19929",
+              "name": "fasta_reader.py: record count and total residues match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'n': 48, 'total_residues': 19929, 'first_id': 'sp|P00509|AAT_ECOLI', 'first_len': 396} want 'sp|P00509|AAT_ECOLI'/396",
+              "name": "fasta_reader.py: first record id/length match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 0.6577966213226318,
+          "outcome": "pass",
+          "perturbation": "decimate_mzml",
+          "rep": 3,
+          "tool": "mass_reader_s",
+          "wall_s": 0.783
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 'spectra=40 ms1=10 ms2=30 rt_first=1501.41394042969 rt_last=1590.18725585938 tic=45709750.399179935' want spectra=40 ms1=10 ms2=30",
+              "name": "mzml_reader.py stdout: spectra/ms1/ms2 match reference",
+              "passed": true
+            },
+            {
+              "detail": "want rt_first=1501.41394042969 rt_last=1590.18725585938",
+              "name": "mzml_reader.py stdout: rt_first/rt_last match reference (+/-1e-3 s)",
+              "passed": true
+            },
+            {
+              "detail": "want tic=45709750.399179935",
+              "name": "mzml_reader.py stdout: tic matches reference (+/-0.1%)",
+              "passed": true
+            },
+            {
+              "detail": "got {'n': 43, 'total_residues': 18310, 'first_id': 'sp|P00509|AAT_ECOLI', 'first_len': 396} want n=43 total_residues=18310",
+              "name": "fasta_reader.py: record count and total residues match reference",
+              "passed": true
+            },
+            {
+              "detail": "got {'n': 43, 'total_residues': 18310, 'first_id': 'sp|P00509|AAT_ECOLI', 'first_len': 396} want 'sp|P00509|AAT_ECOLI'/396",
+              "name": "fasta_reader.py: first record id/length match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 0.6424882411956787,
+          "outcome": "pass",
+          "perturbation": "truncate_fasta",
+          "rep": 3,
+          "tool": "mass_reader_s",
+          "wall_s": 0.755
+        }
+      ],
+      "perturbation_effects": {
+        "decimate_mzml": "every 3rd bsa spectrum dropped -- mzml spectra 40 -> 26 (ms1 10 -> 6, ms2 30 -> 20); fasta records 48 -> 48, residues 19929 -> 19929",
+        "truncate_fasta": "last 5 ecoli FASTA records dropped -- mzml spectra 40 -> 40 (ms1 10 -> 10, ms2 30 -> 30); fasta records 48 -> 43, residues 19929 -> 18310"
+      },
+      "skip_notes": [
+        "thermo_small_raw.mzML (only 2 MS1 spectra, too small to perturb meaningfully) is copied into the workspace but not perturbed or re-graded here.",
+        "pyteomics-derived literal constants for the unperturbed files (e.g. bsa tic=45709750.4): replaced by the trusted std-lib reader (bench/reference/lib) recomputed from the perturbed input."
+      ],
+      "tool": "mass_reader_s"
+    },
+    "mass_stats_s": {
+      "cells": [
+        {
+          "criteria": [
+            {
+              "detail": "got 618 rows",
+              "name": "row count matches reference tested count (618)",
+              "passed": true
+            },
+            {
+              "detail": "got {'feature_id': 'MET_275', 'log2fc': '-0.4695722644134648', 't': '-8.469923691992529', 'df': '3.0155811984860477', 'p_value': '0.003387857521740443', 'q_value': '0.8668209404057746', 'significant': '0'} want log2fc=-0.4696 q=0.8668",
+              "name": "reference's top hit (MET_275) log2fc/q_value match",
+              "passed": true
+            },
+            {
+              "detail": "got {'tested': 618.0, 'filtered': 0.0, 'significant': 0.0}",
+              "name": "stdout tested/filtered/significant match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 5.519442796707153,
+          "outcome": "pass",
+          "perturbation": "flip_labels",
+          "rep": 1,
+          "tool": "mass_stats_s",
+          "wall_s": 5.563
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 412 rows",
+              "name": "row count matches reference tested count (412)",
+              "passed": true
+            },
+            {
+              "detail": "got {'feature_id': 'MET_410', 'log2fc': '-5.525678793230622', 't': '-114.07408981987112', 'df': '3.0337678537079396', 'p_value': '1.3052776550648857e-06', 'q_value': '0.00013933451503372825', 'significant': '1'} want log2fc=-5.5257 q=0.0001",
+              "name": "reference's top hit (MET_410) log2fc/q_value match",
+              "passed": true
+            },
+            {
+              "detail": "got {'tested': 412.0, 'filtered': 206.0, 'significant': 175.0}",
+              "name": "stdout tested/filtered/significant match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 4.370771169662476,
+          "outcome": "pass",
+          "perturbation": "value_dropout",
+          "rep": 1,
+          "tool": "mass_stats_s",
+          "wall_s": 4.4
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 618 rows",
+              "name": "row count matches reference tested count (618)",
+              "passed": true
+            },
+            {
+              "detail": "got {'feature_id': 'MET_275', 'log2fc': '-0.4695722644134648', 't': '-8.469923691992529', 'df': '3.0155811984860477', 'p_value': '0.003387857521740443', 'q_value': '0.8668209404057746', 'significant': '0'} want log2fc=-0.4696 q=0.8668",
+              "name": "reference's top hit (MET_275) log2fc/q_value match",
+              "passed": true
+            },
+            {
+              "detail": "got {'tested': 618.0, 'filtered': 0.0, 'significant': 0.0}",
+              "name": "stdout tested/filtered/significant match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 3.928908348083496,
+          "outcome": "pass",
+          "perturbation": "flip_labels",
+          "rep": 2,
+          "tool": "mass_stats_s",
+          "wall_s": 3.957
+        },
+        {
+          "criteria": [],
+          "elapsed_s": 3.874967575073242,
+          "outcome": "crash",
+          "perturbation": "value_dropout",
+          "rep": 2,
+          "returncode": 1,
+          "stderr_tail": ")\n  File \"/mnt/c/Users/bathy/Documents/Coding/bioinformatics_prompts/.venv-bench/lib/python3.13/site-packages/pandas/core/internals/construction.py\", line 113, in arrays_to_mgr\n    index = _extract_index(arrays)\n  File \"/mnt/c/Users/bathy/Documents/Coding/bioinformatics_prompts/.venv-bench/lib/python3.13/site-packages/pandas/core/internals/construction.py\", line 643, in _extract_index\n    raise ValueError(\"All arrays must be of the same length\")\nValueError: All arrays must be of the same length\n",
+          "tool": "mass_stats_s",
+          "wall_s": 3.9
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 618 rows",
+              "name": "row count matches reference tested count (618)",
+              "passed": true
+            },
+            {
+              "detail": "got {'feature_id': 'MET_275', 'log2fc': '-0.4695722644134648', 't': '-8.469923691992529', 'df': '3.0155811984860477', 'p_value': '0.003387857521740443', 'q_value': '0.8668209404057746', 'significant': '0'} want log2fc=-0.4696 q=0.8668",
+              "name": "reference's top hit (MET_275) log2fc/q_value match",
+              "passed": true
+            },
+            {
+              "detail": "got {'tested': 618.0, 'filtered': 0.0, 'significant': 0.0}",
+              "name": "stdout tested/filtered/significant match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 3.781522035598755,
+          "outcome": "pass",
+          "perturbation": "flip_labels",
+          "rep": 3,
+          "tool": "mass_stats_s",
+          "wall_s": 3.806
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 412 rows",
+              "name": "row count matches reference tested count (412)",
+              "passed": true
+            },
+            {
+              "detail": "got {'feature_id': 'MET_410', 'log2fc': '-5.525678793230622', 't': '-114.07408981987112', 'df': '3.0337678537079396', 'p_value': '1.3052776550648857e-06', 'q_value': '0.00013933451503372825', 'significant': '1'} want log2fc=-5.5257 q=0.0001",
+              "name": "reference's top hit (MET_410) log2fc/q_value match",
+              "passed": true
+            },
+            {
+              "detail": "got {'tested': 412.0, 'filtered': 206.0, 'significant': 175.0}",
+              "name": "stdout tested/filtered/significant match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 3.6569983959198,
+          "outcome": "pass",
+          "perturbation": "value_dropout",
+          "rep": 3,
+          "tool": "mass_stats_s",
+          "wall_s": 3.68
+        }
+      ],
+      "perturbation_effects": {
+        "flip_labels": "CTRL_3 and EXP_1 group labels swapped -- tested 618 -> 618, filtered 0 -> 0, significant 253 -> 0",
+        "value_dropout": "EXP_2 blanked for every 3rd feature -- tested 618 -> 412, filtered 0 -> 206, significant 253 -> 175"
+      },
+      "skip_notes": [
+        "tested=618 (tier(a)'s pinned count for the shipped file): replaced here by the count re-derived from the perturbed input."
+      ],
+      "tool": "mass_stats_s"
+    },
+    "nmr_s": {
+      "cells": [
+        {
+          "criteria": [
+            {
+              "detail": "got 16 want 16",
+              "name": "peak count matches reference (16)",
+              "passed": true
+            },
+            {
+              "detail": "matched 16/16",
+              "name": "every reference peak matched within 0.02 ppm / integral within 15% (floor 0.02)",
+              "passed": true
+            },
+            {
+              "detail": "got 16.0",
+              "name": "stdout peaks count matches reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.813485860824585,
+          "outcome": "pass",
+          "perturbation": "inject_1ppm",
+          "rep": 1,
+          "tool": "nmr_s",
+          "wall_s": 1.862
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 16 want 16",
+              "name": "peak count matches reference (16)",
+              "passed": true
+            },
+            {
+              "detail": "matched 16/16",
+              "name": "every reference peak matched within 0.02 ppm / integral within 15% (floor 0.02)",
+              "passed": true
+            },
+            {
+              "detail": "got 16.0",
+              "name": "stdout peaks count matches reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.7483396530151367,
+          "outcome": "pass",
+          "perturbation": "inject_7ppm",
+          "rep": 1,
+          "tool": "nmr_s",
+          "wall_s": 1.804
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 16 want 16",
+              "name": "peak count matches reference (16)",
+              "passed": true
+            },
+            {
+              "detail": "matched 16/16",
+              "name": "every reference peak matched within 0.02 ppm / integral within 15% (floor 0.02)",
+              "passed": true
+            },
+            {
+              "detail": "got 16.0",
+              "name": "stdout peaks count matches reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 2.344984769821167,
+          "outcome": "pass",
+          "perturbation": "inject_1ppm",
+          "rep": 2,
+          "tool": "nmr_s",
+          "wall_s": 2.395
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 16 want 16",
+              "name": "peak count matches reference (16)",
+              "passed": true
+            },
+            {
+              "detail": "matched 16/16",
+              "name": "every reference peak matched within 0.02 ppm / integral within 15% (floor 0.02)",
+              "passed": true
+            },
+            {
+              "detail": "got 16.0",
+              "name": "stdout peaks count matches reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 2.173497200012207,
+          "outcome": "pass",
+          "perturbation": "inject_7ppm",
+          "rep": 2,
+          "tool": "nmr_s",
+          "wall_s": 2.229
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 7 want 16",
+              "name": "peak count matches reference (16)",
+              "passed": false
+            },
+            {
+              "detail": "matched 7/16",
+              "name": "every reference peak matched within 0.02 ppm / integral within 15% (floor 0.02)",
+              "passed": false
+            },
+            {
+              "detail": "got 7.0",
+              "name": "stdout peaks count matches reference",
+              "passed": false
+            }
+          ],
+          "elapsed_s": 1.9429054260253906,
+          "outcome": "fail",
+          "perturbation": "inject_1ppm",
+          "rep": 3,
+          "tool": "nmr_s",
+          "wall_s": 1.999
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 7 want 16",
+              "name": "peak count matches reference (16)",
+              "passed": false
+            },
+            {
+              "detail": "matched 7/16",
+              "name": "every reference peak matched within 0.02 ppm / integral within 15% (floor 0.02)",
+              "passed": false
+            },
+            {
+              "detail": "got 7.0",
+              "name": "stdout peaks count matches reference",
+              "passed": false
+            }
+          ],
+          "elapsed_s": 1.8713586330413818,
+          "outcome": "fail",
+          "perturbation": "inject_7ppm",
+          "rep": 3,
+          "tool": "nmr_s",
+          "wall_s": 1.926
+        }
+      ],
+      "perturbation_effects": {
+        "inject_1ppm": "synthetic resonance injected at 1.000 ppm -- npeaks 15 -> 16; new ppm(s): [1.0]",
+        "inject_7ppm": "synthetic resonance injected at 7.000 ppm -- npeaks 15 -> 16; new ppm(s): [7.0]"
+      },
+      "skip_notes": [
+        "the published MTBLS1 multiplet assignments (tier(a)'s citrate/TSP table): tied to the shipped FID, replaced here by the reference recomputed from the perturbed FID."
+      ],
+      "tool": "nmr_s"
+    },
+    "pca_s": {
+      "cells": [
+        {
+          "criteria": [
+            {
+              "detail": "got 200.0",
+              "name": "stdout features_in matches reference (200)",
+              "passed": true
+            },
+            {
+              "detail": "got 184.0",
+              "name": "stdout features_kept matches reference (184)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.628 want 0.6280",
+              "name": "pc1_var matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.0437 want 0.0437",
+              "name": "pc2_var matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "ok",
+              "name": "PC1/PC2 scores correlate with reference at |r|>=0.99",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.924699306488037,
+          "outcome": "pass",
+          "perturbation": "group_batch_shift",
+          "rep": 1,
+          "tool": "pca_s",
+          "wall_s": 1.96
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 200.0",
+              "name": "stdout features_in matches reference (200)",
+              "passed": true
+            },
+            {
+              "detail": "got 179.0",
+              "name": "stdout features_kept matches reference (179)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.1658 want 0.1658",
+              "name": "pc1_var matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.1031 want 0.1031",
+              "name": "pc2_var matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "ok",
+              "name": "PC1/PC2 scores correlate with reference at |r|>=0.99",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.7562413215637207,
+          "outcome": "pass",
+          "perturbation": "borderline_dropout",
+          "rep": 1,
+          "tool": "pca_s",
+          "wall_s": 1.783
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 200.0",
+              "name": "stdout features_in matches reference (200)",
+              "passed": true
+            },
+            {
+              "detail": "got 184.0",
+              "name": "stdout features_kept matches reference (184)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.628 want 0.6280",
+              "name": "pc1_var matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.0437 want 0.0437",
+              "name": "pc2_var matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "ok",
+              "name": "PC1/PC2 scores correlate with reference at |r|>=0.99",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.7201745510101318,
+          "outcome": "pass",
+          "perturbation": "group_batch_shift",
+          "rep": 2,
+          "tool": "pca_s",
+          "wall_s": 1.776
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 200.0",
+              "name": "stdout features_in matches reference (200)",
+              "passed": true
+            },
+            {
+              "detail": "got 179.0",
+              "name": "stdout features_kept matches reference (179)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.1658 want 0.1658",
+              "name": "pc1_var matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.1031 want 0.1031",
+              "name": "pc2_var matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "ok",
+              "name": "PC1/PC2 scores correlate with reference at |r|>=0.99",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.719616413116455,
+          "outcome": "pass",
+          "perturbation": "borderline_dropout",
+          "rep": 2,
+          "tool": "pca_s",
+          "wall_s": 1.743
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 200.0",
+              "name": "stdout features_in matches reference (200)",
+              "passed": true
+            },
+            {
+              "detail": "got 184.0",
+              "name": "stdout features_kept matches reference (184)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.628 want 0.6280",
+              "name": "pc1_var matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.0437 want 0.0437",
+              "name": "pc2_var matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "ok",
+              "name": "PC1/PC2 scores correlate with reference at |r|>=0.99",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.677732229232788,
+          "outcome": "pass",
+          "perturbation": "group_batch_shift",
+          "rep": 3,
+          "tool": "pca_s",
+          "wall_s": 1.701
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 200.0",
+              "name": "stdout features_in matches reference (200)",
+              "passed": true
+            },
+            {
+              "detail": "got 179.0",
+              "name": "stdout features_kept matches reference (179)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.1658 want 0.1658",
+              "name": "pc1_var matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.1031 want 0.1031",
+              "name": "pc2_var matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "ok",
+              "name": "PC1/PC2 scores correlate with reference at |r|>=0.99",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.7838726043701172,
+          "outcome": "pass",
+          "perturbation": "borderline_dropout",
+          "rep": 3,
+          "tool": "pca_s",
+          "wall_s": 1.806
+        }
+      ],
+      "perturbation_effects": {
+        "borderline_dropout": "5 near-80%-valid features pushed just below the keep threshold -- features_kept 184 -> 179, pc1_var 0.1558 -> 0.1658, pc2_var 0.1008 -> 0.1031",
+        "group_batch_shift": "batch-like offset added to feature 1, diabetes group only -- features_kept 184 -> 184, pc1_var 0.1558 -> 0.6280, pc2_var 0.1008 -> 0.0437"
+      },
+      "skip_notes": [
+        "published features_kept=184 / pc1_var=0.1558 / pc2_var=0.1008: tied to the shipped file, replaced by the reference recomputed from the perturbed input."
+      ],
+      "tool": "pca_s"
+    },
+    "spectral_s": {
+      "cells": [
+        {
+          "criteria": [
+            {
+              "detail": "got ('caffeine',0.7208,6) want ('caffeine',0.7208,6)",
+              "name": "q1: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('sulfamethoxazole',0.6669,4) want ('sulfamethoxazole',0.6669,4)",
+              "name": "q2: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('nicotine',0.8706,6) want ('nicotine',0.8706,6)",
+              "name": "q3: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('NO_MATCH',0.0138,2) want ('NO_MATCH',0.0138,2)",
+              "name": "q4: best_match/score/matched_peaks match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.6365106105804443,
+          "outcome": "pass",
+          "perturbation": "library_reweight",
+          "rep": 1,
+          "tool": "spectral_s",
+          "wall_s": 1.657
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got ('caffeine',0.7473,6) want ('caffeine',0.7473,6)",
+              "name": "q1: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('sulfamethoxazole',0.6318,3) want ('sulfamethoxazole',0.6318,3)",
+              "name": "q2: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('nicotine',0.8706,6) want ('nicotine',0.8706,6)",
+              "name": "q3: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('NO_MATCH',0.0138,2) want ('NO_MATCH',0.0138,2)",
+              "name": "q4: best_match/score/matched_peaks match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.7047913074493408,
+          "outcome": "pass",
+          "perturbation": "query_peak_dropout",
+          "rep": 1,
+          "tool": "spectral_s",
+          "wall_s": 1.726
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got ('caffeine',0.7208,6) want ('caffeine',0.7208,6)",
+              "name": "q1: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('sulfamethoxazole',0.6669,4) want ('sulfamethoxazole',0.6669,4)",
+              "name": "q2: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('nicotine',0.8706,6) want ('nicotine',0.8706,6)",
+              "name": "q3: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('NO_MATCH',0.0138,2) want ('NO_MATCH',0.0138,2)",
+              "name": "q4: best_match/score/matched_peaks match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 0.3177971839904785,
+          "outcome": "pass",
+          "perturbation": "library_reweight",
+          "rep": 2,
+          "tool": "spectral_s",
+          "wall_s": 0.338
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got ('caffeine',0.7473,6) want ('caffeine',0.7473,6)",
+              "name": "q1: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('sulfamethoxazole',0.6318,3) want ('sulfamethoxazole',0.6318,3)",
+              "name": "q2: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('nicotine',0.8706,6) want ('nicotine',0.8706,6)",
+              "name": "q3: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('NO_MATCH',0.0138,2) want ('NO_MATCH',0.0138,2)",
+              "name": "q4: best_match/score/matched_peaks match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 0.3156898021697998,
+          "outcome": "pass",
+          "perturbation": "query_peak_dropout",
+          "rep": 2,
+          "tool": "spectral_s",
+          "wall_s": 0.338
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got ('caffeine',0.7208,6) want ('caffeine',0.7208,6)",
+              "name": "q1: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('sulfamethoxazole',0.6669,4) want ('sulfamethoxazole',0.6669,4)",
+              "name": "q2: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('nicotine',0.8706,6) want ('nicotine',0.8706,6)",
+              "name": "q3: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('NO_MATCH',0.0138,2) want ('NO_MATCH',0.0138,2)",
+              "name": "q4: best_match/score/matched_peaks match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.6221554279327393,
+          "outcome": "pass",
+          "perturbation": "library_reweight",
+          "rep": 3,
+          "tool": "spectral_s",
+          "wall_s": 1.644
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got ('caffeine',0.7473,6) want ('caffeine',0.7473,6)",
+              "name": "q1: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('sulfamethoxazole',0.6318,3) want ('sulfamethoxazole',0.6318,3)",
+              "name": "q2: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('nicotine',0.8706,6) want ('nicotine',0.8706,6)",
+              "name": "q3: best_match/score/matched_peaks match reference",
+              "passed": true
+            },
+            {
+              "detail": "got ('NO_MATCH',0.0138,2) want ('NO_MATCH',0.0138,2)",
+              "name": "q4: best_match/score/matched_peaks match reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.672898530960083,
+          "outcome": "pass",
+          "perturbation": "query_peak_dropout",
+          "rep": 3,
+          "tool": "spectral_s",
+          "wall_s": 1.695
+        }
+      ],
+      "perturbation_effects": {
+        "library_reweight": "odd-indexed peaks of library 'caffeine' scaled to 30% -- q1: score 0.7473->0.7208 match caffeine->caffeine; q2: score 0.6669->0.6669 match sulfamethoxazole->sulfamethoxazole; q3: score 0.8706->0.8706 match nicotine->nicotine; q4: score 0.0138->0.0138 match NO_MATCH->NO_MATCH",
+        "query_peak_dropout": "every 3rd peak dropped from query q2 -- q1: score 0.7473->0.7473 match caffeine->caffeine; q2: score 0.6669->0.6318 match sulfamethoxazole->sulfamethoxazole; q3: score 0.8706->0.8706 match nicotine->nicotine; q4: score 0.0138->0.0138 match NO_MATCH->NO_MATCH"
+      },
+      "skip_notes": [
+        "the literal q1..q4 identities (caffeine/acetaminophen/sulfamethoxazole/NO_MATCH) are graded against the reference for THIS perturbed input, not the tier(a) published compound list."
+      ],
+      "tool": "spectral_s"
+    },
+    "titration_s": {
+      "cells": [
+        {
+          "criteria": [
+            {
+              "detail": "got 25.049865906804666 want 24.9994",
+              "name": "Veq matches reference (+/-0.05 mL)",
+              "passed": false
+            },
+            {
+              "detail": "got 4.7467453067381635 want 4.7450",
+              "name": "pKa matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.10019946362721868 want 0.10000",
+              "name": "concentration matches reference (+/-0.2%)",
+              "passed": false
+            },
+            {
+              "detail": "points=19 Veq=25.0499 pKa=4.7467 conc=0.1002",
+              "name": "stdout reports points/Veq/pKa/conc",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.7060797214508057,
+          "outcome": "fail",
+          "perturbation": "pH_drift",
+          "rep": 1,
+          "tool": "titration_s",
+          "wall_s": 1.725
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 25.13893828798891 want 25.0575",
+              "name": "Veq matches reference (+/-0.05 mL)",
+              "passed": false
+            },
+            {
+              "detail": "got 4.749862840079612 want 4.7470",
+              "name": "pKa matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.10055575315195565 want 0.10023",
+              "name": "concentration matches reference (+/-0.2%)",
+              "passed": false
+            },
+            {
+              "detail": "points=19 Veq=25.1389 pKa=4.7499 conc=0.1006",
+              "name": "stdout reports points/Veq/pKa/conc",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.6195039749145508,
+          "outcome": "fail",
+          "perturbation": "volume_compress",
+          "rep": 1,
+          "tool": "titration_s",
+          "wall_s": 1.638
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 24.999414519906225 want 24.9994",
+              "name": "Veq matches reference (+/-0.05 mL)",
+              "passed": true
+            },
+            {
+              "detail": "got 4.744979508196718 want 4.7450",
+              "name": "pKa matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.0999976580796249 want 0.10000",
+              "name": "concentration matches reference (+/-0.2%)",
+              "passed": true
+            },
+            {
+              "detail": "points=19 Veq=25.00 pKa=4.74 conc=0.1000",
+              "name": "stdout reports points/Veq/pKa/conc",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 3.319007635116577,
+          "outcome": "pass",
+          "perturbation": "pH_drift",
+          "rep": 2,
+          "tool": "titration_s",
+          "wall_s": 3.34
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 25.057457906899995 want 25.0575",
+              "name": "Veq matches reference (+/-0.05 mL)",
+              "passed": true
+            },
+            {
+              "detail": "got 4.7470110267415 want 4.7470",
+              "name": "pKa matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.10022983162759999 want 0.10023",
+              "name": "concentration matches reference (+/-0.2%)",
+              "passed": true
+            },
+            {
+              "detail": "points=19 Veq=25.06 pKa=4.75 conc=0.1002",
+              "name": "stdout reports points/Veq/pKa/conc",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 3.241525650024414,
+          "outcome": "pass",
+          "perturbation": "volume_compress",
+          "rep": 2,
+          "tool": "titration_s",
+          "wall_s": 3.26
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 24.99993289716525 want 24.9994",
+              "name": "Veq matches reference (+/-0.05 mL)",
+              "passed": true
+            },
+            {
+              "detail": "got 4.744997651400784 want 4.7450",
+              "name": "pKa matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.09999973158866102 want 0.10000",
+              "name": "concentration matches reference (+/-0.2%)",
+              "passed": true
+            },
+            {
+              "detail": "points=19 Veq=24.9999 pKa=4.7450 conc=0.1000",
+              "name": "stdout reports points/Veq/pKa/conc",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.645958662033081,
+          "outcome": "pass",
+          "perturbation": "pH_drift",
+          "rep": 3,
+          "tool": "titration_s",
+          "wall_s": 1.663
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 25.046823634936633 want 25.0575",
+              "name": "Veq matches reference (+/-0.05 mL)",
+              "passed": true
+            },
+            {
+              "detail": "got 4.746638827222783 want 4.7470",
+              "name": "pKa matches reference (+/-0.02)",
+              "passed": true
+            },
+            {
+              "detail": "got 0.10018729453974654 want 0.10023",
+              "name": "concentration matches reference (+/-0.2%)",
+              "passed": true
+            },
+            {
+              "detail": "points=19 Veq=25.0468 pKa=4.7466 conc=0.1002",
+              "name": "stdout reports points/Veq/pKa/conc",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.701188087463379,
+          "outcome": "pass",
+          "perturbation": "volume_compress",
+          "rep": 3,
+          "tool": "titration_s",
+          "wall_s": 1.718
+        }
+      ],
+      "perturbation_effects": {
+        "pH_drift": "increasing pH offset for rows past the midpoint -- Veq 24.9977 -> 24.9994 mL, pKa 4.7449 -> 4.7450",
+        "volume_compress": "volume increments after the midpoint stretched 1.6x -- Veq 24.9977 -> 25.0575 mL, pKa 4.7449 -> 4.7470"
+      },
+      "skip_notes": [
+        "published Veq 25.0+/-0.5 mL / pKa 4.74+/-0.10 / conc 0.100 M+/-5%: tied to the shipped file, not re-derivable after perturbation."
+      ],
+      "tool": "titration_s"
+    },
+    "uvvis_s": {
+      "cells": [
+        {
+          "criteria": [
+            {
+              "detail": "got 317.01526 want 317.015",
+              "name": "lambda_max matches reference (+/-3 nm)",
+              "passed": true
+            },
+            {
+              "detail": "got 9283.38841 want 9283.388",
+              "name": "epsilon matches reference (+/-3%)",
+              "passed": true
+            },
+            {
+              "detail": "got 65.29908598629487 want 66.698",
+              "name": "fwhm matches reference (+/-10%)",
+              "passed": true
+            },
+            {
+              "detail": "got 2.0 want 2",
+              "name": "stdout bands count matches reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 3.6338112354278564,
+          "outcome": "pass",
+          "perturbation": "added_shoulder",
+          "rep": 1,
+          "tool": "uvvis_s",
+          "wall_s": 3.652
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 317.01526 want 317.015",
+              "name": "lambda_max matches reference (+/-3 nm)",
+              "passed": true
+            },
+            {
+              "detail": "got 9283.38841 want 9283.388",
+              "name": "epsilon matches reference (+/-3%)",
+              "passed": true
+            },
+            {
+              "detail": "got 65.35980950240605 want 66.668",
+              "name": "fwhm matches reference (+/-10%)",
+              "passed": true
+            },
+            {
+              "detail": "got 1.0 want 1",
+              "name": "stdout bands count matches reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 3.714271306991577,
+          "outcome": "pass",
+          "perturbation": "decimate",
+          "rep": 1,
+          "tool": "uvvis_s",
+          "wall_s": 3.732
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 317.01526 want 317.015",
+              "name": "lambda_max matches reference (+/-3 nm)",
+              "passed": true
+            },
+            {
+              "detail": "got 9283.38841 want 9283.388",
+              "name": "epsilon matches reference (+/-3%)",
+              "passed": true
+            },
+            {
+              "detail": "got 66.697684 want 66.698",
+              "name": "fwhm matches reference (+/-10%)",
+              "passed": true
+            },
+            {
+              "detail": "got 2.0 want 2",
+              "name": "stdout bands count matches reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.7328174114227295,
+          "outcome": "pass",
+          "perturbation": "added_shoulder",
+          "rep": 2,
+          "tool": "uvvis_s",
+          "wall_s": 1.75
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 317.01526 want 317.015",
+              "name": "lambda_max matches reference (+/-3 nm)",
+              "passed": true
+            },
+            {
+              "detail": "got 9283.38841 want 9283.388",
+              "name": "epsilon matches reference (+/-3%)",
+              "passed": true
+            },
+            {
+              "detail": "got 66.6679 want 66.668",
+              "name": "fwhm matches reference (+/-10%)",
+              "passed": true
+            },
+            {
+              "detail": "got 1.0 want 1",
+              "name": "stdout bands count matches reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.6000821590423584,
+          "outcome": "pass",
+          "perturbation": "decimate",
+          "rep": 2,
+          "tool": "uvvis_s",
+          "wall_s": 1.618
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 317.0153 want 317.015",
+              "name": "lambda_max matches reference (+/-3 nm)",
+              "passed": true
+            },
+            {
+              "detail": "got 9283.3884 want 9283.388",
+              "name": "epsilon matches reference (+/-3%)",
+              "passed": true
+            },
+            {
+              "detail": "got 66.7115 want 66.698",
+              "name": "fwhm matches reference (+/-10%)",
+              "passed": true
+            },
+            {
+              "detail": "got 2.0 want 2",
+              "name": "stdout bands count matches reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.660104751586914,
+          "outcome": "pass",
+          "perturbation": "added_shoulder",
+          "rep": 3,
+          "tool": "uvvis_s",
+          "wall_s": 1.676
+        },
+        {
+          "criteria": [
+            {
+              "detail": "got 317.0153 want 317.015",
+              "name": "lambda_max matches reference (+/-3 nm)",
+              "passed": true
+            },
+            {
+              "detail": "got 9283.3884 want 9283.388",
+              "name": "epsilon matches reference (+/-3%)",
+              "passed": true
+            },
+            {
+              "detail": "got 66.6693 want 66.668",
+              "name": "fwhm matches reference (+/-10%)",
+              "passed": true
+            },
+            {
+              "detail": "got 1.0 want 1",
+              "name": "stdout bands count matches reference",
+              "passed": true
+            }
+          ],
+          "elapsed_s": 1.6640732288360596,
+          "outcome": "pass",
+          "perturbation": "decimate",
+          "rep": 3,
+          "tool": "uvvis_s",
+          "wall_s": 1.681
+        }
+      ],
+      "perturbation_effects": {
+        "added_shoulder": "Gaussian bump injected at 420 nm -- points 576 -> 576, bands 1 -> 2, lambda_max 317.015 -> 317.015, fwhm 66.698 -> 66.698",
+        "decimate": "keep every other point -- points 576 -> 288, bands 1 -> 1, lambda_max 317.015 -> 317.015, fwhm 66.698 -> 66.668"
+      },
+      "skip_notes": [
+        "published lambda_max=317 nm / epsilon=9283: tied to the shipped file, not re-derivable after perturbation."
+      ],
+      "tool": "uvvis_s"
+    }
+  },
+  "wall_s": 225.8
+}

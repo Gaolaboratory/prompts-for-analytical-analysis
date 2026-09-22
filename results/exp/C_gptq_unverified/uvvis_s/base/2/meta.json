@@ -1,0 +1,94 @@
+{
+ "experiment": "C_gptq",
+ "tool": "uvvis_s",
+ "variant": "base",
+ "rep": 2,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/uvvis_spectrum/PROMPT.md",
+ "prompt_sha256": "58af7bf128a147d3b886462af28bfd6ba0582ded001ff027b42d471ecf57e034",
+ "started": "2026-09-17T16:46:45",
+ "failure_mode": null,
+ "driver": {},
+ "grader_rc": 0,
+ "criteria": {
+  "bands.tsv: header + exactly one band row, columns in order, no CR": true,
+  "lambda_max 317 +/- 3 nm": true,
+  "epsilon within 2% of 9283": true,
+  "fwhm within 2 nm of the reference recomputed from the input": true,
+  "stdout reports points, bands, lambda_max and epsilon": true,
+  "re-running uvvis.py on an absorbance-tilted input reproduces the reference lambda_max and epsilon for that input": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "uvvis.py": "6a441a79b754d5bd28af56949990f5d64fc151aa6c3d4115eb7c6471deacecb8"
+ },
+ "missing_artifacts": [],
+ "wall_clock_agent_s": null,
+ "iterations": null,
+ "tokens": null,
+ "workers": 6,
+ "content": {
+  "fields": {
+   "lambda_max": {
+    "want": 317.01526,
+    "found": [
+     317.015
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "epsilon": {
+    "want": 9283.38841,
+    "found": [
+     9283.39
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "fwhm": {
+    "want": 66.6976840137051,
+    "found": [
+     66.6977
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "bands": {
+    "want": 1,
+    "found": [
+     1.0
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 4,
+  "precise_passed": 4,
+  "present": 4,
+  "total": 4,
+  "files_seen": [
+   "bands.tsv",
+   "stderr.log",
+   "stdout.log",
+   "tilted.tsv"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d",
+ "reclassified": "driver killed before unwinding; full pass, which more iterations could not improve, so the score stands. Timing/token telemetry missing.",
+ "telemetry_missing": true
+}

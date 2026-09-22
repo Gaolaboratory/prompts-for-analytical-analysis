@@ -1,0 +1,74 @@
+{
+ "experiment": "E",
+ "tool": "spectral_s",
+ "variant": "base",
+ "rep": 2,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/spectral_library/PROMPT.md",
+ "prompt_sha256": "3b0ff48a40893cab72d401afcdd233fb9c7ec53644111eb2d6d7f551f53c710a",
+ "started": "2026-09-18T00:43:32",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.6-35b-local",
+  "prompt_sha256": "3b0ff48a40893cab72d401afcdd233fb9c7ec53644111eb2d6d7f551f53c710a",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-18T00:43:32",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 9,
+  "assistant_turns": 10,
+  "tokens": {
+   "input": 41387,
+   "output": 3149
+  },
+  "tool_calls": 9,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "wall_clock_elapsed_s": 128.1,
+  "wall_clock_agent_s": 128.1,
+  "finished": "2026-09-18T00:45:40"
+ },
+ "grader_rc": 0,
+ "criteria": {
+  "results.tsv: header + 4 rows in q1..q4 order, columns in order": true,
+  "best_match: caffeine, sulfamethoxazole, nicotine, NO_MATCH": true,
+  "scores 0.7473 / 0.6669 / 0.8706 / 0.0138 (+/- 0.0001)": true,
+  "matched_peaks 6/4/6/2 and total_library_peaks 7/6/8/6": true,
+  "stdout: queries: 4  called: 3  no_match: 1": true,
+  "re-running libsearch.py on a library with one entry removed reproduces the reference result for that library": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "libsearch.py": "84de87316f6006c8b2d40efb8a1ac483f23866573a8b8f869d77f13b8fb60ae3"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 128.1,
+ "iterations": 9,
+ "tokens": {
+  "input": 41387,
+  "output": 3149
+ },
+ "workers": 4
+}

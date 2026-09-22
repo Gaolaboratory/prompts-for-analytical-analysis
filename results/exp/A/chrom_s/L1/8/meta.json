@@ -1,0 +1,74 @@
+{
+ "experiment": "A",
+ "tool": "chrom_s",
+ "variant": "L1",
+ "rep": 8,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/chrom_integration/ablation/L1.md",
+ "prompt_sha256": "60d230f97e7fdd67646d2767dad0702b5d94ce4543a9037383f1e2ac7491b7e7",
+ "started": "2026-09-17T22:08:14",
+ "failure_mode": null,
+ "driver": {},
+ "grader_rc": 1,
+ "criteria": {
+  "peaks.tsv: header + exactly 10 rows sorted by rt_apex_s, columns in order": false,
+  "all ten reference apexes present within 5%, in seconds": false,
+  "apex heights within 5% of the reference recomputed from chrom.csv": false,
+  "baseline -4.797 +/- 0.5 and sigma 0.615 +/- 20%": false,
+  "stdout reports points, baseline, sigma and peaks": false,
+  "re-running chrom_integrate.py on a peak-injected chrom.csv reproduces the reference peak set for that input": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {
+  "chrom_integrate.py": "7d45b4aab2382ab71f2c0de948b39120e963d12ca5d26f232cac8dcdefa89460"
+ },
+ "missing_artifacts": [],
+ "wall_clock_agent_s": null,
+ "iterations": null,
+ "tokens": null,
+ "workers": 4,
+ "content": {
+  "fields": {
+   "n_peaks": {
+    "want": 10,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "baseline": {
+    "want": -4.79722023,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "sigma": {
+    "want": 0.6154076155499999,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   }
+  },
+  "method_passed": 0,
+  "precise_passed": 0,
+  "present": 0,
+  "total": 3,
+  "files_seen": [
+   "peaks.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

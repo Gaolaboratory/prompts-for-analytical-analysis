@@ -95,3 +95,7 @@ generator missed), not necessarily a model error — record which.
 - Context budget: the prompt is ~5.4 KB and must fit the context budget of the smallest model
   claimed, with room for the generator, the tool, and agentic iteration (tutorial.md §9). Verify
   the run completes without context overflow on that model before claiming support.
+
+**Tier (c) executed 2026-08-26:** PASS — real 4-nitrophenol spectrum via `data/uvvis/`; main
+band 318 nm vs published 317 ± 3 nm on the local LLM (one phantom noise-tail band documented).
+See `EXAMPLE_DATA.md`.

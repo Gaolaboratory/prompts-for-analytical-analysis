@@ -1,0 +1,72 @@
+{
+ "experiment": "C_gptq",
+ "tool": "nmr_s",
+ "variant": "base",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/nmr_1d/PROMPT.md",
+ "prompt_sha256": "9a8f864b1019067c38289227e83ab5bb2b139ecb153c584219f0fa7e1bcb2f61",
+ "started": "2026-09-17T16:59:46",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.8-27b-gptq",
+  "prompt_sha256": "9a8f864b1019067c38289227e83ab5bb2b139ecb153c584219f0fa7e1bcb2f61",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-17T16:59:46",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 9,
+  "assistant_turns": 10,
+  "tokens": {
+   "input": 50629,
+   "output": 26658
+  },
+  "tool_calls": 9,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "wall_clock_elapsed_s": 848.2,
+  "wall_clock_agent_s": 848.2,
+  "finished": "2026-09-17T17:13:54"
+ },
+ "grader_rc": 0,
+ "criteria": {
+  "multiplets.tsv: header + rows sorted by ppm_center, columns in order": true,
+  "all six assigned resonances within 0.05 ppm on the true axis": true,
+  "TSP is the reference row at 1.000 and the four metabolite integrals match the reference within 20%": true,
+  "no mirrored peak near 9.53 ppm (real-channel processing)": true,
+  "stdout reports points, peaks and reference_ppm=0.000": true
+ },
+ "passed": 5,
+ "total": 5,
+ "code_sha256": {
+  "nmr.py": "7537934f97af8e478ec72ab04ce0cdf7122435db4b759434f08952fe8c21bac5"
+ },
+ "missing_artifacts": [],
+ "wall_clock_agent_s": 848.2,
+ "iterations": 9,
+ "tokens": {
+  "input": 50629,
+  "output": 26658
+ },
+ "workers": 6
+}

@@ -1,0 +1,71 @@
+{
+ "experiment": "E",
+ "tool": "spectral_s",
+ "variant": "base",
+ "rep": 6,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/spectral_library/PROMPT.md",
+ "prompt_sha256": "3b0ff48a40893cab72d401afcdd233fb9c7ec53644111eb2d6d7f551f53c710a",
+ "started": "2026-09-18T00:45:33",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.6-35b-local",
+  "prompt_sha256": "3b0ff48a40893cab72d401afcdd233fb9c7ec53644111eb2d6d7f551f53c710a",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-18T00:45:33",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 6,
+  "assistant_turns": 7,
+  "tokens": {
+   "input": 21591,
+   "output": 2043
+  },
+  "tool_calls": 6,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "wall_clock_elapsed_s": 69.0,
+  "wall_clock_agent_s": 69.0,
+  "finished": "2026-09-18T00:46:42"
+ },
+ "grader_rc": 0,
+ "criteria": {
+  "results.tsv: header + 4 rows in q1..q4 order, columns in order": true,
+  "best_match: caffeine, sulfamethoxazole, nicotine, NO_MATCH": true,
+  "scores 0.7473 / 0.6669 / 0.8706 / 0.0138 (+/- 0.0001)": true,
+  "matched_peaks 6/4/6/2 and total_library_peaks 7/6/8/6": true,
+  "stdout: queries: 4  called: 3  no_match: 1": true,
+  "re-running libsearch.py on a library with one entry removed reproduces the reference result for that library": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "libsearch.py": "b9db5e795ca55ccfac1197e978709e0a7aa84a4218bbe870e5ea23abd9a66977"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 69.0,
+ "iterations": 6,
+ "tokens": {
+  "input": 21591,
+  "output": 2043
+ },
+ "workers": 4
+}

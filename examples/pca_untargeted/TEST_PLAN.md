@@ -86,3 +86,7 @@ Protocol: extract the NMR data matrix (buckets × samples) from the study files,
 - Require cross-model reproduction: at least one remote frontier-class model and one local model; report each run separately, including failures.
 - The prompt must fit the context budget of the smallest model claimed: current prompt is ~7.7 KB / 146 lines, well under the 32 K-context local budget used elsewhere in this repo's benchmarks.
 - Update this file with results after execution; until then it remains a plan.
+
+**Tier (c) executed 2026-08-26:** PASS — real MetaboLights MTBLS1 bucket matrix via
+`data/pca/`; kept-features, both variance fractions, and score correlations (|r| = 1.000000)
+match an independent numpy reference exactly on the local LLM. See `EXAMPLE_DATA.md`.

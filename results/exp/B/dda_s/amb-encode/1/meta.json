@@ -1,0 +1,200 @@
+{
+ "experiment": "B",
+ "tool": "dda_s",
+ "variant": "amb-encode",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/database_search/variants/amb-encode.md",
+ "prompt_sha256": "78d360bf6fdc0530cc0bebcb2bb2cefb11daf9133c399401de908287ed05ef06",
+ "endpoint": "http://llm-host:35188/v1",
+ "started": "2026-09-19T17:29:00",
+ "failure_mode": "malformed_tool_call",
+ "driver": {
+  "endpoint": "http://llm-host:35188/v1",
+  "model": "qwen3.6",
+  "prompt_sha256": "78d360bf6fdc0530cc0bebcb2bb2cefb11daf9133c399401de908287ed05ef06",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-19T17:29:01",
+  "max_iters": 80,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 38,
+  "assistant_turns": 38,
+  "tokens": {
+   "input": 921881,
+   "output": 49937
+  },
+  "tool_calls": 38,
+  "refused_commands": 0,
+  "failure_mode": "endpoint_error",
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "length"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "error": "endpoint unreachable after 3 attempts (0 s throttled): HTTP 500: {\"error\":{\"code\":500,\"message\":\"Failed to parse tool call arguments as JSON: [json.exception.parse_error.101] parse error at line 1, column 6081: syntax error while parsing value - invalid string: missing closing quote; last read: '\\\"cat > search.py << 'PYEOF'\\\\n#!/usr/bin/env python3\\\\n\\\\\\\"\\\\\\\"\\\\\\\"DDA database search with target-decoy FDR.\\\\\\\"\\\\\\\"\\\\\\\"\\\\n\\\\nimport sys\\\\nimport argparse\\\\nimport bisect\\\\nfrom collections import defaultdict\\\\n\\\\nimport fasta_reader\\\\n\\\\n# --- Constants ---\\\\nH2O = 18.010565\\\\nPROTON = 1.0072765\\\\n\\\\nRESIDUE_MASSES = {\\\\n    'A': 71.03711, 'R': 156.10111, 'N': 11",
+  "wall_clock_elapsed_s": 3209.9,
+  "wall_clock_agent_s": 3209.9,
+  "finished": "2026-09-19T18:22:30"
+ },
+ "grader_rc": 1,
+ "criteria": {
+  "psms.tsv: header + rows, columns in order, decoy encoded 0/1, protein is the bare record id (no whitespace), every qvalue in [0,1]": true,
+  "stdout reports spectra=1200, with_candidate=1025 and the reference target/decoy peptide counts": true,
+  "target PSMs at q<=0.01 between 16 and 20 (reference 18)": false,
+  "decoy fraction among best hits within 0.05 of 0.333": true,
+  "the unfiltered rerun reports fewer 1% FDR PSMs than the filtered run": true,
+  "at least 5 of the reference's 7 named UPS1 proteins have >= 2 best-hit spectra": true
+ },
+ "passed": 5,
+ "total": 6,
+ "code_sha256": {
+  "search.py": "1833d1a514b155b0ada358390c8041e4973f3a727d589c4bfe560f962ea0f997"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 3209.9,
+ "iterations": 38,
+ "tokens": {
+  "input": 921881,
+  "output": 49937
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "targets": {
+    "want": 87060,
+    "found": [
+     87060.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "decoys": {
+    "want": 87188,
+    "found": [
+     87188.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "spectra": {
+    "want": 1200,
+    "found": [
+     1200.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "with_candidate": {
+    "want": 1025,
+    "found": [
+     1025.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "best_hits": {
+    "want": 1025,
+    "found": [
+     1020.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": false,
+    "precise": false,
+    "note": "wrong"
+   }
+  },
+  "method_passed": 4,
+  "precise_passed": 4,
+  "present": 5,
+  "total": 5,
+  "files_seen": [
+   "psms.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "reclassified": "model emitted unparseable tool-call JSON; a model failure, not the endpoint"
+}

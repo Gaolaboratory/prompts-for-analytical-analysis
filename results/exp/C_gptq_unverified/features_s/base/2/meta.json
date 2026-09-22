@@ -1,0 +1,34 @@
+{
+ "experiment": "C_gptq",
+ "tool": "features_s",
+ "variant": "base",
+ "rep": 2,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/feature_extraction/PROMPT.md",
+ "prompt_sha256": "365302043d4946b6194f7f6a53bf37262492840448e9d73c78cee4a83e18f846",
+ "started": "2026-09-17T20:15:37",
+ "failure_mode": "harness_timeout",
+ "driver": {},
+ "grader_rc": 1,
+ "criteria": {
+  "features.tsv: header + N rows, 7 columns in order": false,
+  "120 <= N <= 480": false,
+  "at least 5 of the 10 reference features matched": false,
+  "every apex_intensity > 0 and rt_start <= rt_apex <= rt_end": false,
+  "stdout: ms1_scans=286": false,
+  "at least 70 of the recomputed reference's top 100 features matched, and stdout features=N equals the row count": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {},
+ "missing_artifacts": [
+  "features.py"
+ ],
+ "harness_timeout": true,
+ "wall_clock_agent_s": null,
+ "iterations": null,
+ "tokens": null,
+ "workers": 3
+}

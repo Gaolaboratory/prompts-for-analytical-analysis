@@ -1,0 +1,132 @@
+{
+ "experiment": "C_gptq",
+ "tool": "mass_stats_s",
+ "variant": "base",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/mass_stats/PROMPT.md",
+ "prompt_sha256": "b1d9c5ff84350ec07b3e123325edcd42404c34a158ea4cd2717a4c55a10cc07d",
+ "started": "2026-09-17T17:08:12",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.8-27b-gptq",
+  "prompt_sha256": "b1d9c5ff84350ec07b3e123325edcd42404c34a158ea4cd2717a4c55a10cc07d",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-17T17:08:12",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 9,
+  "assistant_turns": 10,
+  "tokens": {
+   "input": 68622,
+   "output": 6935
+  },
+  "tool_calls": 9,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "wall_clock_elapsed_s": 361.1,
+  "wall_clock_agent_s": 361.1,
+  "finished": "2026-09-17T17:14:13"
+ },
+ "grader_rc": 0,
+ "criteria": {
+  "stats.tsv: header + 618 rows sorted by p_value, columns in order": true,
+  "stdout reports tested=618 filtered=0 significant=253, and the significant column matches the reference on every row": true,
+  "t and p_value match the reference within 1e-6 relative on every row": true,
+  "df within 1e-6 relative and log2fc within 1e-9 relative on every row": true,
+  "q_value within 1e-6 relative, with the top-8 BH plateau reproduced": true,
+  "top 10 features by p_value are the reference ten, in order": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "stats.py": "c1d62ecfd20c1983818392c2f37ca39eb43344dfcf6ae0f31ee335515b453d68"
+ },
+ "missing_artifacts": [],
+ "wall_clock_agent_s": 361.1,
+ "iterations": 9,
+ "tokens": {
+  "input": 68622,
+  "output": 6935
+ },
+ "workers": 6,
+ "content": {
+  "fields": {
+   "tested": {
+    "want": 618,
+    "found": [
+     618.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "filtered": {
+    "want": 0,
+    "found": [
+     0.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "significant": {
+    "want": 253,
+    "found": [
+     253.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 3,
+  "precise_passed": 3,
+  "present": 3,
+  "total": 3,
+  "files_seen": [
+   "stats.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

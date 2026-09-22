@@ -1,0 +1,55 @@
+# Chromatographic peak detection and integration
+
+Write `chrom_integrate.py`. Run: `python3 chrom_integrate.py chrom.csv -o peaks.tsv`
+
+Python standard library plus numpy, pandas and scipy only. No other third-party packages.
+
+## Input
+
+`chrom.csv` is in the working directory: header `time_s,signal`, 1944 rows, the 220 nm
+channel of an Agilent DAD run. **The time column is in seconds.**
+
+## Output
+
+`peaks.tsv`: a header line plus one tab-separated data row per peak, LF endings:
+
+```
+peak_id	rt_apex_s	height	area
+```
+
+Sorted by ascending `rt_apex_s`, `peak_id` numbered from 1.
+
+One line on stdout: `points=<n> baseline=<x> sigma=<x> peaks=<n>`
+
+## Method
+
+- Report `rt_apex_s` **in seconds, exactly as the input column gives it. Do not divide by
+  60.** A peak at 325.32 s reported as 5.42 is the minutes-versus-seconds unit error, and
+  it is the single most common way this tool has failed.
+- Baseline = median of the **first 100 raw points**; robust σ = 1.4826 · MAD of those same
+  points. The first five minutes of the run are flat, which is why the estimate is
+  anchored there.
+- Smooth with a 5-point centered moving average (window truncated at the ends) and detect
+  peaks on the **smoothed** trace; report `height` from the **raw** trace at the apex
+  index.
+- A peak is a local maximum of the smoothed trace: `sm[i] > sm[i-1] and sm[i] >= sm[i+1]`,
+  exceeding the detection threshold `baseline + 10·sigma`. Peaks 7-10 are genuine at
+  roughly 50-90 sigma; a higher threshold loses them and a lower one invents peaks on
+  baseline drift.
+- Merge local maxima within 5 points of each other into one peak, keeping the tallest.
+- Report an `area` for every peak so the column is populated, but do not tune the
+  integration to hit a target: on this data, the minor peaks ride a baseline that wanders
+  roughly -7 to +5 mAU, so their areas are sensitive to the baseline model chosen for
+  integration and are not pinned by any criterion below.
+
+## Acceptance criteria
+
+1. `peaks.tsv`: header + exactly 10 rows sorted by rt_apex_s, columns in order.
+2. all ten reference apexes present within 5%, in seconds.
+3. apex heights within 5% of the reference recomputed from chrom.csv.
+4. baseline -4.797 +/- 0.5 and sigma 0.615 +/- 20%.
+5. stdout reports points, baseline, sigma and peaks.
+6. re-running chrom_integrate.py on a peak-injected chrom.csv reproduces the reference
+   peak set for that input.
+
+Do not tune a constant to make a number match; if a criterion fails, the analysis is wrong.

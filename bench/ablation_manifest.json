@@ -1,0 +1,314 @@
+{
+ "calibration_s": {
+  "L0": {
+   "path": "examples/calibration/ablation/L0.md",
+   "lines": 5,
+   "chars": 226,
+   "sha256": "d2166c4c5995107cb5d7dbfbb8b207b34056fed3c80a34334ef08e17279c123e",
+   "sections": []
+  },
+  "L1": {
+   "path": "examples/calibration/ablation/L1.md",
+   "lines": 10,
+   "chars": 403,
+   "sha256": "3a1b91d0d44dce31f7597ab92bb9a6799909cc8dca483651e421202e86d80d74",
+   "sections": [
+    "Input"
+   ]
+  },
+  "L2": {
+   "path": "examples/calibration/ablation/L2.md",
+   "lines": 23,
+   "chars": 1129,
+   "sha256": "3a6bb1bf5ace7050ca36ec28f97b40f597279911ce937a638733b498e21d2c0f",
+   "sections": [
+    "Input",
+    "Method"
+   ]
+  },
+  "L3": {
+   "path": "examples/calibration/ablation/L3.md",
+   "lines": 33,
+   "chars": 1377,
+   "sha256": "8e335a04c681f1981dfa60cfaa3ba0eeb4bb1ab45aa9a0ddc2e3e08ee6ff7120",
+   "sections": [
+    "Input",
+    "Method",
+    "Output"
+   ]
+  },
+  "L4": {
+   "path": "examples/calibration/PROMPT.md",
+   "lines": 45,
+   "chars": 1936,
+   "sha256": "5e1ba3c1d76ab2d590788d9ed0cf47dd3cf915d2876c3561d170905d59cf3cca",
+   "sections": [
+    "Input",
+    "Output",
+    "Method",
+    "Acceptance criteria"
+   ]
+  }
+ },
+ "titration_s": {
+  "L0": {
+   "path": "examples/titration/ablation/L0.md",
+   "lines": 5,
+   "chars": 215,
+   "sha256": "ce3503e7799dd8da9ea4cc6bbacd31dd92b16d2128ea524c212525b34b94fa5d",
+   "sections": []
+  },
+  "L1": {
+   "path": "examples/titration/ablation/L1.md",
+   "lines": 12,
+   "chars": 496,
+   "sha256": "78ee98334e48b4b44215b4c2f4f28044b8691412962bada40da056efbaccf8b9",
+   "sections": [
+    "Input"
+   ]
+  },
+  "L2": {
+   "path": "examples/titration/ablation/L2.md",
+   "lines": 28,
+   "chars": 1337,
+   "sha256": "3d418ed99bc32154bf6b17cf69f2b67ff569debb60df3ddf05969ab5fcd1ed1f",
+   "sections": [
+    "Input",
+    "Method"
+   ]
+  },
+  "L3": {
+   "path": "examples/titration/ablation/L3.md",
+   "lines": 38,
+   "chars": 1549,
+   "sha256": "f55264f4512679be757ed86d1e5b13c5577b5d76fd2b9cd74e85f01eb0dd8e9a",
+   "sections": [
+    "Input",
+    "Method",
+    "Output"
+   ]
+  },
+  "L4": {
+   "path": "examples/titration/PROMPT.md",
+   "lines": 52,
+   "chars": 2261,
+   "sha256": "4b7b216bad351518adebc0c0c4ee49244f3f8ed4e56f7fddc18025f99ace0079",
+   "sections": [
+    "Input",
+    "Output",
+    "Method",
+    "Acceptance criteria"
+   ]
+  }
+ },
+ "uvvis_s": {
+  "L0": {
+   "path": "examples/uvvis_spectrum/ablation/L0.md",
+   "lines": 5,
+   "chars": 227,
+   "sha256": "c63d931998ee6c319cc541c3a3a03a6c8261ac4a8c1abdd87a7852449253db90",
+   "sections": []
+  },
+  "L1": {
+   "path": "examples/uvvis_spectrum/ablation/L1.md",
+   "lines": 11,
+   "chars": 445,
+   "sha256": "f19e49e81a271dcaf135cf219ce2a4f0e1893a9d9c29e2cad97efb36f89ca715",
+   "sections": [
+    "Input"
+   ]
+  },
+  "L2": {
+   "path": "examples/uvvis_spectrum/ablation/L2.md",
+   "lines": 25,
+   "chars": 1201,
+   "sha256": "7ff292ec68e1627cb9992f30cf8ba24800fe141f2f1da552962a72437b0c76e9",
+   "sections": [
+    "Input",
+    "Method"
+   ]
+  },
+  "L3": {
+   "path": "examples/uvvis_spectrum/ablation/L3.md",
+   "lines": 36,
+   "chars": 1421,
+   "sha256": "ee71531f5047472da2df10fe056ecbea9d305a03ba7a2f1ae1266112e9d6a81a",
+   "sections": [
+    "Input",
+    "Method",
+    "Output"
+   ]
+  },
+  "L4": {
+   "path": "examples/uvvis_spectrum/PROMPT.md",
+   "lines": 49,
+   "chars": 1908,
+   "sha256": "58af7bf128a147d3b886462af28bfd6ba0582ded001ff027b42d471ecf57e034",
+   "sections": [
+    "Input",
+    "Output",
+    "Method",
+    "Acceptance criteria"
+   ]
+  }
+ },
+ "pca_s": {
+  "L0": {
+   "path": "examples/pca_untargeted/ablation/L0.md",
+   "lines": 5,
+   "chars": 197,
+   "sha256": "f896783159cfbedb06213c0bf582d774d68177db83523444598746642816c604",
+   "sections": []
+  },
+  "L1": {
+   "path": "examples/pca_untargeted/ablation/L1.md",
+   "lines": 13,
+   "chars": 492,
+   "sha256": "927016d3e520a81ee06d6e2ac357189c0ed7f273c45c51d598660a7836239d51",
+   "sections": [
+    "Input"
+   ]
+  },
+  "L2": {
+   "path": "examples/pca_untargeted/ablation/L2.md",
+   "lines": 29,
+   "chars": 1493,
+   "sha256": "a7b2ff5ea3c1bc795ee6c003cd92c1cd37b346b0c282a6c2c4c5a15a8b609817",
+   "sections": [
+    "Input",
+    "Method"
+   ]
+  },
+  "L3": {
+   "path": "examples/pca_untargeted/ablation/L3.md",
+   "lines": 41,
+   "chars": 1758,
+   "sha256": "a33e76be7dd2e2bb5a9c18273218f55dfcf1216b2560b6bc37636dc5e4a02721",
+   "sections": [
+    "Input",
+    "Method",
+    "Output"
+   ]
+  },
+  "L4": {
+   "path": "examples/pca_untargeted/PROMPT.md",
+   "lines": 54,
+   "chars": 2366,
+   "sha256": "9f3707132e9e19db5911b4f09c0348a854aee830c7d2a2d609f494c04179378f",
+   "sections": [
+    "Input",
+    "Output",
+    "Method",
+    "Acceptance criteria"
+   ]
+  }
+ },
+ "chrom_s": {
+  "L0": {
+   "path": "examples/chrom_integration/ablation/L0.md",
+   "lines": 5,
+   "chars": 226,
+   "sha256": "b9c7f7e35349348f7a620a079fbaed7dc95728a0f03b12f925fc3186a7049eda",
+   "sections": []
+  },
+  "L1": {
+   "path": "examples/chrom_integration/ablation/L1.md",
+   "lines": 10,
+   "chars": 390,
+   "sha256": "60d230f97e7fdd67646d2767dad0702b5d94ce4543a9037383f1e2ac7491b7e7",
+   "sections": [
+    "Input"
+   ]
+  },
+  "L2": {
+   "path": "examples/chrom_integration/ablation/L2.md",
+   "lines": 31,
+   "chars": 1698,
+   "sha256": "b4a230b1ef23c74053f7686068586e4e161e6957a2ea7916597c6ef041868d6e",
+   "sections": [
+    "Input",
+    "Method"
+   ]
+  },
+  "L3": {
+   "path": "examples/chrom_integration/ablation/L3.md",
+   "lines": 43,
+   "chars": 1958,
+   "sha256": "21fb1aa5bb8d4cf3330e9e9c367170e000407a6ec26d240327072880f810e031",
+   "sections": [
+    "Input",
+    "Method",
+    "Output"
+   ]
+  },
+  "L4": {
+   "path": "examples/chrom_integration/PROMPT.md",
+   "lines": 55,
+   "chars": 2505,
+   "sha256": "17528c8ef68f13d29f217e339c5e15db3f0a01a39e04f3f0e3fdccc4c07f6bb4",
+   "sections": [
+    "Input",
+    "Output",
+    "Method",
+    "Acceptance criteria"
+   ]
+  }
+ },
+ "dda_s": {
+  "L0": {
+   "path": "examples/database_search/ablation/L0.md",
+   "lines": 22,
+   "chars": 984,
+   "sha256": "7fdcae836bf59e4639bdd9acd8332ad2eddf3d57308b0c3069b7859a35364db8",
+   "sections": [
+    "Dependencies"
+   ]
+  },
+  "L1": {
+   "path": "examples/database_search/ablation/L1.md",
+   "lines": 31,
+   "chars": 1338,
+   "sha256": "c2a72992569f36370030ed07709ab68bf5332a1215d6f49b0f26f2337b85db05",
+   "sections": [
+    "Dependencies",
+    "Input"
+   ]
+  },
+  "L2": {
+   "path": "examples/database_search/ablation/L2.md",
+   "lines": 102,
+   "chars": 6069,
+   "sha256": "b4fc0d0e476ad82ef390acd26d9f92c338343b7a7365ede93926b27d25a8ce77",
+   "sections": [
+    "Dependencies",
+    "Input",
+    "Method"
+   ]
+  },
+  "L3": {
+   "path": "examples/database_search/ablation/L3.md",
+   "lines": 126,
+   "chars": 7192,
+   "sha256": "f7ecaab1b3a68ce306c3029cc53bd2e2b948630ab2558afa257109bada1f88ba",
+   "sections": [
+    "Dependencies",
+    "Input",
+    "Method",
+    "Output"
+   ]
+  },
+  "L4": {
+   "path": "examples/database_search/PROMPT.md",
+   "lines": 145,
+   "chars": 8349,
+   "sha256": "9f6ef3d3fd003d4cb405c70a42a8905b922938ed775c4ce97b86a752339bf851",
+   "sections": [
+    "Dependencies",
+    "Input",
+    "Output",
+    "Method",
+    "Acceptance criteria"
+   ]
+  }
+ }
+}

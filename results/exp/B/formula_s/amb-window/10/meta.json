@@ -1,0 +1,137 @@
+{
+ "experiment": "B",
+ "tool": "formula_s",
+ "variant": "amb-window",
+ "rep": 10,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/formula_finder/variants/amb-window.md",
+ "prompt_sha256": "c1717203aa35d0e6704611c2ab795ff9058e8336a7f8a8a24d4a7df833b911fc",
+ "started": "2026-09-18T03:42:49",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.6-35b-local",
+  "prompt_sha256": "c1717203aa35d0e6704611c2ab795ff9058e8336a7f8a8a24d4a7df833b911fc",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-18T03:42:49",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 28,
+  "assistant_turns": 29,
+  "tokens": {
+   "input": 248232,
+   "output": 9332
+  },
+  "tool_calls": 28,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "wall_clock_elapsed_s": 597.3,
+  "wall_clock_agent_s": 597.3,
+  "finished": "2026-09-18T03:52:47"
+ },
+ "grader_rc": 1,
+ "criteria": {
+  "ranked.tsv: header + 4 blocks in input order, ranks starting at 1": false,
+  "rank-1 formula correct in all four blocks": true,
+  "every rank-1 row has |error_ppm| <= 2.0 and score <= 0.5": true,
+  "every rank-1 row beats its block runner-up by >= 5 score units": true,
+  "rank-1 calc_mass matches the reference recomputed from the input (<=1e-5 Da)": true,
+  "stdout reports blocks and candidates": false
+ },
+ "passed": 4,
+ "total": 6,
+ "code_sha256": {
+  "formula_finder.py": "a55dad2b8958be337f7b39524600f20279e63d5aaa3c9b1be15f8c51eba99c0a"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 597.3,
+ "iterations": 28,
+ "tokens": {
+  "input": 248232,
+  "output": 9332
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "blocks": {
+    "want": 4,
+    "found": [
+     4.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "candidates": {
+    "want": 35,
+    "found": [
+     8237196.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": false,
+    "precise": false,
+    "note": "wrong"
+   }
+  },
+  "method_passed": 1,
+  "precise_passed": 1,
+  "present": 2,
+  "total": 2,
+  "files_seen": [
+   "ranked.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

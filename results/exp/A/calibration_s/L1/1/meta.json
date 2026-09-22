@@ -1,0 +1,148 @@
+{
+ "experiment": "A",
+ "tool": "calibration_s",
+ "variant": "L1",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/calibration/ablation/L1.md",
+ "prompt_sha256": "3a1b91d0d44dce31f7597ab92bb9a6799909cc8dca483651e421202e86d80d74",
+ "started": "2026-09-17T16:46:26",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.6-35b-local",
+  "prompt_sha256": "3a1b91d0d44dce31f7597ab92bb9a6799909cc8dca483651e421202e86d80d74",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-17T16:46:26",
+  "max_iters": 80,
+  "max_wall": 1800.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 10,
+  "assistant_turns": 11,
+  "tokens": {
+   "input": 24664,
+   "output": 1909
+  },
+  "tool_calls": 10,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "wall_clock_elapsed_s": 106.7,
+  "wall_clock_agent_s": 106.7,
+  "finished": "2026-09-17T16:48:13"
+ },
+ "grader_rc": 1,
+ "criteria": {
+  "results.tsv: header + exactly one data row, columns in order, no CR": false,
+  "slope and intercept match the NIST certified values (<=1e-9 relative)": false,
+  "residual_sd and r_squared match the NIST certified values (<=1e-9 relative)": false,
+  "lod and loq match the reference recomputed from norris.csv (<=1e-6 relative)": false,
+  "stdout reports all seven fields": false,
+  "re-running calibrate.py on a perturbed norris.csv reproduces the reference fit for that input": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {
+  "calibrate.py": "6f36fd98f790cd37341766b12493589901c32bcc8ec7517f234072a6e5c3190c"
+ },
+ "missing_artifacts": [],
+ "wall_clock_agent_s": 106.7,
+ "iterations": 10,
+ "tokens": {
+  "input": 24664,
+  "output": 1909
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "slope": {
+    "want": 1.0021168180204547,
+    "found": [
+     1.00211681802
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "intercept": {
+    "want": -0.26232307377388303,
+    "found": [
+     -0.262323073774
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "residual_sd": {
+    "want": 0.8847963961443813,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "r_squared": {
+    "want": 0.9999937458837117,
+    "found": [
+     0.999993745884
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "lod": {
+    "want": 2.9136604183973094,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "loq": {
+    "want": 8.829273995143362,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   }
+  },
+  "method_passed": 3,
+  "precise_passed": 3,
+  "present": 3,
+  "total": 6,
+  "files_seen": [
+   "results.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

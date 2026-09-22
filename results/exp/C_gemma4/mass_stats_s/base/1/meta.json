@@ -1,0 +1,143 @@
+{
+ "experiment": "C_gemma4",
+ "tool": "mass_stats_s",
+ "variant": "base",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/mass_stats/PROMPT.md",
+ "prompt_sha256": "b1d9c5ff84350ec07b3e123325edcd42404c34a158ea4cd2717a4c55a10cc07d",
+ "endpoint": "http://llm-host:35212/v1",
+ "started": "2026-09-19T12:22:11",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35212/v1",
+  "model": "gemma4",
+  "prompt_sha256": "b1d9c5ff84350ec07b3e123325edcd42404c34a158ea4cd2717a4c55a10cc07d",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-19T12:22:11",
+  "max_iters": 60,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 11,
+  "assistant_turns": 12,
+  "tokens": {
+   "input": 52091,
+   "output": 5944
+  },
+  "tool_calls": 11,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "wall_clock_elapsed_s": 678.7,
+  "wall_clock_agent_s": 678.8,
+  "finished": "2026-09-19T12:33:30"
+ },
+ "grader_rc": 0,
+ "criteria": {
+  "stats.tsv: header + 618 rows sorted by p_value, columns in order": true,
+  "stdout reports tested=618 filtered=0 significant=253, and the significant column matches the reference on every row": true,
+  "t and p_value match the reference within 1e-6 relative on every row": true,
+  "df within 1e-6 relative and log2fc within 1e-9 relative on every row": true,
+  "q_value within 1e-6 relative, with the top-8 BH plateau reproduced": true,
+  "top 10 features by p_value are the reference ten, in order": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "stats.py": "4b0496246684ff9498789db1e7270bef98fb47a19349e4ced4000da33461cd9a"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 678.8,
+ "iterations": 11,
+ "tokens": {
+  "input": 52091,
+  "output": 5944
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "tested": {
+    "want": 618,
+    "found": [
+     618.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "filtered": {
+    "want": 0,
+    "found": [
+     0.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "significant": {
+    "want": 253,
+    "found": [
+     253.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 3,
+  "precise_passed": 3,
+  "present": 3,
+  "total": 3,
+  "files_seen": [
+   "stats.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

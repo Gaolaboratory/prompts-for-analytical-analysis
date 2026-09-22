@@ -1,14 +1,30 @@
-# Task 3/4 — MS1 feature extraction
+# MS1 feature extraction
 
 Standard library only. Write `features.py`.
-
-**Reuse task 1:** `from mzml_reader import read_mzml`; run `python3 make_test_data.py` for `mini_ms1.mzml` (24 MS1 scans, 1 s apart, two analytes with Gaussian elution plus noise below 300). Do not re-implement parsing. (If those files are missing, build task 1 first.)
 
 `python3 features.py mini_ms1.mzml -o features.tsv` — detect features and write, sorted by m/z:
 
 ```
 feature_id	mono_mz	charge	rt_apex	rt_start	rt_end	area	n_isotopes
 ```
+
+## Dependencies
+
+| module | provides | build from |
+|---|---|---|
+| `mzml_reader.py` | `read_mzml(path) -> [spectrum dict, ...]` | `examples/mass_reader/minimal_readers_prompt.md` |
+
+Check the working directory for each module before writing any code. If it is
+there, import it — do not re-implement it and do not edit it. If it is missing,
+build it from the prompt named above, verify that prompt's acceptance criteria,
+then come back here.
+
+## Data
+
+The test file comes from the dependency: run `python3 make_test_data.py` from
+`examples/mass_reader/` to write `mini_ms1.mzml` (24 MS1 scans 1 s apart, two analytes
+with Gaussian elution plus noise below 300). Don't edit it — the numbers below hold only
+for its exact output.
 
 ## Algorithm
 

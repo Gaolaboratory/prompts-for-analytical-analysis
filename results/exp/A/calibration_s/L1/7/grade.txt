@@ -1,0 +1,8 @@
+# perturbed run produced no readable results row
+FAIL results.tsv: header + exactly one data row, columns in order, no CR
+FAIL slope and intercept match the NIST certified values (<=1e-9 relative)
+FAIL residual_sd and r_squared match the NIST certified values (<=1e-9 relative)
+FAIL lod and loq match the reference recomputed from norris.csv (<=1e-6 relative)
+FAIL stdout reports all seven fields
+FAIL re-running calibrate.py on a perturbed norris.csv reproduces the reference fit for that input
+0/6 passed

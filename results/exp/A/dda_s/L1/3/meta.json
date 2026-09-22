@@ -1,0 +1,205 @@
+{
+ "experiment": "A",
+ "tool": "dda_s",
+ "variant": "L1",
+ "rep": 3,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/database_search/ablation/L1.md",
+ "prompt_sha256": "c2a72992569f36370030ed07709ab68bf5332a1215d6f49b0f26f2337b85db05",
+ "endpoint": "http://llm-host:35188/v1",
+ "started": "2026-09-20T09:03:10",
+ "failure_mode": "malformed_tool_call",
+ "driver": {
+  "endpoint": "http://llm-host:35188/v1",
+  "model": "qwen3.6",
+  "prompt_sha256": "c2a72992569f36370030ed07709ab68bf5332a1215d6f49b0f26f2337b85db05",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-20T09:03:10",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 52,
+  "assistant_turns": 52,
+  "tokens": {
+   "input": 1241907,
+   "output": 45902
+  },
+  "tool_calls": 52,
+  "refused_commands": 0,
+  "failure_mode": "malformed_tool_call",
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "length"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "error": "{\"error\":{\"code\":500,\"message\":\"Failed to parse tool call arguments as JSON: [json.exception.parse_error.101] parse error at line 1, column 2633: syntax error while parsing value - invalid string: missing closing quote; last read: '\\\"python3 -c \\\\\\\"\\\\nimport numpy as np\\\\n\\\\nAA_MASS = {\\\\n    'A': 71.03711, 'R': 156.10111, 'N': 114.04293, 'D': 115.02694,\\\\n    'C': 103.00919, 'E': 129.04259, 'Q': ",
+  "wall_clock_elapsed_s": 1567.7,
+  "wall_clock_agent_s": 1567.7,
+  "finished": "2026-09-20T09:29:17"
+ },
+ "grader_rc": 1,
+ "criteria": {
+  "psms.tsv: header + rows, columns in order, decoy encoded 0/1, protein is the bare record id (no whitespace), every qvalue in [0,1]": false,
+  "stdout reports spectra=1200, with_candidate=1025 and the reference target/decoy peptide counts": false,
+  "target PSMs at q<=0.01 between 16 and 20 (reference 18)": false,
+  "decoy fraction among best hits within 0.05 of 0.333": false,
+  "the unfiltered rerun reports fewer 1% FDR PSMs than the filtered run": false,
+  "at least 5 of the reference's 7 named UPS1 proteins have >= 2 best-hit spectra": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {
+  "search.py": "22aef5b37b05a6c9e06139c76a01aceed8e21fd9b9af0293e441a9384d2d6e1e"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 1567.7,
+ "iterations": 52,
+ "tokens": {
+  "input": 1241907,
+  "output": 45902
+ },
+ "workers": 1,
+ "content": {
+  "fields": {
+   "targets": {
+    "want": 87060,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "decoys": {
+    "want": 87188,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "spectra": {
+    "want": 1200,
+    "found": [
+     1200.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "with_candidate": {
+    "want": 1025,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "best_hits": {
+    "want": 1025,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   }
+  },
+  "method_passed": 1,
+  "precise_passed": 1,
+  "present": 1,
+  "total": 5,
+  "files_seen": [
+   "psms.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ }
+}

@@ -1,0 +1,7 @@
+PASS stats.tsv: header + 618 rows sorted by p_value, columns in order
+PASS stdout reports tested=618 filtered=0 significant=253, and the significant column matches the reference on every row
+PASS t and p_value match the reference within 1e-6 relative on every row
+PASS df within 1e-6 relative and log2fc within 1e-9 relative on every row
+FAIL q_value within 1e-6 relative, with the top-8 BH plateau reproduced
+PASS top 10 features by p_value are the reference ten, in order
+5/6 passed

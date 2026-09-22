@@ -1,0 +1,13 @@
+# uvvis.py exited 1 on the ramped input: Traceback (most recent call last):
+  File "/tmp/ramp_8e9cxl76/uvvis.py", line 107, in <module>
+    solve()
+    ~~~~~^^
+  File "/tmp/ramp_8e9cxl76/uvvis.py", line 95, in solve
+    out_df.to_csv(args.ou
+PASS bands.tsv: header + exactly one band row, columns in order, no CR
+PASS lambda_max 317 +/- 3 nm
+PASS epsilon within 2% of 9283
+PASS fwhm within 2 nm of the reference recomputed from the input
+FAIL stdout reports points, bands, lambda_max and epsilon
+FAIL re-running uvvis.py on an absorbance-tilted input reproduces the reference lambda_max and epsilon for that input
+4/6 passed

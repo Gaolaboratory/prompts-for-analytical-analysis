@@ -1,0 +1,6 @@
+PASS multiplets.tsv: header + rows sorted by ppm_center, columns in order
+PASS all six assigned resonances within 0.05 ppm on the true axis
+PASS TSP is the reference row at 1.000 and the four metabolite integrals match the reference within 20%
+PASS no mirrored peak near 9.53 ppm (real-channel processing)
+PASS stdout reports points, peaks and reference_ppm=0.000
+5/5 passed

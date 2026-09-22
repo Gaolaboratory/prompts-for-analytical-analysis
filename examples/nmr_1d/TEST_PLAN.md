@@ -88,3 +88,11 @@ Honest caveat to record in the run notes: real Bruker FIDs are complex quadratur
 3. Grade with the external `grade_nmr_1d.py` only; record per-criterion pass/fail. The agent's own summary is not evidence.
 4. Require cross-model reproduction: at least two models (one local, one remote) before claiming the prompt "works". Report the floor: if a model fails, report which model and the failure mode (tutorial §6.1) — do not quietly drop it.
 5. Prompt budget: ≈6.7 KB / 98 lines — comfortably inside a 32K-token context; state the smallest model it was actually validated on (tutorial §9–11).
+
+**Tier (c) executed 2026-08-26:** FAIL (bounds) — a real MTBLS1 700 MHz urine FID ran through
+the tool (peak picking works: 4/5 ppm centers within ±0.05) but 3/5 relative integrals fall
+outside ±20% and one expected peak is unmatched: squeezing complex quadrature data through the
+prompt's single-real-channel model folds mirror partners onto neighbors. Dataset preserved in
+`.superpowers/tierc/nmr-data-preserved/` (not shipped in `data/` per the campaign rule); tier
+(c) stays OPEN pending a complex-input prompt variant or re-derived bounds. See
+`EXAMPLE_DATA.md`.

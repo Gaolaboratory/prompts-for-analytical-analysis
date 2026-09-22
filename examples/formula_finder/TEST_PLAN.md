@@ -104,3 +104,7 @@ grader, not the agent).
   fail — not just the ones that pass.
 - The prompt must fit the context budget of the smallest model claimed; state that budget.
   Current prompt size: ~7 KB.
+
+**Tier (c) executed 2026-08-26:** PASS — 4 real MassBank measured-mass inputs via
+`data/formula/`; all true formulae ranked #1 with predicted ppm errors on the local LLM. See
+`EXAMPLE_DATA.md`.

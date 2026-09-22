@@ -1,0 +1,114 @@
+{
+ "experiment": "C_gemma4_single",
+ "tool": "chrom_s",
+ "variant": "base",
+ "rep": 3,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "single_shot",
+ "prompt_path": "examples/chrom_integration/PROMPT.md",
+ "prompt_sha256": "17528c8ef68f13d29f217e339c5e15db3f0a01a39e04f3f0e3fdccc4c07f6bb4",
+ "started": "2026-09-19T09:56:06",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35211/v1",
+  "model": "gemma4",
+  "prompt_sha256": "17528c8ef68f13d29f217e339c5e15db3f0a01a39e04f3f0e3fdccc4c07f6bb4",
+  "wrapper_sha256": "139312757611a0e8b9ba3dd1eef1fdbe4841a951231ec19f851a0b121757148e",
+  "arm": "single_shot",
+  "started": "2026-09-19T09:56:06",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16000,
+  "temperature": null,
+  "iterations": 0,
+  "assistant_turns": 1,
+  "tokens": {
+   "input": 779,
+   "output": 987
+  },
+  "tool_calls": 0,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "single_shot_reply": "```python\nimport sys\nimport argparse\nimport pandas as pd\nimport numpy as np\nfrom scipy.ndimage import uniform_filter1d\n\ndef main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"input\", help=\"Input CSV file\")\n    parser.add_argument(\"-o\", \"--output\", help=\"Output TSV file\", required=True)\n    args = parser.parse_args()\n\n    # Load data\n    df = pd.read_csv(args.input)\n    time = df['time_s'].values\n    signal = df['signal'].values\n    n_points = len(signal)\n\n    # Baseline calculation (first 100 points)\n    baseline_segment = signal[:100]\n    baseline = np.median(baseline_segment)\n    mad = np.median(np.abs(baseline_segment - baseline))\n    sigma = 1.4826 * mad\n\n    # Smoothing: 5-point centered moving average\n    # uniform_filter1d handles window truncation at ends automatically\n    smoothed = uniform_filter1d(signal, size=5, mode='constant', origin=0)\n\n    # Peak Detection\n    # A peak is a local maximum: sm[i] > sm[i-1] and sm[i] >= sm[i+1]\n    # Threshold: baseline + 10 * sigma\n    threshold = baseline + 10 * sigma\n    \n    peaks_candidates = []\n    for i in range(1, n_points - 1):\n        if (smoothed[i] > smoothed[i-1] and \n            smoothed[i] >= smoothed[i+1] and \n            smoothed[i] > threshold):\n            peaks_candidates.append(i)\n\n    # Merge local maxima within 5 points of each other\n    merged_peaks = []\n    if peaks_candidates:\n        candidates = np.array(peaks_candidates)\n        i = 0\n        while i < len(candidates):\n            current_idx = candidates[i]\n            # Find all candidates within 5 points of the current one\n            group = [current_idx]\n            j = i + 1\n            while j < len(candidates) and candidates[j] - current_idx <= 5:\n                group.append(candidates[j])\n                j += 1\n            \n            # Keep the index with the highest signal in the group\n            best_idx = group[np.argmax(signal[group])]\n            merged_peaks.append(best_idx)\n            i = j\n\n    # Sort peaks by rt_apex_s (time)\n    merged_peaks.sort()\n\n    # Prepare output data\n    output_rows = []\n    for idx, peak_idx in enumerate(merged_peaks):\n        rt_apex_s = time[peak_idx]\n        height = signal[peak_idx]\n        \n        # Integration: Area under the curve (signal - baseline)\n        # We find the bounds where signal > baseline around the peak\n        # For simplicity and robustness in this context, we integrate between \n        # the nearest points where signal crosses the baseline.\n        \n        # Find left bound\n        left = peak_idx\n        while left > 0 and signal[left-1] > baseline:\n            left -= 1\n        \n        # Find right bound\n        right = peak_idx\n        while right < n_points - 1 and signal[right+1] > baseline:\n            right += 1\n            \n        # Area using trapezoidal rule on the segment\n        area = np.trapz(signal[left:right+1] - baseline, time[left:right+1])\n        \n        output_rows.append({\n            'peak_id': idx + 1,\n            'rt_apex_s': rt_apex_s,\n            'height': height,\n            'area': area\n        })\n\n    # Save to TSV\n    out_df = pd.DataFrame(output_rows)\n    out_df.to_csv(args.output, sep='\\t', index=False, lineterminator='\\n')\n\n    # Print stdout\n    print(f\"points={n_points} baseline={baseline:.4f} sigma={sigma:.4f} peaks={len(output_rows)}\")\n\nif __name__ == \"__main__\":\n    main()\n```",
+  "wall_clock_elapsed_s": 33.1,
+  "wall_clock_agent_s": 33.1,
+  "finished": "2026-09-19T09:56:39"
+ },
+ "single_shot_blocks": 1,
+ "grader_rc": 1,
+ "criteria": {
+  "peaks.tsv: header + exactly 10 rows sorted by rt_apex_s, columns in order": false,
+  "all ten reference apexes present within 5%, in seconds": false,
+  "apex heights within 5% of the reference recomputed from chrom.csv": false,
+  "baseline -4.797 +/- 0.5 and sigma 0.615 +/- 20%": false,
+  "stdout reports points, baseline, sigma and peaks": false,
+  "re-running chrom_integrate.py on a peak-injected chrom.csv reproduces the reference peak set for that input": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {
+  "chrom_integrate.py": "012787241ffd3404f795d8a7f86c73265ee0f3a285b2a411cf97aca7ba42368f"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 33.1,
+ "iterations": 0,
+ "tokens": {
+  "input": 779,
+  "output": 987
+ },
+ "workers": 1,
+ "content": {
+  "fields": {
+   "n_peaks": {
+    "want": 10,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "baseline": {
+    "want": -4.79722023,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "sigma": {
+    "want": 0.6154076155499999,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   }
+  },
+  "method_passed": 0,
+  "precise_passed": 0,
+  "present": 0,
+  "total": 3,
+  "files_seen": [
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

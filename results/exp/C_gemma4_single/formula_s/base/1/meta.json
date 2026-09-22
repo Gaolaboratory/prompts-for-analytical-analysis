@@ -1,0 +1,118 @@
+{
+ "experiment": "C_gemma4_single",
+ "tool": "formula_s",
+ "variant": "base",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "single_shot",
+ "prompt_path": "examples/formula_finder/PROMPT.md",
+ "prompt_sha256": "16e01a328ca57acfc3781fd63710f5382494105c950610377e9af5264de4c56a",
+ "started": "2026-09-19T12:04:35",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35211/v1",
+  "model": "gemma4",
+  "prompt_sha256": "16e01a328ca57acfc3781fd63710f5382494105c950610377e9af5264de4c56a",
+  "wrapper_sha256": "139312757611a0e8b9ba3dd1eef1fdbe4841a951231ec19f851a0b121757148e",
+  "arm": "single_shot",
+  "started": "2026-09-19T12:04:35",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16000,
+  "temperature": null,
+  "iterations": 0,
+  "assistant_turns": 1,
+  "tokens": {
+   "input": 1324,
+   "output": 2560
+  },
+  "tool_calls": 0,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "single_shot_reply": "```python\nimport sys\nimport pandas as pd\nimport numpy as np\nimport itertools\n\ndef solve():\n    # Parse command line arguments\n    if len(sys.argv) < 2:\n        return\n    input_file = sys.argv[1]\n    output_file = None\n    for i, arg in enumerate(sys.argv):\n        if arg == '-o' and i + 1 < len(sys.argv):\n            output_file = sys.argv[i+1]\n\n    # Isotope data\n    # element: {isotope_mass: abundance_fraction}\n    # We need r1 = abundance(M+1)/abundance(M) and r2 = abundance(M+2)/abundance(M)\n    # However, the prompt defines r1 and r2 relative to the monoisotope.\n    # Let's store the isotopes and their abundances.\n    isotopes = {\n        'H': {1.007825: 0.999885, 2.014102: 0.000115},\n        'C': {12.000000: 0.9893, 13.003355: 0.0107},\n        'N': {14.003074: 0.99636, 15.000109: 0.00364},\n        'O': {15.994915: 0.99757, 16.999131: 0.00038, 17.999160: 0.00205},\n        'P': {30.973762: 1.0},\n        'S': {31.972071: 0.9499, 32.971459: 0.0075, 33.967867: 0.0425}\n    }\n    \n    # To calculate M1 and M2 based on the provided formula:\n    # M1 = \u03a3 n_e * r1_e\n    # M2 = \u03a3 n_e * r2_e + \u03a3 [n_e * (n_e - 1) / 2] * (r1_e^2)\n    # where r1_e = abund(M+1)/abund(M) and r2_e = abund(M+2)/abund(M)\n    \n    # Pre-calculate r1 and r2 for each element\n    elem_ratios = {}\n    for elem, iso_dict in isotopes.items():\n        sorted_masses = sorted(iso_dict.keys())\n        m0 = sorted_masses[0]\n        a0 = iso_dict[m0]\n        \n        r1 = 0.0\n        r2 = 0.0\n        \n        # Check for M+1\n        if len(sorted_masses) > 1:\n            m1 = sorted_masses[1]\n            r1 += iso_dict[m1] / a0\n            \n        # Check for M+2\n        if len(sorted_masses) > 2:\n            m2 = sorted_masses[2]\n            r2 += iso_dict[m2] / a0\n        # Note: if an element has 3 isotopes (like O), r2 calculation needs to \n        # handle the case where M+2 is the 3rd isotope.\n        # The formula provided for M2 is \u03a3 n_e*r2_e + \u03a3 [n_e(n_e-1)/2]*r1_e^2.\n        # The r2_e term accounts for the single-atom M+2 isotope.\n        # The r1_e^2 term accounts for the two-atom M+1 isotopes.\n        # Let's re-check the O case: O-16 (M), O-17 (M+1), O-18 (M+2).\n        # r1_O = abund(17)/abund(16). r2_O = abund(18)/abund(16).\n        # This matches the logic.\n        \n        elem_ratios[elem] = (r1, r2)\n\n    # Monoisotopic masses (M0)\n    mono_masses = {\n        'H': 1.007825, 'C': 12.000000, 'N': 14.003074,\n        'O': 15.994915, 'P': 30.973762, 'S': 31.972071\n    }\n\n    df = pd.read_csv(input_file, sep='\\t')\n    \n    results = []\n    total_candidates = 0\n    \n    # Limits\n    limits = {'C': 30, 'H': 60, 'N': 10, 'O': 10, 'P': 2, 'S': 2}\n    elements = ['C', 'H', 'N', 'O', 'P', 'S']\n    \n    # For efficiency in the nested loops, we use product but it's huge.\n    # However, the mass constraint is very tight (5ppm).\n    # Let's iterate and prune.\n    \n    for _, row in df.iterrows():\n        target_mass = row['mass']\n        m1_meas = row['M1']\n        m2_meas = row['M2']\n        block_id = row['id']\n        \n        candidates = []\n        \n        # Enumeration with pruning\n        # Using nested loops for C, H, N, O, P, S\n        for c in range(limits['C'] + 1):\n            m_c = c * mono_masses['C']\n            if m_c > target_mass * 1.0001: break\n            for h in range(limits['H'] + 1):\n                m_ch = m_c + h * mono_masses['H']\n                if m_ch > target_mass * 1.0001: break\n                for n in range(limits['N'] + 1):\n                    m_chn = m_ch + n * mono_masses['N']\n                    if m_chn > target_mass * 1.0001: break\n                    for o in range(limits['O'] + 1):\n                        m_chno = m_chn + o * mono_masses['O']\n                        if m_chno > target_mass * 1.0001: break\n                        for p in range(limits['P'] + 1):\n                            m_chnop = m_chno + p * mono_masses['P']\n                            if m_chnop > target_mass * 1.0001: break\n                            for s in range(limits['S'] + 1):\n                                m_chnops = m_chnop + s * mono_masses['S']\n                                \n                                # Check mass window\n                                diff = m_chnops - target_mass\n                                ppm = (diff / target_mass) * 1e6\n                                if abs(ppm) <= 5.0:\n                                    # Calculate M1_calc and M2_calc\n                                    # M1 = \u03a3 n_e * r1_e\n                                    # M2 = \u03a3 n_e * r2_e + \u03a3 [n_e(n_e-1)/2] * r1_e^2\n                                    m1_calc = 0.0\n                                    m2_calc = 0.0\n                                    counts = {'C':c, 'H':h, 'N':n, 'O':o, 'P':p, 'S':s}\n                                    \n                                    for elem in elements:\n                                        n_e = counts[elem]\n                                        if n_e > 0:\n                                            r1_e, r2_e = elem_ratios[elem]\n                                            m1_calc += n_e * r1_e\n                                            m2_calc += n_e * r2_e + (n_e * (n_e - 1) / 2.0) * (r1_e**2)\n                                    \n                                    # Formula string (Hill order)\n                                    # C first, then H, then N, O, P, S\n                                    f_parts = []\n                                    if c > 0: f_parts.append(f\"C{c if c > 1 else ''}\")\n                                    if h > 0: f_parts.append(f\"H{h if h > 1 else ''}\")\n                                    for e in ['N', 'O', 'P', 'S']:\n                                        if counts[e] > 0:\n                                            f_parts.append(f\"{e}{counts[e] if counts[e] > 1 else ''}\")\n                                    formula = \"\".join(f_parts)\n                                    \n                                    score = abs(ppm) + 100.0 * abs(m1_meas - m1_calc) + 100.0 * abs(m2_meas - m2_calc)\n                                    candidates.append({\n                                        'id': block_id,\n                                        'formula': formula,\n                                        'calc_mass': m_chnops,\n                                        'error_ppm': ppm,\n                                        'score': score\n                                    })\n                                    total_candidates += 1\n                                elif m_chnops > target_mass * 1.0001:\n                                    break\n\n        # Sort block: score ASC, then formula ASC\n        candidates.sort(key=lambda x: (x['score'], x['formula']))\n        \n        for rank, cand in enumerate(candidates, 1):\n            results.append({\n                'id': cand['id'],\n                'rank': rank,\n                'formula': cand['formula'],\n                'calc_mass': cand['calc_mass'],\n                'error_ppm': cand['error_ppm'],\n                'score': cand['score']\n            })\n\n    # Output\n    if output_file:\n        out_df = pd.DataFrame(results)\n        if not out_df.empty:\n            # Format floats for output if necessary, but standard is fine\n            out_df.to_csv(output_file, sep='\\t', index=False)\n        else:\n            with open(output_file, 'w') as f:\n                f.write(\"id\\trank\\tformula\\tcalc_mass\\terror_ppm\\tscore\\n\")\n\n    # Calculate number of unique blocks in input\n    num_blocks = df['id'].nunique()\n    print(f\"blocks={num_blocks} candidates={total_candidates}\")\n\nif __name__ == \"__main__\":\n    solve()\n```",
+  "wall_clock_elapsed_s": 46.0,
+  "wall_clock_agent_s": 46.0,
+  "finished": "2026-09-19T12:05:21"
+ },
+ "single_shot_blocks": 1,
+ "grader_rc": 0,
+ "criteria": {
+  "ranked.tsv: header + 4 blocks in input order, ranks starting at 1": true,
+  "rank-1 formula correct in all four blocks": true,
+  "every rank-1 row has |error_ppm| <= 2.0 and score <= 0.5": true,
+  "every rank-1 row beats its block runner-up by >= 5 score units": true,
+  "rank-1 calc_mass matches the reference recomputed from the input (<=1e-5 Da)": true,
+  "stdout reports blocks and candidates": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "formula_finder.py": "e1c76a93a029760bcf12db69b09512dd2ba1ff5021f59887572b934b1ea05012"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 46.0,
+ "iterations": 0,
+ "tokens": {
+  "input": 1324,
+  "output": 2560
+ },
+ "workers": 1,
+ "content": {
+  "fields": {
+   "blocks": {
+    "want": 4,
+    "found": [
+     4.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "candidates": {
+    "want": 35,
+    "found": [
+     35.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 2,
+  "precise_passed": 2,
+  "present": 2,
+  "total": 2,
+  "files_seen": [
+   "ranked.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

@@ -1,0 +1,75 @@
+{
+ "experiment": "C_gemma4_single",
+ "tool": "features_s",
+ "variant": "base",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "single_shot",
+ "prompt_path": "examples/feature_extraction/PROMPT.md",
+ "prompt_sha256": "365302043d4946b6194f7f6a53bf37262492840448e9d73c78cee4a83e18f846",
+ "endpoint": "http://llm-host:35212/v1",
+ "started": "2026-09-19T12:10:11",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35212/v1",
+  "model": "gemma4",
+  "prompt_sha256": "365302043d4946b6194f7f6a53bf37262492840448e9d73c78cee4a83e18f846",
+  "wrapper_sha256": "139312757611a0e8b9ba3dd1eef1fdbe4841a951231ec19f851a0b121757148e",
+  "arm": "single_shot",
+  "started": "2026-09-19T12:10:12",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16000,
+  "temperature": null,
+  "iterations": 0,
+  "assistant_turns": 1,
+  "tokens": {
+   "input": 1092,
+   "output": 2341
+  },
+  "tool_calls": 0,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "single_shot_reply": "```python\nimport sys\nimport numpy as np\nimport pandas as pd\nfrom mzml_reader import read_mzml\n\ndef get_mad(data):\n    if len(data) == 0:\n        return 0.0\n    median = np.median(data)\n    diff = np.abs(data - median)\n    mad = np.median(diff)\n    return mad\n\ndef solve():\n    if len(sys.argv) < 2:\n        return\n    \n    input_file = sys.argv[1]\n    output_file = sys.argv[2] if len(sys.argv) > 2 else \"features.tsv\"\n\n    spectra = read_mzml(input_file)\n    \n    ms1_spectra = []\n    for s in spectra:\n        if s.get('ms_level') == 1:\n            ms1_spectra.append(s)\n    \n    n_ms1 = len(ms1_spectra)\n    \n    # 1. Collect all sticks (m/z, intensity, scan_index, rt)\n    sticks = []\n    for i, s in enumerate(ms1_spectra):\n        rt = s.get('rt', 0.0)\n        mzs = np.array(s.get('mzs', []))\n        ints = np.array(s.get('intensities', []))\n        for mz, intensity in zip(mzs, ints):\n            if intensity > 0:\n                sticks.append({'mz': mz, 'int': intensity, 'idx': i, 'rt': rt})\n    \n    if not sticks:\n        print(f\"ms1_scans={n_ms1} windows=0 features=0\")\n        return\n\n    # Sort sticks by m/z\n    sticks.sort(key=lambda x: x['mz'])\n    \n    # Group into windows\n    windows = []\n    if sticks:\n        curr_window = [sticks[0]]\n        curr_mean_mz = sticks[0]['mz']\n        curr_scans = {sticks[0]['idx']}\n        \n        for i in range(1, len(sticks)):\n            s = sticks[i]\n            if abs(s['mz'] - curr_mean_mz) <= 0.01 and s['idx'] not in curr_scans:\n                curr_window.append(s)\n                curr_scans.add(s['idx'])\n                # Update running mean\n                curr_mean_mz = sum(x['mz'] for x in curr_window) / len(curr_window)\n            else:\n                # Close current window\n                windows.append(curr_window)\n                # Start new\n                curr_window = [s]\n                curr_mean_mz = s['mz']\n                curr_scans = {s['idx']}\n        windows.append(curr_window)\n\n    # Filter windows seen in >= 5 distinct scans\n    valid_windows = []\n    for w in windows:\n        scans_in_w = {s['idx'] for s in w}\n        if len(scans_in_w) >= 5:\n            valid_windows.append(w)\n            \n    # 2. Keep top 200 windows by max intensity\n    valid_windows.sort(key=lambda w: max(s['int'] for s in w), reverse=True)\n    top_windows = valid_windows[:200]\n    \n    features = []\n    \n    # 3 & 4. Build EICs and threshold\n    for win in top_windows:\n        # Build EIC across all MS1 scans\n        eic_ints = np.zeros(n_ms1)\n        # Map stick to index for easy lookup\n        win_dict = {}\n        for s in win:\n            # Multiple sticks in one scan: we need to handle them\n            # The prompt implies a window is a collection of sticks.\n            # To build an EIC, for each scan, we take the stick in that window.\n            # If multiple sticks in same scan, we'll take the max for the EIC.\n            win_dict[s['idx']] = win_dict.get(s['idx'], 0) + s['int'] \n            # Actually, the prompt says \"intensity 0 in scans where the window has no stick\".\n            # Since windows are defined such that no two sticks are from the same scan,\n            # win_dict[s['idx']] will just be s['int'].\n            win_dict[s['idx']] = s['int'] \n\n        for idx, val in win_dict.items():\n            eic_ints[idx] = val\n            \n        nonzero_ints = eic_ints[eic_ints > 0]\n        if len(nonzero_ints) < 1:\n            continue\n            \n        med = np.median(nonzero_ints)\n        mad = get_mad(nonzero_ints)\n        threshold = med + 5 * mad\n        \n        # 5. Find features (consecutive runs >= 3, bridge single-scan dips)\n        # Binary mask of threshold hits\n        mask = eic_ints >= threshold\n        \n        # Bridge single-scan dips\n        # A dip is a False in the mask surrounded by True\n        # e.g., T, F, T -> T, T, T\n        refined_mask = mask.copy()\n        for i in range(1, len(mask) - 1):\n            if not mask[i] and mask[i-1] and mask[i+1]:\n                refined_mask[i] = True\n        \n        # Find runs of True in refined_mask\n        i = 0\n        while i < len(refined_mask):\n            if refined_mask[i]:\n                start_idx = i\n                while i < len(refined_mask) and refined_mask[i]:\n                    i += 1\n                end_idx = i - 1 # inclusive\n                \n                run_length = end_idx - start_idx + 1\n                if run_length >= 3:\n                    # This is a feature\n                    run_indices = range(start_idx, end_idx + 1)\n                    \n                    # Calculate properties\n                    # mz is intensity-weighted mean of window sticks over the run\n                    # Since the window is constant, we look at sticks belonging to the run indices\n                    run_sticks = [s for s in win if s['idx'] in run_indices]\n                    \n                    # If a scan in the run is not in the window (it was a bridged dip), \n                    # the \"window's sticks\" for that scan is technically undefined,\n                    # but we use the window's sticks available in the run.\n                    if not run_sticks:\n                        continue\n                        \n                    sum_w_int = sum(s['int'] for s in run_sticks)\n                    if sum_w_int == 0: continue\n                    feat_mz = sum(s['mz'] * s['int'] for s in run_sticks) / sum_w_int\n                    \n                    # apex_intensity: most intense scan in the run\n                    # rt_apex: scan time of most intense scan\n                    # We need to find which scan in the run is most intense. \n                    # Note: EIC might have intensities from bridged dips.\n                    # But the prompt says \"intensity-weighted mean of the window's sticks\".\n                    # We use the EIC intensities for the apex scan.\n                    max_val = -1\n                    apex_idx = -1\n                    for idx in run_indices:\n                        if eic_ints[idx] > max_val:\n                            max_val = eic_ints[idx]\n                            apex_idx = idx\n                    \n                    feat_apex_int = max_val\n                    feat_rt_apex = ms1_spectra[apex_idx]['rt']\n                    feat_rt_start = ms1_spectra[start_idx]['rt']\n                    feat_rt_end = ms1_spectra[end_idx]['rt']\n                    feat_n_scans = run_length\n                    \n                    features.append({\n                        'mz': feat_mz,\n                        'rt_apex': feat_rt_apex,\n                        'rt_start': feat_rt_start,\n                        'rt_end': feat_rt_end,\n                        'apex_intensity': feat_apex_int,\n                        'n_scans': feat_n_scans\n                    })\n            else:\n                i += 1\n    \n    # Formatting output\n    df = pd.DataFrame(features)\n    if not df.empty:\n        # Sort by descending apex_intensity\n        df = df.sort_values('apex_intensity', ascending=False)\n        # Ensure rt_start <= rt_apex <= rt_end\n        # Due to floating point or indexing, ensure order\n        df['rt_start'] = df.apply(lambda r: min(r['rt_start'], r['rt_apex']), axis=1)\n        df['rt_end'] = df.apply(lambda r: max(r['rt_end'], r['rt_apex']), axis=1)\n        \n        # Prepare columns\n        # feature_id is just 1..N\n        df = df.reset_index(drop=True)\n        df.insert(0, 'feature_id', df.index + 1)\n        \n        col_order = ['feature_id', 'mz', 'rt_apex', 'rt_start', 'rt_end', 'apex_intensity', 'n_scans']\n        df[col_order].to_csv(output_file, sep='\\t', index=False)\n        n_feat = len(df)\n    else:\n        n_feat = 0\n        pd.DataFrame(columns=['feature_id', 'mz', 'rt_apex', 'rt_start', 'rt_end', 'apex_intensity', 'n_scans']).to_csv(output_file, sep='\\t', index=False)\n\n    print(f\"ms1_scans={n_ms1} windows={len(top_windows)} features={n_feat}\")\n\nif __name__ == \"__main__\":\n    solve()\n```",
+  "wall_clock_elapsed_s": 175.7,
+  "wall_clock_agent_s": 175.7,
+  "finished": "2026-09-19T12:13:07"
+ },
+ "single_shot_blocks": 1,
+ "grader_rc": 1,
+ "criteria": {
+  "features.tsv: header + N rows, 7 columns in order": false,
+  "120 <= N <= 480": false,
+  "at least 5 of the 10 reference features matched": false,
+  "every apex_intensity > 0 and rt_start <= rt_apex <= rt_end": false,
+  "stdout: ms1_scans=286": false,
+  "at least 70 of the recomputed reference's top 100 features matched, and stdout features=N equals the row count": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {
+  "features.py": "8e63b6e5540f0bfc545192e581bc6a03f799c55caff42dbff4f7cf95dad21a29"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 175.7,
+ "iterations": 0,
+ "tokens": {
+  "input": 1092,
+  "output": 2341
+ },
+ "workers": 4
+}

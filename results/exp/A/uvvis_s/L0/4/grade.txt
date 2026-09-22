@@ -1,0 +1,8 @@
+# ramped input: tool (lambda_max=321.0083 epsilon=10935.2166) vs reference (lambda_max=317.994 epsilon=10994.08)
+FAIL bands.tsv: header + exactly one band row, columns in order, no CR
+PASS lambda_max 317 +/- 3 nm
+PASS epsilon within 2% of 9283
+PASS fwhm within 2 nm of the reference recomputed from the input
+FAIL stdout reports points, bands, lambda_max and epsilon
+FAIL re-running uvvis.py on an absorbance-tilted input reproduces the reference lambda_max and epsilon for that input
+3/6 passed

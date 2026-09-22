@@ -96,3 +96,7 @@ library must return `NO_MATCH`.
 - Prompt size: the prompt is ~6.6 KB / 125 lines, well inside a 32 K-context local model
   budget; record context usage of the smallest model claimed (tutorial.md §9).
 - Archive: workspace snapshot, stdout/stderr logs, `results.tsv`, grader output.
+
+**Tier (c) executed 2026-08-26:** PASS — real MassBank-derived library + queries via
+`data/spectral/`; all 4 calls match a reference scorer to the fourth decimal on the local LLM.
+See `EXAMPLE_DATA.md`.

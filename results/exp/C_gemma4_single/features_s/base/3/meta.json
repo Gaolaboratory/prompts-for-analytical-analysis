@@ -1,0 +1,75 @@
+{
+ "experiment": "C_gemma4_single",
+ "tool": "features_s",
+ "variant": "base",
+ "rep": 3,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "single_shot",
+ "prompt_path": "examples/feature_extraction/PROMPT.md",
+ "prompt_sha256": "365302043d4946b6194f7f6a53bf37262492840448e9d73c78cee4a83e18f846",
+ "endpoint": "http://llm-host:35212/v1",
+ "started": "2026-09-19T12:12:23",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35212/v1",
+  "model": "gemma4",
+  "prompt_sha256": "365302043d4946b6194f7f6a53bf37262492840448e9d73c78cee4a83e18f846",
+  "wrapper_sha256": "139312757611a0e8b9ba3dd1eef1fdbe4841a951231ec19f851a0b121757148e",
+  "arm": "single_shot",
+  "started": "2026-09-19T12:12:23",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16000,
+  "temperature": null,
+  "iterations": 0,
+  "assistant_turns": 1,
+  "tokens": {
+   "input": 1092,
+   "output": 3425
+  },
+  "tool_calls": 0,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "single_shot_reply": "```python\nimport sys\nimport argparse\nimport numpy as np\nimport pandas as pd\nfrom mzml_reader import read_mzml\n\ndef main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"input\", help=\"Input mzML file\")\n    parser.add_argument(\"-o\", \"--output\", required=True, help=\"Output TSV file\")\n    args = parser.parse_args()\n\n    spectra = read_mzml(args.input)\n    \n    # Filter for MS1 scans and collect sticks\n    # Stick = (mz, intensity, rt, scan_id)\n    ms1_sticks = []\n    ms1_count = 0\n    \n    # We need to know which scans are MS1 to fulfill the stdout requirement\n    # and to build EICs correctly.\n    scan_data = [] # List of dicts: {id, rt, mzs, ints}\n\n    for i, spec in enumerate(spectra):\n        # MS1 is usually identified by ms level in mzML\n        # If not explicitly in dict, we assume all provided spectra are the ones to process\n        # But the prompt says \"286 are MS1\". We check ms_level if available.\n        ms_level = spec.get('ms_level', 1) \n        if ms_level == 1:\n            ms1_count += 1\n            mzs = np.array(spec['m/z_array'], dtype=np.float64)\n            ints = np.array(spec['intensity_array'], dtype=np.float64)\n            rt = spec['rt']\n            scan_id = i\n            \n            for m, it in zip(mzs, ints):\n                if it > 0:\n                    ms1_sticks.append({'mz': m, 'int': it, 'rt': rt, 'sid': scan_id})\n            \n            scan_data.append({'id': scan_id, 'rt': rt, 'mzs': mzs, 'ints': ints})\n\n    # 1. Group sticks into windows\n    # Sort sticks by m/z\n    sticks_df = pd.DataFrame(ms1_sticks)\n    if sticks_df.empty:\n        print(f\"ms1_scans={ms1_count} windows=0 features=0\")\n        return\n\n    sticks_df = sticks_df.sort_values('mz').reset_index(drop=True)\n    \n    windows = []\n    if not sticks_df.empty:\n        curr_window_sticks = []\n        curr_mean_mz = 0.0\n        \n        for _, stick in sticks_df.iterrows():\n            s_mz = stick['mz']\n            s_sid = stick['sid']\n            \n            if not curr_window_sticks:\n                curr_window_sticks = [stick]\n                curr_mean_mz = s_mz\n            else:\n                # Check window constraints\n                # 1. Within 0.01 of running mean\n                # 2. No stick from same scan\n                if abs(s_mz - curr_mean_mz) <= 0.01 and not any(s['sid'] == s_sid for s in curr_window_sticks):\n                    curr_window_sticks.append(stick)\n                    # Update running mean\n                    curr_mean_mz = np.mean([s['mz'] for s in curr_window_sticks])\n                else:\n                    # Close window\n                    windows.append(curr_window_sticks)\n                    curr_window_sticks = [stick]\n                    curr_mean_mz = s_mz\n        windows.append(curr_window_sticks)\n\n    # Filter windows: >= 5 distinct scans\n    valid_windows = []\n    for win in windows:\n        sids = {s['sid'] for s in win}\n        if len(sids) >= 5:\n            valid_windows.append(win)\n\n    # 2. Keep top 200 windows by max intensity\n    valid_windows.sort(key=lambda w: max(s['int'] for s in w), reverse=True)\n    top_windows = valid_windows[:200]\n\n    features_list = []\n\n    # 3. Build EICs and 4. Threshold\n    for win in top_windows:\n        # Pre-calculate window stats for EIC\n        # We need intensities for every MS1 scan\n        # EIC is a series of (rt, intensity)\n        \n        # Map scan_id to its intensity in this window\n        # A window can have multiple sticks in one scan, but the prompt says \n        # \"add a stick... if... window holds no stick from same scan\" \n        # which implies 1 stick per scan per window.\n        \n        # Find intensities for all MS1 scans\n        # Since we need to bridge single-scan dips, we need a contiguous array of scan indices\n        # The MS1 scans are not necessarily consecutive in index, but we treat them as the sequence.\n        \n        # Let's map all MS1 scans to their intensities for this window\n        win_dict = {s['sid']: s for s in win}\n        \n        eic_data = []\n        for sd in scan_data:\n            sid = sd['id']\n            rt = sd['rt']\n            intensity = win_dict[sid]['int'] if sid in win_dict else 0.0\n            eic_data.append({'rt': rt, 'int': intensity, 'sid': sid})\n        \n        eic_df = pd.DataFrame(eic_data)\n        nonzero_ints = eic_df[eic_df['int'] > 0]['int']\n        \n        if len(nonzero_ints) < 1:\n            continue\n            \n        median = np.median(nonzero_ints)\n        mad = np.median(np.abs(nonzero_ints - median))\n        threshold = median + 5 * mad\n        \n        # 5. Feature detection\n        eic_df['above'] = eic_df['int'] >= threshold\n        \n        # Group consecutive scans (including bridging 1-scan dips)\n        # A single-scan dip means: above, below, above -> one feature\n        # We can use a simple logic: find runs of 'above' and merge if they are separated by exactly one 'below'\n        \n        # First, identify \"is_active\" where it's above OR (it's below but neighbors are above)\n        # Wait, the prompt says \"bridge a single-scan dip rather than splitting the run in two\"\n        # This means: A-B-A where B is below threshold becomes one feature.\n        \n        # Let's find blocks of 'above'\n        # Then check if two blocks are separated by exactly one scan\n        \n        active_indices = eic_df.index[eic_df['above']].tolist()\n        if not active_indices:\n            continue\n            \n        # Grouping logic:\n        # We'll iterate through the scans and build clusters\n        clusters = []\n        if active_indices:\n            current_cluster = [active_indices[0]]\n            for i in range(1, len(active_indices)):\n                prev = active_indices[i-1]\n                curr = active_indices[i]\n                \n                if curr == prev + 1:\n                    # Consecutive\n                    current_cluster.append(curr)\n                elif curr == prev + 2:\n                    # Single scan gap\n                    current_cluster.append(prev + 1) # the gap\n                    current_cluster.append(curr)\n                else:\n                    # Too far\n                    clusters.append(current_cluster)\n                    current_cluster = [curr]\n            clusters.append(current_cluster)\n\n        for cluster in clusters:\n            # Check if cluster is valid:\n            # Must span >= 3 scans. \n            # Note: the \"cluster\" includes the dip. We must count how many 'above' or 'dip' scans there are.\n            # But the rule is \"spanning >= 3 scans\".\n            \n            # Filter cluster to remove potential \"islands\" that aren't part of an actual run\n            # A valid run must contain at least 3 scans that are either 'above' or 'dip'\n            # Actually, the logic should be: identify all \"above\" scans. \n            # Connect them if distance is 1 or 2.\n            # Then for each connected component, count the number of scans.\n            # If count >= 3, it's a feature.\n            \n            # Count scans in component\n            if len(cluster) < 3:\n                continue\n                \n            # Check if this cluster is actually just a single scan (not possible with len < 3)\n            # or a single 'above' + a dip + a 'below' (not possible with the logic above)\n            \n            # Extract details\n            cluster_df = eic_df.loc[cluster]\n            \n            # The feature is a run of consecutive scans... bridging a single-scan dip.\n            # We must ensure the \"dip\" is actually between two \"above\" scans.\n            # Let's refine:\n            # 1. Identify 'above' scans.\n            # 2. Group them into components where distance <= 2.\n            # 3. If component size >= 3, it's a feature.\n            \n            # Calculate m/z: intensity-weighted mean of the window's sticks over the run\n            # The window's sticks are the ones that provided the intensity in the EIC.\n            # However, for a feature, we use the sticks belonging to the scans in the cluster.\n            \n            # Find the sticks in the window that correspond to the scans in the cluster\n            # Since the window has at most one stick per scan:\n            cluster_sids = set(cluster)\n            sticks_in_run = [s for s in win if s['sid'] in cluster_sids]\n            \n            if not sticks_in_run:\n                continue\n                \n            sum_mz_int = sum(s['mz'] * s['int'] for s in sticks_in_run)\n            sum_int = sum(s['int'] for s in sticks_in_run)\n            \n            if sum_int == 0:\n                continue\n                \n            feat_mz = sum_mz_int / sum_int\n            \n            # rt_apex: scan time of most intense scan in it\n            idx_max_int = cluster_df['int'].idxmax()\n            feat_rt_apex = eic_df.loc[idx_max_int, 'rt']\n            \n            # rt_start/rt_end: scan times at the ends of the run\n            feat_rt_start = eic_df.loc[cluster[0], 'rt']\n            feat_rt_end = eic_df.loc[cluster[-1], 'rt']\n            \n            # apex_intensity\n            feat_apex_int = cluster_df['int'].max()\n            \n            # n_scans\n            feat_n_scans = len(cluster)\n            \n            # Validation: rt_start <= rt_apex <= rt_end\n            # Because we sort by RT in scan_data, this is usually true.\n            # But if it's a single scan feature (len=1, but we require len>=3), it's fine.\n            # However, we must ensure it's not just a single-scan dip.\n            # A run of 3 scans like [Above, Below, Above] is valid. \n            # A run of 3 scans like [Above, Below, Below] would not be caught by the \n            # \"distance <= 2\" logic.\n            \n            # One more check: The run must have at least 2 'above' scans to justify a dip.\n            # But the logic 'len(cluster) >= 3' and 'distance <= 2' already implies \n            # that if there's a dip, it's between two 'above' scans.\n            # E.g. [0, 1, 2] -> if 1 is the dip, 0 and 2 must be 'above'.\n            \n            # Ensure rt_start <= rt_apex <= rt_end\n            # If the cluster is [10, 11, 12] and 11 is the dip, it works.\n            # If the cluster is [10, 11, 12] and 12 is the max intensity, \n            # then rt_apex = rt(12), rt_start = rt(10), rt_end = rt(12). \n            # So rt_start <= rt_apex <= rt_end holds.\n            \n            if not (feat_rt_start <= feat_rt_apex <= feat_rt_end):\n                # This could happen if the max intensity scan is at the start or end.\n                # The requirement is rt_start <= rt_apex <= rt_end.\n                # If the most intense scan is at the start, rt_apex = rt_start.\n                # Since rt_start <= rt_end, it still holds.\n                # The only way this fails is if the cluster is not monotonic in RT.\n                # But scan_data is processed in order of scan index, and scan index is \n                # usually correlated with RT. \n                pass\n\n            features_list.append({\n                'feature_id': 0, # Placeholder\n                'mz': feat_mz,\n                'rt_apex': feat_rt_apex,\n                'rt_start': feat_rt_start,\n                'rt_end': feat_rt_end,\n                'apex_intensity': feat_apex_int,\n                'n_scans': feat_n_scans\n            })\n\n    # Create DataFrame and finalize\n    if not features_list:\n        df_out = pd.DataFrame(columns=['feature_id', 'mz', 'rt_apex', 'rt_start', 'rt_end', 'apex_intensity', 'n_scans'])\n    else:\n        df_out = pd.DataFrame(features_list)\n        df_out['feature_id'] = range(1, len(df_out) + 1)\n\n    # Sort by descending apex_intensity\n    df_out = df_out.sort_values('apex_intensity', ascending=False)\n    \n    # Reorder columns\n    cols = ['feature_id', 'mz', 'rt_apex', 'rt_start', 'rt_end', 'apex_intensity', 'n_scans']\n    df_out = df_out[cols]\n\n    # Output\n    df_out.to_csv(args.output, sep='\\t', index=False)\n    print(f\"ms1_scans={ms1_count} windows={len(valid_windows)} features={len(df_out)}\")\n\nif __name__ == \"__main__\":\n    main()\n```",
+  "wall_clock_elapsed_s": 109.1,
+  "wall_clock_agent_s": 109.1,
+  "finished": "2026-09-19T12:14:13"
+ },
+ "single_shot_blocks": 1,
+ "grader_rc": 1,
+ "criteria": {
+  "features.tsv: header + N rows, 7 columns in order": false,
+  "120 <= N <= 480": false,
+  "at least 5 of the 10 reference features matched": false,
+  "every apex_intensity > 0 and rt_start <= rt_apex <= rt_end": false,
+  "stdout: ms1_scans=286": false,
+  "at least 70 of the recomputed reference's top 100 features matched, and stdout features=N equals the row count": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {
+  "features.py": "45a118beb48b7e8d85bb23f88e395c86962ba6c10559b39d1ea7a992f980d392"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 109.1,
+ "iterations": 0,
+ "tokens": {
+  "input": 1092,
+  "output": 3425
+ },
+ "workers": 4
+}

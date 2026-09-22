@@ -1,0 +1,156 @@
+{
+ "experiment": "C_gptq",
+ "tool": "dda_s",
+ "variant": "base",
+ "rep": 3,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/database_search/PROMPT.md",
+ "prompt_sha256": "9f6ef3d3fd003d4cb405c70a42a8905b922938ed775c4ce97b86a752339bf851",
+ "started": "2026-09-17T19:04:01",
+ "failure_mode": "endpoint_error",
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.8-27b-gptq",
+  "prompt_sha256": "9f6ef3d3fd003d4cb405c70a42a8905b922938ed775c4ce97b86a752339bf851",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-17T19:04:02",
+  "max_iters": 120,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 14,
+  "assistant_turns": 13,
+  "tokens": {
+   "input": 109238,
+   "output": 7567
+  },
+  "tool_calls": 14,
+  "refused_commands": 0,
+  "failure_mode": "endpoint_error",
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls"
+  ],
+  "throttled_s": 0.0,
+  "error": "endpoint unreachable after 3 attempts (0 s throttled): TimeoutError: timed out",
+  "wall_clock_elapsed_s": 5489.7,
+  "wall_clock_agent_s": 5489.7,
+  "finished": "2026-09-17T20:35:31"
+ },
+ "grader_rc": 1,
+ "criteria": {
+  "psms.tsv: header + rows, columns in order, decoy encoded 0/1, protein is the bare record id (no whitespace), every qvalue in [0,1]": false,
+  "stdout reports spectra=1200, with_candidate=1025 and the reference target/decoy peptide counts": false,
+  "target PSMs at q<=0.01 between 16 and 20 (reference 18)": false,
+  "decoy fraction among best hits within 0.05 of 0.333": false,
+  "the unfiltered rerun reports fewer 1% FDR PSMs than the filtered run": false,
+  "at least 5 of the reference's 7 named UPS1 proteins have >= 2 best-hit spectra": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {},
+ "missing_artifacts": [
+  "search.py"
+ ],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 5489.7,
+ "iterations": 14,
+ "tokens": {
+  "input": 109238,
+  "output": 7567
+ },
+ "workers": 3,
+ "content": {
+  "fields": {
+   "targets": {
+    "want": 87060,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "decoys": {
+    "want": 87188,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "spectra": {
+    "want": 1200,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "with_candidate": {
+    "want": 1025,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "best_hits": {
+    "want": 1025,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   }
+  },
+  "method_passed": 0,
+  "precise_passed": 0,
+  "present": 0,
+  "total": 5,
+  "files_seen": [
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

@@ -1,0 +1,13 @@
+# import mzml_reader failed: ModuleNotFoundError: No module named 'mzml_reader'
+# bsa: 40 spectra (10 MS1 / 30 MS2), ids spectrum=1011..spectrum=2471 raised TypeError: object of type 'NoneType' has no len()
+# bsa: rt_first 1501.414 s, rt_last 1590.187 s raised TypeError: 'NoneType' object is not subscriptable
+# bsa: first MS2 spectrum=2442, precursor 457.72397, z=2, charges {2,3} raised TypeError: 'NoneType' object is not iterable
+# thermo: 2 MS1 x 19914 peaks, rt 0.2961/0.3561 s (minutes rule) raised TypeError: object of type 'NoneType' has no len()
+# tic totals within 0.1% (45709750.4 / 138763684.2) and the mandated one-line stdout summary for the bsa file raised TypeError: 'NoneType' object is not iterable
+PASS fasta: 48 records, 19929 residues, first sp|P00509|AAT_ECOLI/396
+FAIL bsa: 40 spectra (10 MS1 / 30 MS2), ids spectrum=1011..spectrum=2471
+FAIL bsa: rt_first 1501.414 s, rt_last 1590.187 s
+FAIL bsa: first MS2 spectrum=2442, precursor 457.72397, z=2, charges {2,3}
+FAIL thermo: 2 MS1 x 19914 peaks, rt 0.2961/0.3561 s (minutes rule)
+FAIL tic totals within 0.1% (45709750.4 / 138763684.2) and the mandated one-line stdout summary for the bsa file
+1/6 passed

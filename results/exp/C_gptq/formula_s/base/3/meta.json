@@ -1,0 +1,125 @@
+{
+ "experiment": "C_gptq",
+ "tool": "formula_s",
+ "variant": "base",
+ "rep": 3,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/formula_finder/PROMPT.md",
+ "prompt_sha256": "16e01a328ca57acfc3781fd63710f5382494105c950610377e9af5264de4c56a",
+ "started": "2026-09-18T10:56:19",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.8-27b-gptq",
+  "prompt_sha256": "16e01a328ca57acfc3781fd63710f5382494105c950610377e9af5264de4c56a",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-18T10:56:19",
+  "max_iters": 120,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 9,
+  "assistant_turns": 10,
+  "tokens": {
+   "input": 41519,
+   "output": 8482
+  },
+  "tool_calls": 9,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "qwen3.8-27b-gptq"
+  ],
+  "fingerprints": [
+   "vllm-0.27.2rc1.dev77+gac7509e2b-22f0c859"
+  ],
+  "model_substituted": false,
+  "wall_clock_elapsed_s": 1691.0,
+  "wall_clock_agent_s": 1691.0,
+  "finished": "2026-09-18T11:24:30"
+ },
+ "grader_rc": 0,
+ "criteria": {
+  "ranked.tsv: header + 4 blocks in input order, ranks starting at 1": true,
+  "rank-1 formula correct in all four blocks": true,
+  "every rank-1 row has |error_ppm| <= 2.0 and score <= 0.5": true,
+  "every rank-1 row beats its block runner-up by >= 5 score units": true,
+  "rank-1 calc_mass matches the reference recomputed from the input (<=1e-5 Da)": true,
+  "stdout reports blocks and candidates": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "formula_finder.py": "d962ef3551e9289f76e3d3aa802eac565b35929551d698b372951b6cacaa0c9d"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 1691.0,
+ "iterations": 9,
+ "tokens": {
+  "input": 41519,
+  "output": 8482
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "blocks": {
+    "want": 4,
+    "found": [
+     4.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "candidates": {
+    "want": 35,
+    "found": [
+     35.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 2,
+  "precise_passed": 2,
+  "present": 2,
+  "total": 2,
+  "files_seen": [
+   "ranked.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

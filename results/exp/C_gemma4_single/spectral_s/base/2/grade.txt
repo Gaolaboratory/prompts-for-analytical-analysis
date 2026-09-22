@@ -1,0 +1,8 @@
+# reduced library: tool [{'query': 'NAME', 'best_match': 'NAME', 'score': 0.7473, 'matched_peaks': 6, 'total_library_peaks': 7}, {'query': 'NAME', 'best_match': 'NAME', 'score': 0.6669, 'matched_peaks': 4, 'total_library_peaks': 6}, {'query': 'NAME', 'best_match': 'NO_MATCH', 'score': 0.0137, 'matched_peaks': 1, 'total_library_peaks': 18}, {'query': 'NAME', 'best_match': 'NO_MATCH', 'score': 0.0138, 'matched_peaks': 2, 'total_library_peaks': 6}] vs reference [{'query': 'q1', 'best_match': 'caffeine', 'score': 0.7472796073043588, 'matched_peaks': 6, 'total_library_peaks': 7}, {'query': 'q2', 'best_match': 'sulfamethoxazole', 'score': 0.6668754493082082, 'matched_peaks': 4, 'total_library_peaks': 6}, {'query': 'q3', 'best_match': 'NO_MATCH', 'score': 0.013725239285873471, 'matched_peaks': 1, 'total_library_peaks': 18}, {'query': 'q4', 'best_match': 'NO_MATCH', 'score': 0.01381476893233523, 'matched_peaks': 2, 'total_library_peaks': 6}]
+FAIL results.tsv: header + 4 rows in q1..q4 order, columns in order
+FAIL best_match: caffeine, sulfamethoxazole, nicotine, NO_MATCH
+FAIL scores 0.7473 / 0.6669 / 0.8706 / 0.0138 (+/- 0.0001)
+FAIL matched_peaks 6/4/6/2 and total_library_peaks 7/6/8/6
+PASS stdout: queries: 4  called: 3  no_match: 1
+FAIL re-running libsearch.py on a library with one entry removed reproduces the reference result for that library
+1/6 passed

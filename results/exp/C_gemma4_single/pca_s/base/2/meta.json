@@ -1,0 +1,131 @@
+{
+ "experiment": "C_gemma4_single",
+ "tool": "pca_s",
+ "variant": "base",
+ "rep": 2,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "single_shot",
+ "prompt_path": "examples/pca_untargeted/PROMPT.md",
+ "prompt_sha256": "9f3707132e9e19db5911b4f09c0348a854aee830c7d2a2d609f494c04179378f",
+ "started": "2026-09-19T09:52:59",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35211/v1",
+  "model": "gemma4",
+  "prompt_sha256": "9f3707132e9e19db5911b4f09c0348a854aee830c7d2a2d609f494c04179378f",
+  "wrapper_sha256": "139312757611a0e8b9ba3dd1eef1fdbe4841a951231ec19f851a0b121757148e",
+  "arm": "single_shot",
+  "started": "2026-09-19T09:53:00",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16000,
+  "temperature": null,
+  "iterations": 0,
+  "assistant_turns": 1,
+  "tokens": {
+   "input": 735,
+   "output": 1074
+  },
+  "tool_calls": 0,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "single_shot_reply": "```python\nimport sys\nimport argparse\nimport numpy as np\nimport pandas as pd\nfrom scipy.linalg import eigh\n\ndef main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument('features', help='features.csv')\n    parser.add_argument('groups', help='groups.csv')\n    parser.add_argument('-o', '--output', help='output tsv file')\n    args = parser.parse_args()\n\n    # Load data\n    # features.csv: rows=features, cols=samples\n    features_df = pd.read_csv(args.features, index_col=0)\n    groups_df = pd.read_csv(args.groups, index_col='sample')\n    \n    num_features_in = features_df.shape[0]\n    num_samples = features_df.shape[1]\n    sample_names = features_df.columns.tolist()\n\n    # 1. Keep feature if it has value in >= 80% of samples (48/60)\n    mask = features_df.notna()\n    counts = mask.sum(axis=1)\n    kept_mask = counts >= (0.8 * num_samples)\n    features_kept_df = features_df[kept_mask].copy()\n    num_features_kept = features_kept_df.shape[0]\n\n    # 2. Impute empty cells with feature mean (linear scale)\n    # Apply imputation per row\n    def impute_row(row):\n        if row.isnull().all():\n            return row\n        m = row.mean()\n        return row.fillna(m)\n\n    features_imputed = features_kept_df.apply(impute_row, axis=1)\n\n    # 3. Log2 transformation\n    features_log = np.log2(features_imputed)\n\n    # 4. Center each feature (subtract mean across samples)\n    # Note: features_log is (kept_features x samples)\n    # We subtract the mean of each feature (row mean)\n    centered_features = features_log.sub(features_log.mean(axis=1), axis=0)\n\n    # 5. Transpose for PCA (samples x features)\n    X = centered_features.T.values\n\n    # 6. PCA via Eigendecomposition of Covariance Matrix\n    # Covariance matrix C = (1/(n-1)) * X.T @ X\n    n = X.shape[0]\n    cov_matrix = np.dot(X.T, X) / (n - 1)\n    \n    # eigh returns eigenvalues in ascending order\n    eigenvalues, eigenvectors = eigh(cov_matrix)\n    \n    # Sort descending\n    idx = np.argsort(eigenvalues)[::-1]\n    eigenvalues = eigenvalues[idx]\n    eigenvectors = eigenvectors[:, idx]\n\n    # Calculate variance fractions\n    total_var = np.sum(eigenvalues)\n    pc1_var = eigenvalues[0] / total_var\n    pc2_var = eigenvalues[1] / total_var\n\n    # Project scores: Scores = X @ Eigenvectors\n    scores = np.dot(X, eigenvectors)\n\n    # 7. Fix sign: first sample's score must be positive\n    # If score[0, pc] < 0, flip that whole component (scores and eigenvectors)\n    for i in range(2): # We only care about PC1 and PC2\n        if scores[0, i] < 0:\n            scores[:, i] *= -1\n            eigenvectors[:, i] *= -1\n\n    # Prepare output scores\n    # columns: sample, group, PC1, PC2\n    results = pd.DataFrame(\n        data=scores[:, :2], \n        index=sample_names, \n        columns=['PC1', 'PC2']\n    )\n    # Merge with group info\n    results = results.join(groups_df, how='left')\n    # Reorder columns: sample, group, PC1, PC2\n    # Note: index is sample, so reset_index moves sample to column\n    results = results.reset_index().rename(columns={'index': 'sample'})\n    results = results[['sample', 'group', 'PC1', 'PC2']]\n\n    # Write output\n    results.to_csv(args.output, sep='\\t', index=False)\n\n    # Print stdout\n    print(f\"features_in={num_features_in} features_kept={num_features_kept} pc1_var={pc1_var:.4f} pc2_var={pc2_var:.4f}\")\n\nif __name__ == \"__main__\":\n    main()\n```",
+  "wall_clock_elapsed_s": 34.4,
+  "wall_clock_agent_s": 34.4,
+  "finished": "2026-09-19T09:53:34"
+ },
+ "single_shot_blocks": 1,
+ "grader_rc": 0,
+ "criteria": {
+  "scores.tsv: header + 60 rows in features.csv column order, groups match groups.csv": true,
+  "stdout: features_in=200 features_kept=184": true,
+  "pc1_var 0.1558 +/- 0.01 and pc2_var 0.1008 +/- 0.01": true,
+  "PC1 and PC2 correlate with the reference at |r| >= 0.999": true,
+  "first sample's PC1 and PC2 are positive (sign rule)": true
+ },
+ "passed": 5,
+ "total": 5,
+ "code_sha256": {
+  "pca.py": "2c6f07093a35341b0d790a126cbcc7cc8cd5b1850d654bb5df152789afab3043"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 34.4,
+ "iterations": 0,
+ "tokens": {
+  "input": 735,
+  "output": 1074
+ },
+ "workers": 1,
+ "content": {
+  "fields": {
+   "features_in": {
+    "want": 200,
+    "found": [
+     200.0
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "features_kept": {
+    "want": 184,
+    "found": [
+     184.0
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "pc1_var": {
+    "want": 0.1558332619688065,
+    "found": [
+     0.1558
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "pc2_var": {
+    "want": 0.10081553978329552,
+    "found": [
+     0.1008
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 4,
+  "precise_passed": 4,
+  "present": 4,
+  "total": 4,
+  "files_seen": [
+   "scores.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

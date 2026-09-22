@@ -1,0 +1,84 @@
+{
+ "experiment": "A",
+ "tool": "uvvis_s",
+ "variant": "L0",
+ "rep": 2,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/uvvis_spectrum/ablation/L0.md",
+ "prompt_sha256": "c63d931998ee6c319cc541c3a3a03a6c8261ac4a8c1abdd87a7852449253db90",
+ "started": "2026-09-17T17:54:01",
+ "failure_mode": "harness_error",
+ "driver": {},
+ "grader_rc": 1,
+ "criteria": {
+  "bands.tsv: header + exactly one band row, columns in order, no CR": false,
+  "lambda_max 317 +/- 3 nm": false,
+  "epsilon within 2% of 9283": false,
+  "fwhm within 2 nm of the reference recomputed from the input": false,
+  "stdout reports points, bands, lambda_max and epsilon": false,
+  "re-running uvvis.py on an absorbance-tilted input reproduces the reference lambda_max and epsilon for that input": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {},
+ "missing_artifacts": [
+  "uvvis.py"
+ ],
+ "wall_clock_agent_s": null,
+ "iterations": null,
+ "tokens": null,
+ "workers": 4,
+ "content": {
+  "fields": {
+   "lambda_max": {
+    "want": 317.01526,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "epsilon": {
+    "want": 9283.38841,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "fwhm": {
+    "want": 66.6976840137051,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "bands": {
+    "want": 1,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   }
+  },
+  "method_passed": 0,
+  "precise_passed": 0,
+  "present": 0,
+  "total": 4,
+  "files_seen": [
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d",
+ "reclassified": "driver killed before unwinding and the cell was not a full pass; it may have improved with more iterations, so it is void rather than scored.",
+ "telemetry_missing": true
+}

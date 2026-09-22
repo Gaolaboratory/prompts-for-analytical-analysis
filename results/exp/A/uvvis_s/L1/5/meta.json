@@ -1,0 +1,167 @@
+{
+ "experiment": "A",
+ "tool": "uvvis_s",
+ "variant": "L1",
+ "rep": 5,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/uvvis_spectrum/ablation/L1.md",
+ "prompt_sha256": "f19e49e81a271dcaf135cf219ce2a4f0e1893a9d9c29e2cad97efb36f89ca715",
+ "started": "2026-09-17T19:07:30",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.6-35b-local",
+  "prompt_sha256": "f19e49e81a271dcaf135cf219ce2a4f0e1893a9d9c29e2cad97efb36f89ca715",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-17T19:07:30",
+  "max_iters": 80,
+  "max_wall": 1800.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 48,
+  "assistant_turns": 48,
+  "tokens": {
+   "input": 959427,
+   "output": 26691
+  },
+  "tool_calls": 48,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "wall_clock_elapsed_s": 1310.4,
+  "wall_clock_agent_s": 1310.4,
+  "finished": "2026-09-17T19:29:20"
+ },
+ "grader_rc": 1,
+ "criteria": {
+  "bands.tsv: header + exactly one band row, columns in order, no CR": false,
+  "lambda_max 317 +/- 3 nm": false,
+  "epsilon within 2% of 9283": false,
+  "fwhm within 2 nm of the reference recomputed from the input": false,
+  "stdout reports points, bands, lambda_max and epsilon": false,
+  "re-running uvvis.py on an absorbance-tilted input reproduces the reference lambda_max and epsilon for that input": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {
+  "uvvis.py": "f231dc5c1f7fbb3d3ce916bc9e0fe22a0b28edd728138a46df76042c8f4888ce"
+ },
+ "missing_artifacts": [],
+ "wall_clock_agent_s": 1310.4,
+ "iterations": 48,
+ "tokens": {
+  "input": 959427,
+  "output": 26691
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "lambda_max": {
+    "want": 317.01526,
+    "found": [
+     316.49,
+     316.490647322731
+    ],
+    "n_found": 2,
+    "present": true,
+    "method": false,
+    "precise": false,
+    "note": "ambiguous"
+   },
+   "epsilon": {
+    "want": 9283.38841,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "fwhm": {
+    "want": 66.6976840137051,
+    "found": [
+     67.678251082156,
+     67.68
+    ],
+    "n_found": 2,
+    "present": true,
+    "method": false,
+    "precise": false,
+    "note": "ambiguous"
+   },
+   "bands": {
+    "want": 1,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   }
+  },
+  "method_passed": 0,
+  "precise_passed": 0,
+  "present": 2,
+  "total": 4,
+  "files_seen": [
+   "bands.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

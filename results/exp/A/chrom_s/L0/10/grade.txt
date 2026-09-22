@@ -1,0 +1,8 @@
+# peak-injected run produced no readable peak table
+FAIL peaks.tsv: header + exactly 10 rows sorted by rt_apex_s, columns in order
+FAIL all ten reference apexes present within 5%, in seconds
+FAIL apex heights within 5% of the reference recomputed from chrom.csv
+FAIL baseline -4.797 +/- 0.5 and sigma 0.615 +/- 20%
+FAIL stdout reports points, baseline, sigma and peaks
+FAIL re-running chrom_integrate.py on a peak-injected chrom.csv reproduces the reference peak set for that input
+0/6 passed

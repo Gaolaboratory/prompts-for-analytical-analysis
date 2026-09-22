@@ -87,3 +87,7 @@ oracle for each variant with the reference implementation **before** grading.
    iteration, in the context of the smallest model claimed (tutorial.md §9). State that model.
 5. Keep the generator and grader outside the agent's reach: the agent gets the prompt only; the
    harness holds `grade_chrom.py` and the tier (b)/(c) variants.
+
+**Tier (c) executed 2026-08-26:** PASS — real Agilent DAD chromatogram (chromConverter test
+data) via `data/chrom/`; 10/10 reference apexes matched within 0.2% on the local LLM. See
+`EXAMPLE_DATA.md`.

@@ -1,0 +1,33 @@
+{
+ "experiment": "E",
+ "tool": "nmr_s",
+ "variant": "base",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/nmr_1d/PROMPT.md",
+ "prompt_sha256": "9a8f864b1019067c38289227e83ab5bb2b139ecb153c584219f0fa7e1bcb2f61",
+ "started": "2026-09-18T00:46:52",
+ "failure_mode": "harness_timeout",
+ "driver": {},
+ "grader_rc": 0,
+ "criteria": {
+  "multiplets.tsv: header + rows sorted by ppm_center, columns in order": true,
+  "all six assigned resonances within 0.05 ppm on the true axis": true,
+  "TSP is the reference row at 1.000 and the four metabolite integrals match the reference within 20%": true,
+  "no mirrored peak near 9.53 ppm (real-channel processing)": true,
+  "stdout reports points, peaks and reference_ppm=0.000": true
+ },
+ "passed": 5,
+ "total": 5,
+ "code_sha256": {
+  "nmr.py": "5d0fd5f68a96b5b4b6227f115766357d60a6236a0f4b905663bb44fccaf0ebeb"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": true,
+ "wall_clock_agent_s": null,
+ "iterations": null,
+ "tokens": null,
+ "workers": 4
+}

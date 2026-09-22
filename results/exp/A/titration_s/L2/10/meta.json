@@ -1,0 +1,120 @@
+{
+ "experiment": "A",
+ "tool": "titration_s",
+ "variant": "L2",
+ "rep": 10,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/titration/ablation/L2.md",
+ "prompt_sha256": "3d418ed99bc32154bf6b17cf69f2b67ff569debb60df3ddf05969ab5fcd1ed1f",
+ "started": "2026-09-17T17:43:17",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.6-35b-local",
+  "prompt_sha256": "3d418ed99bc32154bf6b17cf69f2b67ff569debb60df3ddf05969ab5fcd1ed1f",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-17T17:43:18",
+  "max_iters": 80,
+  "max_wall": 1800.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 6,
+  "assistant_turns": 7,
+  "tokens": {
+   "input": 15916,
+   "output": 2077
+  },
+  "tool_calls": 6,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "wall_clock_elapsed_s": 73.1,
+  "wall_clock_agent_s": 73.1,
+  "finished": "2026-09-17T17:44:31"
+ },
+ "grader_rc": 1,
+ "criteria": {
+  "tsv: header + 1 row, 3 columns in order, LF only": false,
+  "Veq 25.0 +/- 0.5 mL": false,
+  "pKa 4.74 +/- 0.10": false,
+  "concentration 0.100 M +/- 5%": false,
+  "stdout: points/Veq/pKa/conc each present with a numeric value": false,
+  "matches titration_ref recomputed from the input CSV, as given and perturbed (Veq +/-0.05 mL, pKa +/-0.02, conc +/-0.2%)": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {
+  "titration.py": "7503ed600fd3c7bd26f73bdb1c4690ec3d34a712d801f74aaeeac3ddecb5164d"
+ },
+ "missing_artifacts": [],
+ "wall_clock_agent_s": 73.1,
+ "iterations": 6,
+ "tokens": {
+  "input": 15916,
+  "output": 2077
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "veq": {
+    "want": 24.997665110072916,
+    "found": [
+     24.999577417174,
+     24.9996
+    ],
+    "n_found": 2,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "pka": {
+    "want": 4.744918278852552,
+    "found": [
+     4.744985209601,
+     4.745
+    ],
+    "n_found": 2,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "conc": {
+    "want": 0.09999066044029167,
+    "found": [
+     0.099998,
+     0.099998309669
+    ],
+    "n_found": 2,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 3,
+  "precise_passed": 3,
+  "present": 3,
+  "total": 3,
+  "files_seen": [
+   "results.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

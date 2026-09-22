@@ -1,0 +1,131 @@
+{
+ "experiment": "C_gptq",
+ "tool": "titration_s",
+ "variant": "base",
+ "rep": 3,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/titration/PROMPT.md",
+ "prompt_sha256": "4b7b216bad351518adebc0c0c4ee49244f3f8ed4e56f7fddc18025f99ace0079",
+ "started": "2026-09-19T07:49:31",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.8-27b-gptq",
+  "prompt_sha256": "4b7b216bad351518adebc0c0c4ee49244f3f8ed4e56f7fddc18025f99ace0079",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-19T07:49:31",
+  "max_iters": 120,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 11,
+  "assistant_turns": 12,
+  "tokens": {
+   "input": 48952,
+   "output": 5655
+  },
+  "tool_calls": 11,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "qwen3.8-27b-gptq"
+  ],
+  "fingerprints": [
+   "vllm-0.27.2rc1.dev77+gac7509e2b-cb731acf",
+   "vllm-0.27.2rc1.dev77+gac7509e2b-22f0c859"
+  ],
+  "model_substituted": false,
+  "wall_clock_elapsed_s": 213.9,
+  "wall_clock_agent_s": 213.9,
+  "finished": "2026-09-19T07:53:05"
+ },
+ "grader_rc": 0,
+ "criteria": {
+  "tsv: header + 1 row, 3 columns in order, LF only": true,
+  "Veq 25.0 +/- 0.5 mL": true,
+  "pKa 4.74 +/- 0.10": true,
+  "concentration 0.100 M +/- 5%": true,
+  "stdout: points/Veq/pKa/conc each present with a numeric value": true,
+  "matches titration_ref recomputed from the input CSV, as given and perturbed (Veq +/-0.05 mL, pKa +/-0.02, conc +/-0.2%)": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "titration.py": "a81393604623d6cd99ad59ff18b39f624a004f7cda1b0332975ecf5c8f3f8ca0"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 213.9,
+ "iterations": 11,
+ "tokens": {
+  "input": 48952,
+  "output": 5655
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "veq": {
+    "want": 24.997665110072916,
+    "found": [
+     24.997665
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "pka": {
+    "want": 4.744918278852552,
+    "found": [
+     4.744918
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "conc": {
+    "want": 0.09999066044029167,
+    "found": [
+     0.099991
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 3,
+  "precise_passed": 3,
+  "present": 3,
+  "total": 3,
+  "files_seen": [
+   "results.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

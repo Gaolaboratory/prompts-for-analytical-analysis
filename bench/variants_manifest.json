@@ -1,0 +1,102 @@
+{
+ "amb-yion": {
+  "tool": "dda_s",
+  "path": "examples/database_search/variants/amb-yion.md",
+  "base_sha256": "9f6ef3d3fd003d4cb405c70a42a8905b922938ed775c4ce97b86a752339bf851",
+  "variant_sha256": "d66b707937d87cbf98fe7cf84ff6e0e3f38ffba59b5ea2d72e4df3c72430034e",
+  "chars_removed": 789,
+  "source": "Phase-0 baseline: 5 of 6 sessions built the y series as a mirror of b",
+  "silent_expected": true,
+  "expected": "suffix loses the C-terminal residue; the broken engine matches MORE fragments at +/-0.5 Da, so every summary statistic looks better"
+ },
+ "amb-units": {
+  "tool": "dda_s",
+  "path": "examples/database_search/variants/amb-units.md",
+  "base_sha256": "9f6ef3d3fd003d4cb405c70a42a8905b922938ed775c4ce97b86a752339bf851",
+  "variant_sha256": "4430355a0706323506f991e5b83a9d76aad503335b32d22ee656c2d14eae760b",
+  "chars_removed": 205,
+  "source": "p3 sweep 2026-09-11: two cells reported protein counts, 3,260 vs a reference of 87,060",
+  "silent_expected": false,
+  "expected": "targets/decoys reported as protein counts; criterion 2 fails"
+ },
+ "amb-encode": {
+  "tool": "dda_s",
+  "path": "examples/database_search/variants/amb-encode.md",
+  "base_sha256": "9f6ef3d3fd003d4cb405c70a42a8905b922938ed775c4ce97b86a752339bf851",
+  "variant_sha256": "78d360bf6fdc0530cc0bebcb2bb2cefb11daf9133c399401de908287ed05ef06",
+  "chars_removed": 52,
+  "source": "p3 sweep 2026-09-11: a submission wrote True/False and the grader discarded every row",
+  "silent_expected": false,
+  "expected": "decoy emitted as True/False; the structural criterion fails"
+ },
+ "amb-criteria-only": {
+  "tool": "dda_s",
+  "path": "examples/database_search/variants/amb-criteria-only.md",
+  "base_sha256": "9f6ef3d3fd003d4cb405c70a42a8905b922938ed775c4ce97b86a752339bf851",
+  "variant_sha256": "2c901b19080a4fb0c4a5f7a3c5ff9e3249305ecea49aff24e31185d9e4cc06de",
+  "chars_removed": 683,
+  "source": "Phase-0 baseline: 6 of 6 sessions missed a requirement that lived only in the criteria",
+  "silent_expected": false,
+  "expected": "the unfiltered control run is never performed; criterion 5 fails. The requirement still appears verbatim in the acceptance criteria, which is the whole point"
+ },
+ "amb-orient": {
+  "tool": "pca_s",
+  "path": "examples/pca_untargeted/variants/amb-orient.md",
+  "base_sha256": "9f3707132e9e19db5911b4f09c0348a854aee830c7d2a2d609f494c04179378f",
+  "variant_sha256": "b5fc3479a15d4417daa22f8b3c146316edf8daeaf8c4788619f120a9537ee735",
+  "chars_removed": 306,
+  "source": "short-prompt pilot 2026-09-02: local 1/3 before the transpose bullet, 3/3 after",
+  "silent_expected": true,
+  "expected": "the wrong Gram matrix is decomposed; variance fractions stay exactly correct because X^T X and X X^T share eigenvalues, so the program projects into the wrong space with perfect summary statistics"
+ },
+ "amb-spell": {
+  "tool": "calibration_s",
+  "path": "examples/calibration/variants/amb-spell.md",
+  "base_sha256": "5e1ba3c1d76ab2d590788d9ed0cf47dd3cf915d2876c3561d170905d59cf3cca",
+  "variant_sha256": "c9f1fa20cc0c37f70db849f08e190df5cb12a9d428394ca2bd3b27ac786a764d",
+  "chars_removed": 10,
+  "source": "p3 sweep 2026-09-04: two quantities spelled two ways; the model followed the more internally consistent half",
+  "silent_expected": false,
+  "expected": "the model uses one spelling consistently and fails whichever criterion names the other"
+ },
+ "amb-sigfig": {
+  "tool": "calibration_s",
+  "path": "examples/calibration/variants/amb-sigfig.md",
+  "base_sha256": "5e1ba3c1d76ab2d590788d9ed0cf47dd3cf915d2876c3561d170905d59cf3cca",
+  "variant_sha256": "62ca345ce8e1f044a6ab0bd504d0e762cf4b9ad7c77be7a9fcc858ac09265aaf",
+  "chars_removed": 192,
+  "source": "p3 sweep 2026-09-04: 9 significant figures permitted against a 1e-9 relative grader",
+  "silent_expected": false,
+  "expected": "slope (leading digit 1) fails the 1e-9 check at ~2e-9 while intercept, residual_sd and r_squared pass at the same printed precision -- the resolution of a significant figure depends on the leading digit"
+ },
+ "amb-stream": {
+  "tool": "mass_stats_s",
+  "path": "examples/mass_stats/variants/amb-stream.md",
+  "base_sha256": "b1d9c5ff84350ec07b3e123325edcd42404c34a158ea4cd2717a4c55a10cc07d",
+  "variant_sha256": "2caea351a75677abf4c1485b50ca12bc74063f959b76018d5cd485a4c34aba7c",
+  "chars_removed": 2,
+  "source": "tutorial \u00a77: 'print' with the stream unstated; the model printed to stderr",
+  "silent_expected": false,
+  "expected": "counts go to stderr; every stdout criterion fails while the statistics are correct"
+ },
+ "amb-sep": {
+  "tool": "mass_stats_s",
+  "path": "examples/mass_stats/variants/amb-sep.md",
+  "base_sha256": "b1d9c5ff84350ec07b3e123325edcd42404c34a158ea4cd2717a4c55a10cc07d",
+  "variant_sha256": "42e2cafd44f713d21a59d4e71240f1d1be8f7027735d2015b192d26b710a88a7",
+  "chars_removed": 15,
+  "source": "tutorial \u00a77: a tab-delimited header was displayed but never stated; the model emitted CSV",
+  "silent_expected": false,
+  "expected": "CSV emitted despite the header block showing tabs -- showing a format is not specifying it"
+ },
+ "amb-window": {
+  "tool": "formula_s",
+  "path": "examples/formula_finder/variants/amb-window.md",
+  "base_sha256": "16e01a328ca57acfc3781fd63710f5382494105c950610377e9af5264de4c56a",
+  "variant_sha256": "c1717203aa35d0e6704611c2ab795ff9058e8336a7f8a8a24d4a7df833b911fc",
+  "chars_removed": 209,
+  "source": "p3 sweep 2026-09-12: a run ignored the ppm window and emitted 6,495,441 candidates against a reference of 35, on 508 MB of disk, and still scored 6/6",
+  "silent_expected": true,
+  "expected": "unbounded enumeration; rank-1 rows can still sort out correctly, so the failure is invisible to any criterion that does not compare the candidate count to a reference"
+ }
+}

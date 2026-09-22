@@ -1,71 +1,120 @@
 # Prompts for Analytical Analysis
 
-Ready-to-use prompts that direct an LLM (any agentic coding model — Claude Code, pi, Cursor,
-Windsurf, Codex, …) to **write a small, working analytical-chemistry or mass-spectrometry tool
-for you from scratch**, together with its own deterministic test data and a machine-checkable
-list of acceptance criteria.
+Ready-to-use prompts that direct a large language model (any agentic coding model — Claude Code,
+pi, Codex, Cursor, …) to **write a small, working analytical-chemistry or mass-spectrometry tool
+for you from scratch** — together with the real test data, pinned acceptance criteria, and an
+external grader that prove the tool is right.
 
-No libraries beyond the Python standard library are required. Each prompt is a single
-self-contained Markdown file: paste it into a fresh session and the model writes the data
-generator, the tool, runs both, and verifies its own output against numbers pinned in the
-prompt.
+This release is the second generation of the library. Each tool now ships as one canonical
+**`PROMPT.md`** (the "short-prompt track"), points at **real public datasets** (NIST certified
+values, MassBank, MetaboLights, published teaching sets) instead of a self-written data
+generator, and is validated by a **machine-checkable grader held outside the model** — the model
+never grades itself. The first-generation prompts (self-contained, standard-library-only, with
+seeded data generators written by the model itself) remain in each example folder as
+`minimal_*_prompt.md` and still work.
 
 ## How to use a prompt
 
-1. **Open a clean, empty folder** and start an agentic coding session there
-   (e.g. `claude`, `pi`, or your IDE's agent) in that folder.
-2. **Paste the prompt file verbatim** — the whole file, nothing added.
-3. The model writes two things: a **deterministic test-data generator** (seeded, so the data is
-   identical every run) and the **tool itself**, then runs both.
-4. **Check the acceptance criteria** at the end of the prompt. They list the exact commands to
-   run and the exact numbers a correct tool must produce (e.g. "area = 7822 ± 5%"). If every
-   criterion passes, the tool is correct — you never have to trust the model's own summary.
-5. Feed the tool your own data in the pinned input format when you are done.
+1. **Open a clean, empty folder** and start an agentic coding session there.
+2. **Copy the tool's data file(s)** from `data/<tool>/` into the folder.
+3. **Paste `examples/<tool>/PROMPT.md` verbatim** — the whole file, nothing added.
+4. The model writes the tool, runs it on the shipped data, and checks its output against the
+   acceptance criteria pinned in the prompt.
+5. **Do not trust the model's own summary.** Re-run the acceptance criteria yourself (each is a
+   command whose expected output is pinned), or use the external graders in `bench/graders/`.
+6. Feed the tool your own data in the pinned input format when you are done.
 
-The `TEST_PLAN.md` beside each prompt describes further validation (perturbed data, real
-public datasets) if you want to harden a tool before trusting it with real data.
+Each prompt allows numpy, pandas, and scipy. Each `data/<tool>/README.md` documents the dataset's
+source, license, and conversion; each `examples/<tool>/EXAMPLE_DATA.md` records expected results
+and provenance.
 
-## The prompt catalog
-
-### Standalone analytical-chemistry tools
+## The catalog (twelve tools)
 
 | Folder | Tool the model writes | Analysis function |
 |---|---|---|
-| `examples/chrom_integration/` | `chrom_integrate.py` | HPLC/GC chromatogram peak detection and integration with USP system-suitability parameters: resolution Rs, tailing factor Tf, plate count N, signal-to-noise |
-| `examples/calibration/` | `calibrate.py` | Quantitation: 1/x²-weighted calibration curve with internal-standard correction, LOD/LOQ (ICH Q2), and back-calculated unknown concentrations with % bias |
-| `examples/uvvis_spectrum/` | `uvvis.py` | UV-Vis spectrum processing: baseline correction, Savitzky–Golay smoothing, band picking (λmax), and Beer–Lambert concentration recovery |
-| `examples/spectral_library/` | `libsearch.py` | MS/MS spectral library search: cosine-style score with one-to-one ±0.5 Da peak matching, NO_MATCH thresholding, runner-up separation |
-| `examples/formula_finder/` | `formula_finder.py` | Elemental-composition assignment from accurate mass plus M+1/M+2 isotope intensities: brute-force enumeration within ppm, isotope-pattern scoring, Hill-order formulae |
-| `examples/nmr_1d/` | `nmr_1d.py` | 1D NMR processing from a raw FID: apodization, zero-filling, FFT (std-lib implementation), phasing, peak picking, and relative integration |
-| `examples/titration/` | `titration.py` | Acid–base titration curve analysis: equivalence volume by 1st/2nd derivative, pKa at half-equivalence, analyte concentration |
-| `examples/pca_untargeted/` | `pca.py` | Untargeted metabolomics PCA: missing-value filtering/imputation, log2, mean-centering, power-iteration PCA with scores, loadings, and variance fractions |
+| `examples/calibration/` | `calibrate.py` | Unweighted OLS calibration with LOD/LOQ, certified against the NIST StRD Norris benchmark to 1e-9 relative |
+| `examples/titration/` | `titration.py` | Acid–base titration: derivative equivalence point, p*K*a*, concentration |
+| `examples/uvvis_spectrum/` | `uvvis.py` | UV–Vis band analysis: baseline, smoothing, λmax, band count, ε |
+| `examples/chrom_integration/` | `chrom_integrate.py` | Chromatographic peak detection, integration, USP suitability parameters |
+| `examples/pca_untargeted/` | `pca.py` | Untargeted PCA: filtering, imputation, log2, scores, loadings, variance fractions |
+| `examples/mass_stats/` | `stats.py` | Two-condition differential statistics: Welch tests, fold changes, FDR |
+| `examples/mass_reader/` | `fasta_reader.py`, `mzml_reader.py` | mzML / MGF / FASTA readers for MS data |
+| `examples/feature_extraction/` | `features.py` | MS1 feature detection (centroids, isotope grouping, top-N windows) |
+| `examples/database_search/` | `search.py` | DDA peptide database search with target–decoy FDR |
+| `examples/formula_finder/` | `formula_finder.py` | Formula assignment from accurate mass + isotope pattern |
+| `examples/spectral_library/` | `libsearch.py` | MS/MS spectral-library matching with NO_MATCH thresholding |
+| `examples/nmr_1d/` | `nmr.py` | 1D NMR FID processing: apodization, FFT, phasing, peaks, integrals |
 
-### LC–MS proteomics/metabolomics pipeline (a 4-task series, run in order in one workspace)
+## The validation protocol
 
-| Folder | Tool the model writes | Analysis function |
-|---|---|---|
-| `examples/mass_reader/` | `readers` | mzML and FASTA file readers (Task 1/4 — upstream of the series) |
-| `examples/database_search/` | `search.py` | Minimal DDA database search engine: tryptic digestion, m/z matching, target/decoy FDR (Task 2/4) |
-| `examples/feature_extraction/` | `features.py` | MS1 feature detection: centroiding, isotope-grouped feature picking across runs (Task 3/4) |
-| `examples/mass_stats/` | `quant_stats.py` | Two-condition differential quantification: Welch tests, fold changes, multiple-testing correction (Task 4/4) |
+A tool is not "done" when it runs; it is done when it survives, in this order:
 
-## Tips
+- **Tier (a) — exact agreement.** Reproduce pinned reference values on the shipped file, at
+  stated relative tolerances (trueness).
+- **Tier (b) — robustness.** Re-run the finished programs on verified, non-uniform perturbations
+  of the input (subsets rescaled, peaks injected or removed, labels swapped, scans dropped),
+  graded against references recomputed from each perturbed input (ruggedness).
+- **Tier (c) — real data.** One public dataset with an accepted answer per tool (specificity).
 
-- **Use a fresh session per prompt** in an empty folder — the prompts assume no pre-existing
-  files, and each standalone tool is independent.
-- The series tasks (1/4 – 4/4) import each other's outputs; run them in order in the **same**
-  workspace.
-- If a criterion fails, show the failing output to the model and ask it to fix the tool — the
-  numbers in the prompt were verified by execution, so a failing criterion means the generated
-  code, not the prompt.
-- Validated end-to-end (2026-08-24) on two models — a local 35B (Ornith-1.5-35B-A3B) and a
-  remote 27B (Qwen3.8-27B) — with external graders: 47/48 runs passed every acceptance
-  criterion; the one miss was a model variance, not a prompt defect. Any competent agentic
-  coding model should handle these; small local models may occasionally need a rerun.
+Three rules hold throughout: **the oracle exists before the prompt is sent** (expected values
+come from certified sources or independent reference implementations, never from the model);
+**grading is external** (a grader the model has never seen applies the criteria mechanically);
+and **every criterion is shown to fail once** — one deliberate mutation per criterion, a negative
+control, run as a build gate by the test suite in `bench/tests/`.
 
-## Contents
+## Measured results (this generation)
+
+Full experiment records ship in `results/` (per-cell `meta.json` and `grade.txt` for every
+session of every experiment; internal endpoint addresses are redacted to placeholders).
+
+- **Replication, n = 10 sessions per tool** on a locally served ~35B model: **103/112 sessions
+  pass every criterion, 92.0% [85.4, 95.7]** (Wilson 95% interval). Non-passing sessions spread
+  across five tools — session variance, not a defective specification.
+- **Specification ablation** (six tools × five nested prompt levels × ten sessions): no session
+  below the output-contract level passes (0/162); adding the output contract moves pooled
+  criterion pass rate from 18% to 93%. The under-specified prompt is also the expensive one
+  (~3.4× wall clock, ~2.6× tokens pooled).
+- **Ambiguity injection**: re-introducing single documented prompt defects under matched
+  conditions; a ten-character internal spelling inconsistency takes the calibration tool from
+  10/10 to 0/10 sessions while the underlying values stay exactly correct.
+- **Robustness (tier b)**: 30/36 programs survive every perturbation; the failures are the
+  instructive part (see `bench/tier_b.py` and the manuscript).
+- **Head-to-head**: generated calibration code agrees with `scipy.stats.linregress` and the NIST
+  certificate to the floating-point floor; generated feature detection vs OpenMS is reported as
+  agreement with a documented definitional offset (`bench/exp_d_pair*.py/.json`).
+- **Cost**: the whole validated twelve-tool library — failures included — cost 13.5 agent-hours
+  and ≈ US$123 at frontier list rates on the local GPU (US$134 per validated tool).
+
+## Repository layout
 
 ```
-examples/<tool>/minimal_<tool>_prompt.md   # the prompt (paste verbatim)
-examples/<tool>/TEST_PLAN.md               # validation plan: synthetic, perturbed, real data
+examples/<tool>/   PROMPT.md (canonical), EXAMPLE_DATA.md,
+                   ablation/ (nested specification ladder), variants/ (ambiguity injections),
+                   minimal_*_prompt.md + TEST_PLAN.md (first generation, kept as archive)
+data/<tool>/       real test data with README (source, license, conversion)
+bench/             the validation harness: graders/, reference/ implementations,
+                   tests/ (206 tests incl. one-mutation-per-criterion gates), tier_b*.py
+                   (perturbation sweep), agent_driver.py + run_exp.py (agentic runner),
+                   report_exp.py, exp_d_pair*.py, exp_g_cost.py
+results/           raw per-cell records for every experiment (exp/...), tier_b_out/
 ```
+
+Set up the pinned interpreter with `python3 bench/venv_setup.py` (numpy/pandas/scipy), then run
+the suite with `cd bench/tests && ../../.venv-bench/bin/python3 -m unittest discover -s . -t .`
+(206 tests; the handful that exercise the preserved per-run workspaces — a 443 MB archive not
+shipped with this release — skip when that archive is absent).
+
+## Contributing
+
+A merged contribution must include the **prompt and test data and criteria**; expected values
+must be verified by execution against an independent source, never copied from a model's output;
+and every criterion must be shown to fail once before the prompt is listed. Tools we would most
+like to see: ion mobility, DIA and imaging MS, GC×GC, capillary electrophoresis,
+electrochemistry, surface analysis.
+
+## Citation
+
+A Tutorial manuscript describing the protocol and measurements is in preparation for
+*Analytical Chemistry*; until then, please cite this repository. The first-generation library
+and its 48-cell benchmark are described in `AC_BENCHMARK_REPORT.md` at the initial release
+commit (`59b9930`).

@@ -1,0 +1,81 @@
+{
+ "experiment": "E",
+ "tool": "spectral_s",
+ "variant": "base",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/spectral_library/PROMPT.md",
+ "prompt_sha256": "3b0ff48a40893cab72d401afcdd233fb9c7ec53644111eb2d6d7f551f53c710a",
+ "started": "2026-09-18T00:41:35",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.6-35b-local",
+  "prompt_sha256": "3b0ff48a40893cab72d401afcdd233fb9c7ec53644111eb2d6d7f551f53c710a",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-18T00:41:35",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 16,
+  "assistant_turns": 17,
+  "tokens": {
+   "input": 113073,
+   "output": 6591
+  },
+  "tool_calls": 16,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "wall_clock_elapsed_s": 236.6,
+  "wall_clock_agent_s": 236.6,
+  "finished": "2026-09-18T00:45:32"
+ },
+ "grader_rc": 0,
+ "criteria": {
+  "results.tsv: header + 4 rows in q1..q4 order, columns in order": true,
+  "best_match: caffeine, sulfamethoxazole, nicotine, NO_MATCH": true,
+  "scores 0.7473 / 0.6669 / 0.8706 / 0.0138 (+/- 0.0001)": true,
+  "matched_peaks 6/4/6/2 and total_library_peaks 7/6/8/6": true,
+  "stdout: queries: 4  called: 3  no_match: 1": true,
+  "re-running libsearch.py on a library with one entry removed reproduces the reference result for that library": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "libsearch.py": "dc5dbe1fc66e35fd8878e1edaafd352414d7dbc1b2c50b16210c2933809f45e3"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 236.6,
+ "iterations": 16,
+ "tokens": {
+  "input": 113073,
+  "output": 6591
+ },
+ "workers": 4
+}

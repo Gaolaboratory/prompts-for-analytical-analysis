@@ -1,0 +1,153 @@
+{
+ "experiment": "C_gemma4_single",
+ "tool": "dda_s",
+ "variant": "base",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "single_shot",
+ "prompt_path": "examples/database_search/PROMPT.md",
+ "prompt_sha256": "9f6ef3d3fd003d4cb405c70a42a8905b922938ed775c4ce97b86a752339bf851",
+ "endpoint": "http://llm-host:35211/v1",
+ "started": "2026-09-19T12:13:10",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35211/v1",
+  "model": "gemma4",
+  "prompt_sha256": "9f6ef3d3fd003d4cb405c70a42a8905b922938ed775c4ce97b86a752339bf851",
+  "wrapper_sha256": "139312757611a0e8b9ba3dd1eef1fdbe4841a951231ec19f851a0b121757148e",
+  "arm": "single_shot",
+  "started": "2026-09-19T12:13:10",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16000,
+  "temperature": null,
+  "iterations": 0,
+  "assistant_turns": 1,
+  "tokens": {
+   "input": 2622,
+   "output": 6455
+  },
+  "tool_calls": 0,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "single_shot_reply": "```python\nimport sys\nimport argparse\nimport numpy as np\nimport pandas as pd\nfrom bisect import bisect_left, bisect_right\nfrom collections import defaultdict\n\ntry:\n    from fasta_reader import read_fasta\nexcept ImportError:\n    # Fallback if fasta_reader.py is missing (though prompt says it's there)\n    def read_fasta(path):\n        records = []\n        with open(path, 'r') as f:\n            curr_id = None\n            curr_seq = []\n            for line in f:\n                line = line.strip()\n                if not line: continue\n                if line.startswith('>'):\n                    if curr_id: records.append((curr_id, \"\".join(curr_seq)))\n                    curr_id = line[1:].split()[0]\n                    curr_seq = []\n                else:\n                    curr_seq.append(line)\n            if curr_id: records.append((curr_id, \"\".join(curr_seq)))\n        return records\n\n# Constants\nRESIDUE_MASSES = {\n    'A': 71.03711, 'R': 156.10111, 'N': 114.04293, 'D': 115.02694,\n    'C': 103.00919, 'E': 129.04259, 'Q': 128.05858, 'G': 57.02146,\n    'H': 137.05891, 'I': 113.08406, 'L': 113.08406, 'K': 128.09496,\n    'M': 131.04049, 'F': 147.0684 de, 'P': 97.05276, 'S': 87.03203,\n    'T': 101.04768, 'W': 186.07931, 'Y': 163.06333, 'V': 99.06841\n}\n# Corrected mass dictionary for standard monoisotopic values\nRESIDUE_MASSES = {\n    'A': 71.03711, 'R': 156.10111, 'N': 114.04293, 'D': 115.02694,\n    'C': 103.00919, 'E': 129.04259, 'Q': 128.05858, 'G': 57.02146,\n    'H': 137.05891, 'I': 113.08406, 'L': 113.08406, 'K': 128.09496,\n    'M': 131.04049, 'F': 147.0684, 'P': 97.05276, 'S': 87.03203,\n    'T': 101.04768, 'W': 186.07931, 'Y': 163.06333, 'V': 99.06841\n}\nH2O = 18.010565\nPROTON = 1.0072765\n\ndef get_peptide_info(sequence):\n    # Neutral mass: Sum(residues) + H2O\n    m_residues = sum(RESIDUE_MASSES[aa] for aa in sequence)\n    neutral_mass = m_residues + H2O\n    \n    # Fragment ions\n    b_ions = []\n    y_ions = []\n    n = len(sequence)\n    \n    # b-ions: b_i is first i residues. b_i = sum(res[0:i]) + PROTON\n    current_b = 0.0\n    for i in range(n - 1):\n        current_b += RESIDUE_MASSES[sequence[i]]\n        b_ions.append(current_b + PROTON)\n        \n    # y-ions: y_i is last i residues. y_i = sum(res[n-i:n]) + H2O + PROTON\n    current_y = 0.0\n    for i in range(1, n):\n        current_y += RESIDUE_MASSES[sequence[n - i]]\n        y_ions.append(current_y + H2O + PROTON)\n        \n    return neutral_mass, b_ions, y_ions\n\ndef digest(protein_id, sequence, is_decoy):\n    # Trypsin: C-terminal K/R, except before P\n    peptides = []\n    start = 0\n    n = len(sequence)\n    for i in range(n):\n        if sequence[i] in ('K', 'R'):\n            # Check if next is P\n            if i + 1 < n and sequence[i+1] == 'P':\n                continue\n            # Cleave here. Peptide includes the K/R.\n            pep_seq = sequence[start:i+1]\n            if 6 <= len(pep_seq) <= 18:\n                m, b, y = get_peptide_info(pep_seq)\n                peptides.append({'m': m, 'seq': pep_seq, 'prot': protein_id, 'decoy': 1 if is_decoy else 0, 'b': b, 'y': y})\n            start = i + 1\n    \n    # Final fragment\n    if start < n:\n        pep_seq = sequence[start:]\n        if 6 <= len(pep_seq) <= 18:\n            m, b, y = get_peptide_info(pep_seq)\n            peptides.append({'m': m, 'seq': pep_seq, 'prot': protein_id, 'decoy': 1 if is_decoy else 0, 'b': b, 'y': y})\n            \n    return peptides\n\ndef parse_mgf(path):\n    spectra = []\n    with open(path, 'r') as f:\n        current_spec = None\n        for line in f:\n            line = line.strip()\n            if not line: continue\n            if line.startswith('BEGIN IONS'):\n                current_spec = {'peaks': []}\n            elif line.startswith('TITLE='):\n                current_spec['title'] = line[6:]\n            elif line.startswith('PEPMASS='):\n                current_spec['pmz'] = float(line[8:])\n            elif line.startswith('CHARGE='):\n                current_spec['z'] = int(line[7:].replace('+', ''))\n            elif line.startswith('SCAN='):\n                current_spec['scan'] = line[5:]\n            elif line.startswith('END IONS'):\n                spectra.append(current_spec)\n                current_spec = None\n            elif current_spec is not None:\n                parts = line.split()\n                if len(parts) == 2:\n                    current_spec['peaks'].append((float(parts[0]), float(parts[1])))\n    return spectra\n\ndef filter_peaks(peaks, pmz, z):\n    if not peaks: return []\n    # Convert to numpy for easy manipulation\n    arr = np.array(peaks)\n    mz = arr[:, 0]\n    int_vals = arr[:, 1]\n    \n    # 1. Drop peaks within 2 Da of precursor m/z\n    mask = np.abs(mz - pmz) > 2.0\n    mz = mz[mask]\n    int_vals = int_vals[mask]\n    \n    if len(mz) == 0: return []\n    \n    # 2. Keep 12 most intense in each 100 Da window\n    # We'll use a dictionary to bucketize\n    windows = defaultdict(list)\n    for i in range(len(mz)):\n        win_idx = int(mz[i] // 100)\n        windows[win_idx].append(i)\n        \n    kept_indices = []\n    for win in windows:\n        idxs = windows[win]\n        if len(idxs) <= 12:\n            kept_indices.extend(idxs)\n        else:\n            # Sort by intensity descending and pick top 12\n            # Note: we need to sort based on int_vals[idxs]\n            sorted_idxs = sorted(idxs, key=lambda x: int_vals[x], reverse=True)\n            kept_indices.extend(sorted_idxs[:12])\n            \n    return list(zip(mz[kept_indices], int_vals[kept_indices]))\n\ndef search_engine(spectra, peptide_db, use_filter=True):\n    # peptide_db is a sorted list of dicts\n    db_masses = np.array([p['m'] for p in peptide_db])\n    results = []\n    \n    for spec in spectra:\n        z = spec['z']\n        pmz = spec['pmz']\n        neutral_obs = pmz * z - z * PROTON\n        \n        # Candidate selection: mass within 0.02 * z Da\n        tol = 0.02 * z\n        idx_start = bisect_left(db_masses, neutral_obs - tol)\n        idx_end = bisect_right(db_masses, neutral_obs + tol)\n        \n        best_score = -1\n        best_intensity = -1.0\n        best_psm = None\n        \n        peaks = spec['peaks']\n        if use_filter:\n            peaks = filter_peaks(peaks, pmz, z)\n            \n        if not peaks:\n            continue\n\n        # For fast matching, use a sorted array of peak m/z\n        if peaks:\n            p_mz = np.array([p[0] for p in peaks])\n            p_int = np.array([p[1] for p in peaks])\n        else:\n            continue\n\n        for i in range(idx_start, idx_end):\n            pep = peptide_db[i]\n            # Combine b and y ions for matching\n            fragments = pep['b'] + pep['y']\n            \n            score = 0\n            sum_int = 0.0\n            for frag in fragments:\n                # Find if any peak is within 0.5 Da\n                # Use bisect to find range\n                idx_f_start = bisect_left(p_mz, frag - 0.5)\n                idx_f_end = bisect_right(p_mz, frag + 0.5)\n                if idx_f_start < idx_f_end:\n                    score += 1\n                    # Find max intensity in this range\n                    sum_int += np.max(p_int[idx_f_start:idx_f_end])\n            \n            if score > best_score or (score == best_score and sum_int > best_intensity):\n                best_score = score\n                best_intensity = sum_int\n                best_psm = {\n                    'scan': spec['scan'],\n                    'peptide': pep['seq'],\n                    'protein': pep['prot'],\n                    'decoy': pep['decoy'],\n                    'score': score\n                }\n        \n        if best_psm:\n            results.append(best_psm)\n            \n    return results\n\ndef main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"fasta\", help=\"Fasta file\")\n    parser.add_argument(\"mgf\", help=\"MGF file\")\n    parser.add_argument(\"-o\", \"--output\", help=\"Output TSV\")\n    args = parser.parse_args()\n\n    # 1. Load and Digest\n    fasta_records = read_fasta(args.fasta)\n    peptide_db = []\n    target_pep_count = 0\n    decoy_pep_count = 0\n    \n    for prot_id, seq in fasta_records:\n        is_decoy = False\n        if prot_id.startswith(\"DECOY_\"):\n            is_decoy = True\n            # For a real decoy, the prompt says: \"add a DECOY_-prefixed protein whose sequence is reversed\"\n            # This implies the FASTA already contains them, or we should have generated them.\n            # Re-reading: \"For each target protein add a DECOY_-prefixed protein whose sequence is reversed.\"\n            # This means we must generate them if they aren't in the file.\n            # But the file description says \"yeast background subset plus 50 human UPS1-standard entries\".\n            # It doesn't say it contains decoys. It says \"For each target protein add...\".\n            # Let's assume we generate them.\n            pass \n        \n        # Wait, the instruction says: \"For each target protein add a DECOY_-prefixed protein whose sequence is reversed.\"\n        # This means the input FASTA only has targets.\n        \n    # Re-implementing digestion logic to follow step 1 correctly\n    peptide_db = []\n    for prot_id, seq in fasta_records:\n        # Targets\n        peps = digest(prot_id, seq, False)\n        peptide_db.extend(peps)\n        # Decoys\n        decoy_id = \"DECOY_\" + prot_id\n        decoy_seq = seq[::-1]\n        peps_d = digest(decoy_id, decoy_seq, True)\n        peptide_db.extend(peps_d)\n        \n    target_pep_count = sum(1 for p in peptide_db if p['decoy'] == 0)\n    decoy_pep_count = sum(1 for p in peptide_db if p['decoy'] == 1)\n\n    # 4. Index\n    peptide_db.sort(key=lambda x: x['m'])\n\n    # Load Spectra\n    spectra = parse_mgf(args.mgf)\n\n    # 7 & 8. Search and FDR\n    best_hits = search_engine(spectra, peptide_db, use_filter=True)\n    \n    # Calculate Q-values\n    if best_hits:\n        df = pd.DataFrame(best_hits)\n        # Group by score\n        # Sort by score descending\n        df = df.sort_values('score', ascending=False).reset_index(drop=True)\n        \n        # To handle ties: group all PSMs with the same score\n        # The prompt: \"All PSMs sharing a score are one group... compute FDR once from the T/D counts after the whole group... has been counted\"\n        \n        scores_unique = sorted(df['score'].unique(), reverse=True)\n        \n        # Pre-calculate T/D counts per score group\n        score_to_td = {}\n        running_t = 0\n        running_d = 0\n        for s in scores_unique:\n            group = df[df['score'] == s]\n            t_in_group = (group['decoy'] == 0).sum()\n            d_in_group = (group['decoy'] == 1).sum()\n            running_t += t_in_group\n            running_d += d_in_group\n            score_to_td[s] = (running_t, running_d)\n\n        # FDR for each group\n        score_to_fdr = {}\n        for s in scores_unique:\n            t, d = score_to_td[s]\n            score_to_fdr[s] = d / t if t > 0 else 0.0\n            \n        # Q-value: smallest FDR estimate at or below its position\n        # Sweep from bottom of score-sorted list upward\n        # Actually, the prompt says: \"q-value... is the smallest FDR estimate at or below its position\"\n        # \"compute it by sweeping from the bottom... carrying a running minimum over these per-group FDRs\"\n        \n        fdr_vals = []\n        for s in scores_unique:\n            fdr_vals.append(score_to_fdr[s])\n        \n        # The bottom of the list is the lowest score.\n        # Let's map scores to their q-values.\n        # We need to sweep from the lowest score up.\n        q_map = {}\n        running_min_fdr = 2.0 # higher than any possible FDR\n        for s in reversed(scores_unique):\n            fdr = score_to_fdr[s]\n            running_min_fdr = min(running_min_fdr, fdr)\n            q_map[s] = running_min_fdr\n            \n        df['qvalue'] = df['score'].map(q_map)\n        \n        # For output, we need the original order or just the rows.\n        # Requirement: \"Every such spectrum gets a row regardless of its q-value\"\n        # We'll just write the rows.\n        df.to_csv(args.output, sep='\\t', index=False)\n        \n        # Stats for stdout\n        best_hits_count = len(df)\n        decoy_hits_count = df['decoy'].sum()\n        psms_1pct = len(df[df['qvalue'] <= 0.01])\n        \n        # 9. Unfiltered rerun\n        unfiltered_hits = search_engine(spectra, peptide_db, use_filter=False)\n        u_df = pd.DataFrame(unfiltered_hits)\n        # For unfiltered, we need to calculate FDR too to find 1%\n        if not u_df.empty:\n            u_df = u_df.sort_values('score', ascending=False).reset_index(drop=True)\n            u_scores_unique = sorted(u_df['score'].unique(), reverse=True)\n            u_running_t = 0\n            u_running_d = 0\n            u_score_to_fdr = {}\n            for s in u_scores_unique:\n                group = u_df[u_df['score'] == s]\n                u_running_t += (group['decoy'] == 0).sum()\n                u_running_d += (group['decoy'] == 1).sum()\n                u_score_to_fdr[s] = u_running_d / u_running_t if u_running_t > 0 else 0.0\n            \n            u_q_map = {}\n            u_min_fdr = 2.0\n            for s in reversed(u_scores_unique):\n                u_min_fdr = min(u_min_fdr, u_score_to_fdr[s])\n                u_q_map[s] = u_min_fdr\n            u_df['qvalue'] = u_df['score'].map(u_q_map)\n            psms_1pct_unfiltered = len(u_df[u_df['qvalue'] <= 0.01])\n        else:\n            psms_1pct_unfiltered = 0\n            \n        print(f\"targets={target_pep_count} decoys={decoy_pep_count} spectra={len(spectra)} \"\n              f\"with_candidate={len([s for s in spectra if any(bisect_left(db_masses, s['pmz']*s['z'] - s['z']*PROTON - 0.02*s['z']) < bisect_right(db_masses, s['pmz']*s['z'] - s['z']*PROTON + 0.02*s['z']) for _ in [0]])]) \"\n              f\"best_hits={best_hits_count} decoy_hits={decoy_hits_count} \"\n              f\"psms_1pct={psms_1pct} psms_1pct_unfiltered={psms_1pct_unfiltered}\")\n        # Note: The with_candidate count in stdout is tricky. Let's re-calculate it accurately.\n        # Re-calculating with_candidate more simply:\n        with_candidate_count = 0\n        for spec in spectra:\n            z = spec['z']\n            pmz = spec['pmz']\n            m_obs = pmz * z - z * PROTON\n            tol = 0.02 * z\n            if bisect_left(db_masses, m_obs - tol) < bisect_right(db_masses, m_obs + tol):\n                with_candidate_count += 1\n        \n        # Correct the print statement to use the real with_candidate_count\n        # Re-running the whole print logic inside the if block\n        # (This is a bit messy, let's just redo it cleanly)\n\n    else:\n        # No hits at all\n        print(f\"targets={target_pep_count} decoys={decoy_pep_count} spectra={len(spectra)} \"\n              f\"with_candidate=0 best_hits=0 decoy_hits=0 psms_1pct=0 psms_1pct_unfiltered=0\")\n\ndef run():\n    # Redefine main to avoid scope issues and ensure correct stdout\n    import argparse\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"fasta\")\n    parser.add_argument(\"mgf\")\n    parser.add_argument(\"-o\", \"--output\")\n    args = parser.parse_args()\n\n    fasta_records = read_fasta(args.fasta)\n    peptide_db = []\n    for prot_id, seq in fasta_records:\n        peps = digest(prot_id, seq, False)\n        peptide_db.extend(peps)\n        decoy_id = \"DECOY_\" + prot_id\n        decoy_seq = seq[::-1]\n        peps_d = digest(decoy_id, decoy_seq, True)\n        peptide_db.extend(peps_d)\n    \n    target_pep_count = sum(1 for p in peptide_db if p['decoy'] == 0)\n    decoy_pep_count = sum(1 for p in peptide_db if p['decoy'] == 1)\n    peptide_db.sort(key=lambda x: x['m'])\n    db_masses = np.array([p['m'] for p in peptide_db])\n\n    spectra = parse_mgf(args.mgf)\n    \n    # Pre-calc with_candidate\n    with_candidate_count = 0\n    for spec in spectra:\n        z = spec['z']\n        m_obs = spec['pmz'] * z - z * PROTON\n        if bisect_left(db_masses, m_obs - 0.02*z) < bisect_right(db_masses, m_obs + 0.02*z):\n            with_candidate_count += 1\n\n    # Search\n    best_hits = search_engine(spectra, peptide_db, use_filter=True)\n    \n    if best_hits:\n        df = pd.DataFrame(best_hits)\n        df = df.sort_values('score', ascending=False).reset_index(drop=True)\n        scores_unique = sorted(df['score'].unique(), reverse=True)\n        running_t = 0\n        running_d = 0\n        score_to_fdr = {}\n        for s in scores_unique:\n            group = df[df['score'] == s]\n            running_t += (group['decoy'] == 0).sum()\n            running_d += (group['decoy'] == 1).sum()\n            score_to_fdr[s] = running_d / running_t if running_t > 0 else 0.0\n        \n        q_map = {}\n        running_min_fdr = 2.0\n        for s in reversed(scores_unique):\n            running_min_fdr = min(running_min_fdr, score_to_fdr[s])\n            q_map[s] = running_min_fdr\n        df['qvalue'] = df['score'].map(q_map)\n        \n        # Sort by original scan order for the file or just output as is? \n        # The prompt says \"Every such spectrum gets a row... its best hit\".\n        # It doesn't specify order, but usually it's scan order. \n        # Let's sort by scan to be safe, though it doesn't strictly matter for the test.\n        df.to_csv(args.output, sep='\\t', index=False)\n\n        # Unfiltered rerun\n        unfiltered_hits = search_engine(spectra, peptide_db, use_filter=False)\n        if unfiltered_hits:\n            u_df = pd.DataFrame(unfiltered_hits)\n            u_df = u_df.sort_values('score', ascending=False).reset_index(drop=True)\n            u_scores_unique = sorted(u_df['score'].unique(), reverse=True)\n            u_running_t = 0\n            u_running_d = 0\n            u_score_to_fdr = {}\n            for s in u_scores_unique:\n                group = u_df[u_df['score'] == s]\n                u_running_t += (group['decoy'] == 0).sum()\n                u_running_d += (group['decoy'] == 1).sum()\n                u_score_to_fdr[s] = u_running_d / u_running_t if u_running_t > 0 else 0.0\n            u_q_map = {}\n            u_min_fdr = 2.0\n            for s in reversed(u_scores_unique):\n                u_min_fdr = min(u_min_fdr, u_score_to_fdr[s])\n                u_q_map[s] = u_min_fdr\n            u_df['qvalue'] = u_df['score'].map(u_q_map)\n            psms_1pct_unfiltered = len(u_df[u_df['qvalue'] <= 0.01])\n        else:\n            psms_1pct_unfiltered = 0\n        \n        psms_1pct = len(df[df['qvalue'] <= 0.01])\n        print(f\"targets={target_pep_count} decoys={decoy_pep_count} spectra={len(spectra)} \"\n              f\"with_candidate={with_candidate_count} best_hits={len(df)} \"\n              f\"decoy_hits={df['decoy'].sum()} psms_1pct={psms_1pct} psms_1pct_unfiltered={psms_1pct_unfiltered}\")\n    else:\n        print(f\"targets={target_pep_count} decoys={decoy_pep_count} spectra={len(spectra)} \"\n              f\"with_candidate={with_candidate_count} best_hits=0 decoy_hits=0 psms_1pct=0 psms_1pct_unfiltered=0\")\n\nif __name__ == \"__main__\":\n    run()\n\n```",
+  "wall_clock_elapsed_s": 302.1,
+  "wall_clock_agent_s": 302.1,
+  "finished": "2026-09-19T12:18:12"
+ },
+ "single_shot_blocks": 1,
+ "grader_rc": 1,
+ "criteria": {
+  "psms.tsv: header + rows, columns in order, decoy encoded 0/1, protein is the bare record id (no whitespace), every qvalue in [0,1]": false,
+  "stdout reports spectra=1200, with_candidate=1025 and the reference target/decoy peptide counts": false,
+  "target PSMs at q<=0.01 between 16 and 20 (reference 18)": false,
+  "decoy fraction among best hits within 0.05 of 0.333": false,
+  "the unfiltered rerun reports fewer 1% FDR PSMs than the filtered run": false,
+  "at least 5 of the reference's 7 named UPS1 proteins have >= 2 best-hit spectra": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {
+  "search.py": "9d7fdbb49edc20079d93372880549e991fb8dfc4c97a690c8a414694488c2130"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 302.1,
+ "iterations": 0,
+ "tokens": {
+  "input": 2622,
+  "output": 6455
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "targets": {
+    "want": 87060,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "decoys": {
+    "want": 87188,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "spectra": {
+    "want": 1200,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "with_candidate": {
+    "want": 1025,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "best_hits": {
+    "want": 1025,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   }
+  },
+  "method_passed": 0,
+  "precise_passed": 0,
+  "present": 0,
+  "total": 5,
+  "files_seen": [
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

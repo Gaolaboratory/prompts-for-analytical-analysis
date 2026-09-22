@@ -1,0 +1,78 @@
+{
+ "experiment": "C_gemma4",
+ "tool": "nmr_s",
+ "variant": "base",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/nmr_1d/PROMPT.md",
+ "prompt_sha256": "9a8f864b1019067c38289227e83ab5bb2b139ecb153c584219f0fa7e1bcb2f61",
+ "started": "2026-09-19T08:55:53",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35212/v1",
+  "model": "gemma4",
+  "prompt_sha256": "9a8f864b1019067c38289227e83ab5bb2b139ecb153c584219f0fa7e1bcb2f61",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-19T08:55:53",
+  "max_iters": 60,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 7,
+  "assistant_turns": 8,
+  "tokens": {
+   "input": 67551,
+   "output": 15097
+  },
+  "tool_calls": 7,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "wall_clock_elapsed_s": 698.4,
+  "wall_clock_agent_s": 698.4,
+  "finished": "2026-09-19T09:07:31"
+ },
+ "grader_rc": 0,
+ "criteria": {
+  "multiplets.tsv: header + rows sorted by ppm_center, columns in order": true,
+  "all six assigned resonances within 0.05 ppm on the true axis": true,
+  "TSP is the reference row at 1.000 and the four metabolite integrals match the reference within 20%": true,
+  "no mirrored peak near 9.53 ppm (real-channel processing)": true,
+  "stdout reports points, peaks and reference_ppm=0.000": true
+ },
+ "passed": 5,
+ "total": 5,
+ "code_sha256": {
+  "nmr.py": "46bdccda21a0f5f562eb65eb268590d224880236a2e87a6f543995c9b3862733"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 698.4,
+ "iterations": 7,
+ "tokens": {
+  "input": 67551,
+  "output": 15097
+ },
+ "workers": 1
+}
