@@ -1,0 +1,6 @@
+PASS scores.tsv: header + 60 rows in features.csv column order, groups match groups.csv
+PASS stdout: features_in=200 features_kept=184
+PASS pc1_var 0.1558 +/- 0.01 and pc2_var 0.1008 +/- 0.01
+PASS PC1 and PC2 correlate with the reference at |r| >= 0.999
+PASS first sample's PC1 and PC2 are positive (sign rule)
+5/5 passed

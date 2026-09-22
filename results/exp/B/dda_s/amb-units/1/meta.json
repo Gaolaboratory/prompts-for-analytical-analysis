@@ -1,0 +1,213 @@
+{
+ "experiment": "B",
+ "tool": "dda_s",
+ "variant": "amb-units",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/database_search/variants/amb-units.md",
+ "prompt_sha256": "4430355a0706323506f991e5b83a9d76aad503335b32d22ee656c2d14eae760b",
+ "endpoint": "http://llm-host:35188/v1",
+ "started": "2026-09-19T16:41:34",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35188/v1",
+  "model": "qwen3.6",
+  "prompt_sha256": "4430355a0706323506f991e5b83a9d76aad503335b32d22ee656c2d14eae760b",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-19T16:41:34",
+  "max_iters": 80,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 52,
+  "assistant_turns": 53,
+  "tokens": {
+   "input": 1526023,
+   "output": 39913
+  },
+  "tool_calls": 52,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "wall_clock_elapsed_s": 2961.8,
+  "wall_clock_agent_s": 2961.8,
+  "finished": "2026-09-19T17:30:55"
+ },
+ "grader_rc": 0,
+ "criteria": {
+  "psms.tsv: header + rows, columns in order, decoy encoded 0/1, protein is the bare record id (no whitespace), every qvalue in [0,1]": true,
+  "stdout reports spectra=1200, with_candidate=1025 and the reference target/decoy peptide counts": true,
+  "target PSMs at q<=0.01 between 16 and 20 (reference 18)": true,
+  "decoy fraction among best hits within 0.05 of 0.333": true,
+  "the unfiltered rerun reports fewer 1% FDR PSMs than the filtered run": true,
+  "at least 5 of the reference's 7 named UPS1 proteins have >= 2 best-hit spectra": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "search.py": "778c0dfe7717a3e66287d5f4140f67914661b9811af169c123297cb19b6d1734"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 2961.8,
+ "iterations": 52,
+ "tokens": {
+  "input": 1526023,
+  "output": 39913
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "targets": {
+    "want": 87060,
+    "found": [
+     87060.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "decoys": {
+    "want": 87188,
+    "found": [
+     87188.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "spectra": {
+    "want": 1200,
+    "found": [
+     1200.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "with_candidate": {
+    "want": 1025,
+    "found": [
+     1025.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "best_hits": {
+    "want": 1025,
+    "found": [
+     1021.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": false,
+    "precise": false,
+    "note": "wrong"
+   }
+  },
+  "method_passed": 4,
+  "precise_passed": 4,
+  "present": 5,
+  "total": 5,
+  "files_seen": [
+   "psms.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ }
+}

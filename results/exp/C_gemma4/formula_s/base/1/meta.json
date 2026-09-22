@@ -1,0 +1,124 @@
+{
+ "experiment": "C_gemma4",
+ "tool": "formula_s",
+ "variant": "base",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/formula_finder/PROMPT.md",
+ "prompt_sha256": "16e01a328ca57acfc3781fd63710f5382494105c950610377e9af5264de4c56a",
+ "started": "2026-09-19T08:34:33",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35212/v1",
+  "model": "gemma4",
+  "prompt_sha256": "16e01a328ca57acfc3781fd63710f5382494105c950610377e9af5264de4c56a",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-19T08:34:33",
+  "max_iters": 120,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 8,
+  "assistant_turns": 9,
+  "tokens": {
+   "input": 66387,
+   "output": 8894
+  },
+  "tool_calls": 8,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "wall_clock_elapsed_s": 434.5,
+  "wall_clock_agent_s": 434.5,
+  "finished": "2026-09-19T08:41:47"
+ },
+ "grader_rc": 0,
+ "criteria": {
+  "ranked.tsv: header + 4 blocks in input order, ranks starting at 1": true,
+  "rank-1 formula correct in all four blocks": true,
+  "every rank-1 row has |error_ppm| <= 2.0 and score <= 0.5": true,
+  "every rank-1 row beats its block runner-up by >= 5 score units": true,
+  "rank-1 calc_mass matches the reference recomputed from the input (<=1e-5 Da)": true,
+  "stdout reports blocks and candidates": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "formula_finder.py": "ca51dfd53189dc009d8e814a76cd1237591b4b47f2b4caa524f9ff6f179b5294"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 434.5,
+ "iterations": 8,
+ "tokens": {
+  "input": 66387,
+  "output": 8894
+ },
+ "workers": 1,
+ "content": {
+  "fields": {
+   "blocks": {
+    "want": 4,
+    "found": [
+     4.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "candidates": {
+    "want": 35,
+    "found": [
+     35.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 2,
+  "precise_passed": 2,
+  "present": 2,
+  "total": 2,
+  "files_seen": [
+   "ranked.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

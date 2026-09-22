@@ -1,0 +1,7 @@
+PASS results.tsv: header + exactly one data row, columns in order, no CR
+PASS slope and intercept match the NIST certified values (<=1e-9 relative)
+PASS residual_sd and r_squared match the NIST certified values (<=1e-9 relative)
+PASS lod and loq match the reference recomputed from norris.csv (<=1e-6 relative)
+PASS stdout reports all seven fields
+PASS re-running calibrate.py on a perturbed norris.csv reproduces the reference fit for that input
+6/6 passed

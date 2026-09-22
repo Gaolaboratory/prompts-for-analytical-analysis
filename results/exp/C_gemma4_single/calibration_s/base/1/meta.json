@@ -1,0 +1,154 @@
+{
+ "experiment": "C_gemma4_single",
+ "tool": "calibration_s",
+ "variant": "base",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "single_shot",
+ "prompt_path": "examples/calibration/PROMPT.md",
+ "prompt_sha256": "5e1ba3c1d76ab2d590788d9ed0cf47dd3cf915d2876c3561d170905d59cf3cca",
+ "started": "2026-09-19T09:48:19",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35211/v1",
+  "model": "gemma4",
+  "prompt_sha256": "5e1ba3c1d76ab2d590788d9ed0cf47dd3cf915d2876c3561d170905d59cf3cca",
+  "wrapper_sha256": "139312757611a0e8b9ba3dd1eef1fdbe4841a951231ec19f851a0b121757148e",
+  "arm": "single_shot",
+  "started": "2026-09-19T09:48:19",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16000,
+  "temperature": null,
+  "iterations": 0,
+  "assistant_turns": 1,
+  "tokens": {
+   "input": 601,
+   "output": 710
+  },
+  "tool_calls": 0,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "single_shot_reply": "```python\nimport sys\nimport argparse\nimport pandas as pd\nimport numpy as np\nfrom scipy import stats\n\ndef main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"input\", help=\"Input CSV file\")\n    parser.add_argument(\"-o\", \"--output\", help=\"Output TSV file\", required=True)\n    args = parser.parse_args()\n\n    # Load data\n    df = pd.read_csv(args.input)\n    x = df['x'].values\n    y = df['y'].values\n    n = len(x)\n\n    # Perform unweighted ordinary least squares\n    # scipy.stats.linregress returns: slope, intercept, r_value, p_value, std_err\n    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)\n\n    # Calculate residuals and SS_res\n    y_pred = slope * x + intercept\n    residuals = y - y_pred\n    ss_res = np.sum(residuals**2)\n\n    # Residual standard deviation using n - 2 degrees of freedom\n    residual_sd = np.sqrt(ss_res / (n - 2))\n\n    # R-squared calculation: 1 - SS_res/SS_tot\n    ss_tot = np.sum((y - np.mean(y))**2)\n    r_squared = 1 - (ss_res / ss_tot)\n\n    # LOD and LOQ calculation on the concentration scale (x)\n    lod = 3.3 * residual_sd / slope\n    loq = 10 * residual_sd / slope\n\n    # Prepare output data\n    results = {\n        \"slope\": slope,\n        \"intercept\": intercept,\n        \"residual_sd\": residual_sd,\n        \"r_squared\": r_squared,\n        \"lod\": lod,\n        \"loq\": loq\n    }\n\n    # Write TSV file\n    # Header: slope, intercept, residual_sd, r_squared, lod, loq\n    header = [\"slope\", \"intercept\", \"residual_sd\", \"r_squared\", \"lod\", \"loq\"]\n    output_df = pd.DataFrame([results], columns=header)\n    output_df.to_csv(args.output, sep='\\t', index=False, line_terminator='\\n')\n\n    # Print to stdout\n    # Format with high precision (at least 12 significant figures)\n    # Using .15g ensures enough precision to meet the 1e-9 relative tolerance requirement\n    stdout_str = (\n        f\"n={n} \"\n        f\"slope={slope:.15g} \"\n        f\"intercept={intercept:.15g} \"\n        f\"residual_sd={residual_sd:.15g} \"\n        f\"r_squared={r_squared:.15g} \"\n        f\"lod={lod:.15g} \"\n        f\"loq={loq:.15g}\"\n    )\n    print(stdout_str)\n\nif __name__ == \"__main__\":\n    main()\n```",
+  "wall_clock_elapsed_s": 25.9,
+  "wall_clock_agent_s": 25.9,
+  "finished": "2026-09-19T09:48:45"
+ },
+ "single_shot_blocks": 1,
+ "grader_rc": 1,
+ "criteria": {
+  "results.tsv: header + exactly one data row, columns in order, no CR": true,
+  "slope and intercept match the NIST certified values (<=1e-9 relative)": true,
+  "residual_sd and r_squared match the NIST certified values (<=1e-9 relative)": true,
+  "lod and loq match the reference recomputed from norris.csv (<=1e-6 relative)": true,
+  "stdout reports all seven fields": false,
+  "re-running calibrate.py on a perturbed norris.csv reproduces the reference fit for that input": false
+ },
+ "passed": 4,
+ "total": 6,
+ "code_sha256": {
+  "calibrate.py": "d4c18e510b9f5d210354409fe470f10edd14423486c120e4fbd978be0876c6b2"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 25.9,
+ "iterations": 0,
+ "tokens": {
+  "input": 601,
+  "output": 710
+ },
+ "workers": 1,
+ "content": {
+  "fields": {
+   "slope": {
+    "want": 1.0021168180204547,
+    "found": [
+     1.00211681802
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "intercept": {
+    "want": -0.26232307377388303,
+    "found": [
+     -0.262323073774
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "residual_sd": {
+    "want": 0.8847963961443813,
+    "found": [
+     0.884796396144
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "r_squared": {
+    "want": 0.9999937458837117,
+    "found": [
+     0.999993745884
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "lod": {
+    "want": 2.9136604183973094,
+    "found": [
+     2.913660418397
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "loq": {
+    "want": 8.829273995143362,
+    "found": [
+     8.829273995143
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 6,
+  "precise_passed": 6,
+  "present": 6,
+  "total": 6,
+  "files_seen": [
+   "results.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

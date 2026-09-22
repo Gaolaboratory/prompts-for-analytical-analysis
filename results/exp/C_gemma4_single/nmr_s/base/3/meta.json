@@ -1,0 +1,74 @@
+{
+ "experiment": "C_gemma4_single",
+ "tool": "nmr_s",
+ "variant": "base",
+ "rep": 3,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "single_shot",
+ "prompt_path": "examples/nmr_1d/PROMPT.md",
+ "prompt_sha256": "9a8f864b1019067c38289227e83ab5bb2b139ecb153c584219f0fa7e1bcb2f61",
+ "endpoint": "http://llm-host:35212/v1",
+ "started": "2026-09-19T12:08:58",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35212/v1",
+  "model": "gemma4",
+  "prompt_sha256": "9a8f864b1019067c38289227e83ab5bb2b139ecb153c584219f0fa7e1bcb2f61",
+  "wrapper_sha256": "139312757611a0e8b9ba3dd1eef1fdbe4841a951231ec19f851a0b121757148e",
+  "arm": "single_shot",
+  "started": "2026-09-19T12:08:58",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16000,
+  "temperature": null,
+  "iterations": 0,
+  "assistant_turns": 1,
+  "tokens": {
+   "input": 1077,
+   "output": 1625
+  },
+  "tool_calls": 0,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "single_shot_reply": "```python\nimport sys\nimport numpy as np\nimport pandas as pd\nfrom scipy.fft import fft, fftshift\n\n# Constants\nSF = 699.869954581  # MHz\nCARRIER_PPM = 4.76648\nSW_HZ = 14005.6022\nLB = 1.0  # Hz\nNFFT = 65536\n\ndef main():\n    if len(sys.argv) < 2:\n        return\n\n    input_file = sys.argv[1]\n    output_file = None\n    for arg in sys.argv:\n        if arg.startswith(\"-o\"):\n            output_file = arg.split(\"=\")[-1] if \"=\" in arg else sys.argv[sys.argv.index(arg)+1]\n            # Note: sys.argv handling for -o is slightly tricky in simple scripts\n            # The prompt says: python3 nmr.py fid_complex.csv -o multiplets.tsv\n            # So we look for the index.\n            idx = sys.argv.index(\"-o\")\n            output_file = sys.argv[idx + 1]\n\n    # Load data\n    # Skip comment lines starting with #\n    with open(input_file, 'r') as f:\n        lines = f.readlines()\n    \n    data_lines = [l for l in lines if not l.startswith('#')]\n    from io import StringIO\n    df = pd.read_csv(StringIO(\"\".join(data_lines)))\n\n    # Combine real and imag\n    t = df['time_s'].values\n    signal = df['real'].values + 1j * df['imag'].values\n\n    # Apodize: exp(-pi * LB * t)\n    # Note: LB is in Hz. The exponent is -pi * LB * t.\n    # However, standard NMR apodization is often exp(-pi * LB * t) where t is time.\n    # But for FFT, it's often applied as a multiplier to the time domain.\n    apodization = np.exp(-np.pi * LB * t)\n    signal_ap = signal * apodization\n\n    # Zero-fill to NFFT\n    # We must pad with zeros at the end of the signal\n    N_orig = len(signal_ap)\n    signal_padded = np.zeros(NFFT, dtype=complex)\n    signal_padded[:N_orig] = signal_ap\n\n    # FFT and shift\n    spectrum_complex = fftshift(fft(signal_padded))\n    spectrum = np.abs(spectrum_complex)\n\n    # Frequency axis calculation\n    # f = (arange(NFFT) - NFFT//2) * SW_HZ/NFFT\n    f = (np.arange(NFFT) - NFFT // 2) * (SW_HZ / NFFT)\n    ppm_axis = CARRIER_PPM + f / SF\n\n    # Peak Picking\n    # Maxima >= 5% of max\n    max_val = np.max(spectrum)\n    threshold = 0.05 * max_val\n    \n    peaks = []\n    # Find local maxima\n    # A peak is at i if spectrum[i] > spectrum[i-1] and spectrum[i] > spectrum[i+1]\n    # and spectrum[i] >= threshold\n    for i in range(1, NFFT - 1):\n        if spectrum[i] >= threshold:\n            if spectrum[i] > spectrum[i-1] and spectrum[i] > spectrum[i+1]:\n                peaks.append(i)\n\n    # Integration\n    picked_data = []\n    ppm_limit = 0.10\n    \n    for idx in peaks:\n        center_ppm = ppm_axis[idx]\n        \n        # Walk outward\n        left = idx\n        while left > 0:\n            if spectrum[left-1] < spectrum[left]:\n                left -= 1\n            else:\n                break\n        \n        right = idx\n        while right < NFFT - 1:\n            if spectrum[right+1] < spectrum[right]:\n                right += 1\n            else:\n                break\n        \n        # Cap by ppm\n        # Find indices corresponding to center_ppm +/- 0.10\n        left_ppm_idx = np.searchsorted(ppm_axis, center_ppm - ppm_limit)\n        right_ppm_idx = np.searchsorted(ppm_axis, center_ppm + ppm_limit)\n        \n        actual_left = max(left, left_ppm_idx)\n        actual_right = min(right, right_ppm_idx)\n        \n        # Ensure window is valid\n        if actual_left <= actual_right:\n            # Local baseline: mean of values at the two resulting boundary bins\n            # The boundary bins are the ones just outside the peak (the first ones that failed the check)\n            # Or the ppm cap bins.\n            b1_idx = actual_left - 1 if actual_left > 0 else 0\n            b2_idx = actual_right + 1 if actual_right < NFFT - 1 else NFFT - 1\n            baseline = (spectrum[b1_idx] + spectrum[b2_idx]) / 2.0\n            \n            integral = np.sum(spectrum[actual_left : actual_right + 1] - baseline)\n            picked_data.append({'ppm': center_ppm, 'integral': integral})\n\n    if not picked_data:\n        return\n\n    # Normalization to TSP (nearest to 0.000 ppm)\n    # Find peak nearest to 0.000\n    tsp_idx = 0\n    min_diff = abs(picked_data[0]['ppm'])\n    for i in range(1, len(picked_data)):\n        diff = abs(picked_data[i]['ppm'])\n        if diff < min_diff:\n            min_diff = diff\n            tsp_idx = i\n            \n    tsp_val = picked_data[tsp_idx]['integral']\n    for item in picked_data:\n        item['rel_integral'] = item['integral'] / tsp_val\n\n    # Sort by ppm ascending\n    picked_data.sort(key=lambda x: x['ppm'])\n\n    # Output to file\n    if output_file:\n        with open(output_file, 'w') as f:\n            f.write(\"ppm_center\\tintegral_rel\\n\")\n            for item in picked_data:\n                f.write(f\"{item['ppm']:.6f}\\t{item['rel_integral']:.6f}\\n\")\n\n    # Stdout\n    # points=<n> peaks=<n> reference_ppm=<x>\n    # Since the requirement says reference_ppm=0.000 (which is the target)\n    print(f\"points={NFFT} peaks={len(picked_data)} reference_ppm=0.000\")\n\nif __name__ == \"__main__\":\n    main()\n```",
+  "wall_clock_elapsed_s": 57.5,
+  "wall_clock_agent_s": 57.5,
+  "finished": "2026-09-19T12:09:56"
+ },
+ "single_shot_blocks": 1,
+ "grader_rc": 0,
+ "criteria": {
+  "multiplets.tsv: header + rows sorted by ppm_center, columns in order": true,
+  "all six assigned resonances within 0.05 ppm on the true axis": true,
+  "TSP is the reference row at 1.000 and the four metabolite integrals match the reference within 20%": true,
+  "no mirrored peak near 9.53 ppm (real-channel processing)": true,
+  "stdout reports points, peaks and reference_ppm=0.000": true
+ },
+ "passed": 5,
+ "total": 5,
+ "code_sha256": {
+  "nmr.py": "bcd69790491431b034db709ae20e40d2d935f490d5c5d67619c194217ee0a239"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 57.5,
+ "iterations": 0,
+ "tokens": {
+  "input": 1077,
+  "output": 1625
+ },
+ "workers": 4
+}

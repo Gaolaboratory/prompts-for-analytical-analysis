@@ -2,7 +2,17 @@
 
 Standard library only (no `numpy`, `scipy`, `nmrglue`). Write `nmr_1d.py`.
 
-`nmr_1d.py` reads a single-channel (real) 1D FID from a CSV of `time_s,intensity` rows, applies exponential apodization, zero-fills, Fourier-transforms, applies a zero-order phase correction, builds the ppm axis, picks peaks, integrates each peak, and writes a tab-separated multiplet table sorted by ppm. CLI: `python3 nmr_1d.py fid.csv -o multiplets.tsv`. Print progress counts to stdout (see criteria). A deterministic generator for `fid.csv` is below; run it first.
+`nmr_1d.py` reads a single-channel (real) 1D FID from a CSV of `time_s,intensity` rows, applies exponential apodization, zero-fills, Fourier-transforms, applies a zero-order phase correction, builds the ppm axis, picks peaks, integrates each peak, and writes a tab-separated multiplet table sorted by ppm. CLI: `python3 nmr_1d.py fid.csv -o multiplets.tsv`. Print progress counts to stdout (see criteria).
+
+## Dependencies
+
+None — this is a base module. Other prompts depend on it.
+
+## Data
+
+Run `python3 make_fid.py` (shipped beside this prompt) to write `fid.csv`. It is the
+oracle: the numbers below hold only for its exact output. Don't edit it and
+don't generate the data any other way.
 
 ## Fixed acquisition and processing parameters
 
@@ -42,41 +52,6 @@ def fft(x):  # X_k = sum_n x_n * exp(-2j*pi*k*n/N), k = 0..N-1
 
 **Verify your FFT before continuing** — run it on the 8-point cosine `x_n = cos(2π·2n/8)`, `n = 0..7`. Correct output: `X[2] = (4-0j)`, `X[6] = (4+0j)` (imaginary parts ~1e-16), every other `|X[k]| < 1e-9`. And `fft([1.0, 0, 0, 0, 0, 0, 0, 0])` must return eight copies of `(1+0j)`. Fix the transform before writing any NMR code.
 
-## Test data generator — `make_fid.py`
-
-```python
-#!/usr/bin/env python3
-"""Synthetic 1H FID: 4 damped cosines + LCG noise. Std-lib only, deterministic."""
-import math
-
-def lcg(state):
-    while True:
-        state = (1103515245 * state + 12345) % 2147483648
-        yield state / 2147483648.0
-
-SFO1_MHZ = 400.0
-CARRIER_PPM = -4.0
-SW_PPM = 14.0
-DT = 1.0 / (2.0 * SW_PPM * SFO1_MHZ)   # 1/11200 s
-N = 10000
-PHI0 = 0.6
-# (ppm, amplitude, T2_s); amplitudes are proportional to proton counts 9:1:2:3
-SIGNALS = [(0.50, 9.0, 0.30), (2.10, 1.0, 0.40), (3.80, 2.0, 0.25), (7.25, 3.0, 0.20)]
-NOISE = 0.05
-
-rnd = lcg(20260824)
-with open("fid.csv", "w") as f:
-    f.write("# synthetic 1H FID, single-channel real detection\n")
-    f.write("# spectrometer_frequency_MHz=400.0 carrier_ppm=-4.0 spectral_width_ppm=14.0\n")
-    f.write("time_s,intensity\n")
-    for i in range(N):
-        t = i * DT
-        x = sum(a * math.exp(-t / t2) * math.cos(2.0 * math.pi * (ppm - CARRIER_PPM) * SFO1_MHZ * t + PHI0)
-                for ppm, a, t2 in SIGNALS)
-        x += (next(rnd) - 0.5) * 2.0 * NOISE
-        f.write(f"{t:.8f},{x:.6f}\n")
-print("wrote fid.csv")
-```
 
 ## Acceptance criteria
 

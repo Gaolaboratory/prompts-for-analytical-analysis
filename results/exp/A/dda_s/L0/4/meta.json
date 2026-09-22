@@ -1,0 +1,186 @@
+{
+ "experiment": "A",
+ "tool": "dda_s",
+ "variant": "L0",
+ "rep": 4,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/database_search/ablation/L0.md",
+ "prompt_sha256": "7fdcae836bf59e4639bdd9acd8332ad2eddf3d57308b0c3069b7859a35364db8",
+ "endpoint": "http://llm-host:35188/v1",
+ "started": "2026-09-19T19:23:26",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35188/v1",
+  "model": "qwen3.6",
+  "prompt_sha256": "7fdcae836bf59e4639bdd9acd8332ad2eddf3d57308b0c3069b7859a35364db8",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-19T19:23:26",
+  "max_iters": 80,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 33,
+  "assistant_turns": 34,
+  "tokens": {
+   "input": 405570,
+   "output": 13738
+  },
+  "tool_calls": 33,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "wall_clock_elapsed_s": 1537.9,
+  "wall_clock_agent_s": 1537.9,
+  "finished": "2026-09-19T19:49:04"
+ },
+ "grader_rc": 1,
+ "criteria": {
+  "psms.tsv: header + rows, columns in order, decoy encoded 0/1, protein is the bare record id (no whitespace), every qvalue in [0,1]": false,
+  "stdout reports spectra=1200, with_candidate=1025 and the reference target/decoy peptide counts": false,
+  "target PSMs at q<=0.01 between 16 and 20 (reference 18)": false,
+  "decoy fraction among best hits within 0.05 of 0.333": false,
+  "the unfiltered rerun reports fewer 1% FDR PSMs than the filtered run": false,
+  "at least 5 of the reference's 7 named UPS1 proteins have >= 2 best-hit spectra": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {
+  "search.py": "b060e0c57f097789e05162ed0fd923006fd761ab0e6bea8e022ac9af76cd8d46"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 1537.9,
+ "iterations": 33,
+ "tokens": {
+  "input": 405570,
+  "output": 13738
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "targets": {
+    "want": 87060,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "decoys": {
+    "want": 87188,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "spectra": {
+    "want": 1200,
+    "found": [
+     1200.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "with_candidate": {
+    "want": 1025,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "best_hits": {
+    "want": 1025,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   }
+  },
+  "method_passed": 1,
+  "precise_passed": 1,
+  "present": 1,
+  "total": 5,
+  "files_seen": [
+   "psms.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ }
+}

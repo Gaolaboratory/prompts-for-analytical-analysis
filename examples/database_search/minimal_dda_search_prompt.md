@@ -1,8 +1,24 @@
-# Task 2/4 — Minimal DDA database search engine
+# DDA database search (best hit per spectrum)
 
 Standard library only. Write `search.py`.
 
-**Reuse task 1:** `from fasta_reader import read_fasta` and `from mzml_reader import read_mzml`; run `python3 make_test_data.py` for `mini.fasta` / `mini.mzml`. Do not re-implement parsing or re-create the test files. (If those files are missing, build task 1 first.)
+## Dependencies
+
+| module | provides | build from |
+|---|---|---|
+| `fasta_reader.py` | `read_fasta(path) -> [(id, sequence), ...]` | `examples/mass_reader/minimal_readers_prompt.md` |
+| `mzml_reader.py` | `read_mzml(path) -> [spectrum dict, ...]` | `examples/mass_reader/minimal_readers_prompt.md` |
+
+Check the working directory for each module before writing any code. If it is
+there, import it — do not re-implement it and do not edit it. If it is missing,
+build it from the prompt named above, verify that prompt's acceptance criteria,
+then come back here.
+
+## Data
+
+The test files come from the dependency: run `python3 make_test_data.py` from
+`examples/mass_reader/` to write `mini.fasta` and `mini.mzml`. Don't edit it and don't
+re-create the files any other way — the numbers below hold only for its exact output.
 
 ## What to build
 

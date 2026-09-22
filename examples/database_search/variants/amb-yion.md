@@ -1,0 +1,131 @@
+# DDA database search with target-decoy FDR
+
+Write `search.py`. Run:
+`python3 search.py yeast_pe1_plus_ups.fasta ups1_yeast_dda_first1200.mgf -o psms.tsv`
+
+Python standard library plus numpy, pandas and scipy only. No other third-party packages.
+
+## Dependencies
+
+| module | provides | build from |
+|---|---|---|
+| `fasta_reader.py` | `read_fasta(path) -> [(record_id, sequence), ...]` | `examples/mass_reader/PROMPT.md` |
+
+Check the working directory for `fasta_reader.py` before writing any code. If it is
+there, import it — do not re-implement it and do not edit it. If it is missing, build
+it from the prompt named above, verify that prompt's acceptance criteria, then come
+back here.
+
+`ups1_yeast_dda_first1200.mgf` is **not** a dependency of anything above.
+`search.py` parses MGF itself: `BEGIN IONS` … `END IONS` blocks, with `TITLE=`,
+`PEPMASS=` (an m/z, not a neutral mass), `CHARGE=2+`, `SCANS=`, then plain
+`m/z intensity` peak lines (one peak per line), then `END IONS`.
+
+## Input
+
+Both files are already in the working directory.
+
+- `yeast_pe1_plus_ups.fasta` — 3,260 proteins: a yeast background subset plus 50 human
+  UPS1-standard entries (headers ending `_UPS`, e.g. `P02741ups|CRP_HUMAN_UPS`).
+- `ups1_yeast_dda_first1200.mgf` — the first 1200 real MS2 spectra (LTQ Orbitrap
+  Velos) of a 50 fmol/µg UPS1-in-yeast run.
+
+## Output
+
+`psms.tsv`, tab-separated: one row for every spectrum that had at least one
+candidate — its best hit, from the peak-filtered run (steps 1–8), never from
+the no-peak-filter rerun in step 9. Every such spectrum gets a row regardless
+of its q-value; q-value is reported per row, not used to select which rows
+appear. Row count equals `best_hits` on the stdout line.
+
+```
+scan	peptide	protein	decoy	score	qvalue
+```
+
+`decoy` is the literal digit `1` or `0` (never `True`/`False`) — 1 if the row's protein
+starts with `DECOY_`, else 0. `protein` is the FASTA record id from `fasta_reader.py`
+(the header's first whitespace token, e.g. `P02741ups|CRP_HUMAN_UPS`), not the full
+header line with its trailing description — `DECOY_`-prefixed for decoy hits, per step
+1.
+
+One line on stdout:
+`targets=<n> decoys=<n> spectra=<n> with_candidate=<n> best_hits=<n> decoy_hits=<n> psms_1pct=<n> psms_1pct_unfiltered=<n>`
+`targets`/`decoys` count **peptides indexed after digestion** (the entries in step 4's
+mass-sorted index) — not proteins. Same numbers as "peptides indexed: N target, N decoy"
+if you print that elsewhere.
+
+## Method
+
+1. **Decoys** — for each target protein add a `DECOY_`-prefixed protein whose sequence
+   is reversed. Digest targets and decoys together, keeping the flag.
+2. **Digest** — trypsin: cleave after K/R except before P; the peptide keeps its
+   C-terminal K/R. The protein's final fragment — the residues left after the
+   last cleavage site — is a peptide too, even when the protein does not end in
+   K or R and that fragment has no C-terminal K/R of its own: include it under
+   the same length filter like any other digest product, do not drop it for
+   lacking one. Keep peptides of length **6 to 18**.
+3. **Masses** — standard monoisotopic residue masses, `H2O = 18.010565`,
+   `PROTON = 1.0072765`. Neutral mass = Σresidues + H2O. Singly-charged fragments:
+   **b** = Σprefix + PROTON, **y** = Σsuffix + H2O + PROTON. Generate b1..b(n−1) and
+   y1..y(n−1) — 2(n−1) fragments per peptide.
+
+   (`QISFVK` neutral mass 720.417 Da, precursor m/z at z=2 = 361.2158 — check this
+   first; if it is off, the residue table itself has an error.) Verify both tables by
+   running code, not by reasoning through the strings by hand.
+
+4. **Index the database by mass.** Build one list of
+   `(neutral_mass, peptide, protein, decoy)` **sorted by mass**, and select candidates
+   with `bisect`. Do not rescan the peptide list for every spectrum — that is
+   `O(spectra × peptides)`. On this database (≈174k peptides × 1200 spectra) a linear
+   rescan runs for on the order of an hour; the indexed version finishes in a few
+   seconds. The harness kills a re-executed command after 600 s.
+5. **Candidates** — peptides whose neutral mass is within `0.02 × z` Da of the
+   spectrum's measured neutral mass, `neutral_obs = pmz·z − z·PROTON`.
+6. **Filter the peaks before matching.** Keep only the **12 most intense peaks in
+   each 100 Da window** of the spectrum, and drop peaks within **2 Da** of the
+   precursor m/z. A raw scan carries hundreds of noise peaks; at ±0.5 Da tolerance
+   those alone will match a large fraction of any peptide's fragments and inflate
+   scores across the board.
+7. **Score** — a fragment matches if a kept peak lies within **±0.5 Da**.
+   Score = number of matched fragments, tie-broken by summed matched intensity.
+   Report the best-scoring candidate per spectrum; `decoy=1` if its protein starts
+   with `DECOY_`.
+8. **FDR** — sort all best hits by descending score. Walking down that list, let `T`
+   and `D` be the running counts of target and decoy hits; the FDR estimate at each
+   position is `D/T`. **Score is an integer matched-fragment count, so ties are large
+   (hundreds of PSMs can share one score) — do not rank within a tie group by
+   whatever order your sort happens to produce.** All PSMs sharing a score are one
+   group: give every member of the group the same FDR, computed once from the `T`/`D`
+   counts after the whole group (every tied PSM, target and decoy alike) has been
+   counted, not at some arbitrary position inside it. The **q-value** of a PSM is the
+   smallest FDR estimate at or below its position — compute it by sweeping from the
+   bottom of the score-sorted list upward, carrying a running minimum over these
+   per-group FDRs, so q-values are monotone. Write the q-value in every row.
+9. **Run the whole search a second time with peak filtering switched off** (step 6
+   skipped, every peak kept), and report that run's target count at `q ≤ 0.01` on
+   stdout as `psms_1pct_unfiltered`, next to `psms_1pct` from the peak-filtered run.
+   `psms.tsv` holds only rows from the peak-filtered run (steps 1–8); this
+   no-peak-filter rerun contributes just its stdout count, never rows to `psms.tsv`.
+   This is not a diagnostic afterthought — it is the only evidence that your
+   peak-filtering step does anything, and criterion 5 below grades it directly.
+   Actually run this second search and print its number; do not wire up a flag for it
+   and leave the flag unused.
+
+## Acceptance criteria
+
+Run the command above and check all of:
+
+1. `psms.tsv: header + rows, columns in order, decoy encoded 0/1, protein is the bare record id (no whitespace), every qvalue in [0,1]`
+2. `stdout reports spectra=1200, with_candidate=1025 and the reference target/decoy peptide counts`
+3. `target PSMs at q<=0.01 between 16 and 20 (reference 18)`
+4. `decoy fraction among best hits within 0.05 of 0.333`
+5. `the unfiltered rerun reports fewer 1% FDR PSMs than the filtered run`
+6. `at least 5 of the reference's 7 named UPS1 proteins have >= 2 best-hit spectra`
+
+Every constant above is pinned: the `0.02 × z` precursor window, ±0.5 Da fragment
+tolerance, 12 peaks per 100 Da window, 2 Da precursor exclusion, and peptide length
+6–18. A mismatch means a bug upstream (the y-ion series in step 3 is the classic one),
+not a parameter that needs adjusting. Do not sweep tolerances, peak budgets, window
+sizes or score cut-offs — including by writing a second script that scans parameter
+space — to move a count toward the numbers above; a result reached by tuning a
+constant instead of fixing a bug is wrong in a way these criteria cannot see.

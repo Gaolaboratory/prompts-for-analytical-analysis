@@ -1,0 +1,118 @@
+{
+ "experiment": "C_gemma4_single",
+ "tool": "formula_s",
+ "variant": "base",
+ "rep": 2,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "single_shot",
+ "prompt_path": "examples/formula_finder/PROMPT.md",
+ "prompt_sha256": "16e01a328ca57acfc3781fd63710f5382494105c950610377e9af5264de4c56a",
+ "started": "2026-09-19T12:05:23",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35211/v1",
+  "model": "gemma4",
+  "prompt_sha256": "16e01a328ca57acfc3781fd63710f5382494105c950610377e9af5264de4c56a",
+  "wrapper_sha256": "139312757611a0e8b9ba3dd1eef1fdbe4841a951231ec19f851a0b121757148e",
+  "arm": "single_shot",
+  "started": "2026-09-19T12:05:23",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16000,
+  "temperature": null,
+  "iterations": 0,
+  "assistant_turns": 1,
+  "tokens": {
+   "input": 1324,
+   "output": 3021
+  },
+  "tool_calls": 0,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "single_shot_reply": "```python\nimport sys\nimport argparse\nimport pandas as pd\nimport numpy as np\n\ndef get_isotope_data():\n    # data: (mass, abundance_ratio_r1, abundance_ratio_r2)\n    # r1 = abundance(iso_heavy)/abundance(iso_monoisotope)\n    # r2 = abundance(iso_even_heavier)/abundance(iso_monoisotope)\n    # Note: The problem defines M1 = sum(n_e * r1_e)\n    # and M2 = sum(n_e * r2_e) + sum(n_e*(n_e-1)/2 * r1_e^2)\n    # We need the ratios relative to the monoisotopic abundance.\n    # Since we only care about ratios, we can normalize all abundances \n    # relative to the most abundant isotope of that element.\n    \n    # Raw data from table\n    data = {\n        'H': {\n            'mon': (1.007825, 99.9885),\n            'r1': (2.014102, 0.0115 / 99.9885),\n            'r2': (0, 0)\n        },\n        'C': {\n            'mon': (12.000000, 98.93),\n            'r1': (13.003355, 1.07 / 98.93),\n            'r2': (0, 0)\n        },\n        'N': {\n            'mon': (14.003074, 99.636),\n            'r1': (15.000109, 0.364 / 99.636),\n            'r2': (0, 0)\n        },\n        'O': {\n            'mon': (15.994915, 99.757),\n            'r1': (16.999131, 0.038 / 99.757),\n            'r2': (17.999160, 0.205 / 99.757)\n        },\n        'P': {\n            'mon': (30.973762, 100.0),\n            'r1': (0, 0),\n            'r2': (0, 0)\n        },\n        'S': {\n            'mon': (31.972071, 94.99),\n            'r1': (32.971459, 0.75 / 94.99),\n            'r2': (33.967867, 4.25 / 94.99)\n        }\n    }\n    # Note: The table provides abundance in %. \n    # For r1, r2 calculation: r1 = abundance_heavy / abundance_mono\n    # We must also consider the 33S/34S and 17O/18O relationships.\n    # The formula for M2 includes the term n(n-1)/2 * r1^2.\n    # This term accounts for the probability of having two heavy isotopes of the same element.\n    \n    # Let's refine the dictionary to hold only what's needed for the calculation\n    # elements = ['C', 'H', 'N', 'O', 'P', 'S']\n    # We need mass of monoisotope, and ratios r1, r2.\n    # r1_e = abundance(e_heavy)/abundance(e_mono)\n    # r2_e = abundance(e_even_heavier)/abundance(e_mono)\n    \n    iso_info = {\n        'C': {'m': 12.0, 'r1': 1.07/98.93, 'r2': 0.0, 'm_r1': 13.003355, 'm_r2': 0.0},\n        'H': {'m': 1.007825, 'r1': 0.0115/99.9885, 'r2': 0.0, 'm_r1': 2.014102, 'm_r2': 0.0},\n        'N': {'m': 14.003074, 'r1': 0.364/99.636, 'r2': 0.0, 'm_r1': 15.000109, 'm_r2': 0.0},\n        'O': {'m': 15.994915, 'r1': 0.038/99.757, 'r2': 0.205/99.757, 'm_r1': 16.999131, 'm_r2': 17.999160},\n        'P': {'m': 30.973762, 'r1': 0.0, 'r2': 0.0, 'm_r1': 0.0, 'm_r2': 0.0},\n        'S': {'m': 31.972071, 'r1': 0.75/94.99, 'r2': 4.25/94.99, 'm_r1': 32.971459, 'm_r2': 33.967867}\n    }\n    return iso_info\n\ndef format_formula(counts):\n    # Hill order: C, H, others alphabetical\n    parts = []\n    if counts['C'] > 0:\n        parts.append(f\"C{counts['C'] if counts['C'] > 1 else ''}\")\n    if counts['H'] > 0:\n        parts.append(f\"H{counts['H'] if counts['H'] > 1 else ''}\")\n    \n    for el in sorted([e for e in ['N', 'O', 'P', 'S'] if e in counts and counts[e] > 0]):\n        parts.append(f\"{el}{counts[el] if counts[el] > 1 else ''}\")\n    \n    # Correction for the rule \"omit count when it is 1\"\n    # The requirement says: \"Omit ... the count when it is 1\"\n    # My logic above: C6H12O6 (6, 12, 6), H14N6O4S (14, 6, 4, 1)\n    # So if count == 1, omit the number.\n    res = \"\"\n    if counts['C'] > 0:\n        res += \"C\" + (str(counts['C']) if counts['C'] > 1 else \"\")\n    if counts['H'] > 0:\n        res += \"H\" + (str(counts['H']) if counts['H'] > 1 else \"\")\n    for el in sorted([e for e in ['N', 'O', 'P', 'S'] if e in counts and counts[e] > 0]):\n        res += el + (str(counts[el]) if counts[el] > 1 else \"\")\n    return res\n\ndef solve():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"input\")\n    parser.add_argument(\"-o\", \"--output\", required=True)\n    args = parser.parse_args()\n\n    df = pd.read_csv(args.input, sep='\\t')\n    iso = get_isotope_data()\n    \n    # Enumeration limits\n    limits = [\n        ('C', 30), ('H', 60), ('N', 10), ('O', 10), ('P', 2), ('S', 2)\n    ]\n    \n    all_results = []\n    total_candidates = 0\n\n    for _, row in df.iterrows():\n        target_mass = row['mass']\n        m1_meas = row['M1']\n        m2_meas = row['M2']\n        row_id = row['id']\n        \n        candidates = []\n        \n        # Brute force enumeration\n        # Pre-calculate mono mass components for speed? \n        # We'll use nested loops. Since the limits are small, it's feasible.\n        # C:0-30, H:0-60, N:0-10, O:0-10, P:0-2, S:0-2\n        \n        for c in range(31):\n            m_c = c * iso['C']['m']\n            for h in range(61):\n                m_ch = m_c + h * iso['H']['m']\n                if m_ch > target_mass * 1.0001: break # Early exit optimization\n                for n in range(11):\n                    m_chn = m_ch + n * iso['N']['m']\n                    if m_chn > target_mass * 1.0001: break\n                    for o in range(11):\n                        m_chno = m_chn + o * iso['O']['m']\n                        if m_chno > target_mass * 1.0001: break\n                        for p in range(3):\n                            m_chnop = m_chno + p * iso['P']['m']\n                            if m_chnop > target_mass * 1.0001: break\n                            for s in range(3):\n                                m_final = m_chnop + s * iso['S']['m']\n                                \n                                error_ppm = (m_final - target_mass) / target_mass * 1e6\n                                if abs(error_ppm) <= 5.0:\n                                    # Calculate M1 and M2\n                                    # M1 = \u03a3 n_e * r1_e\n                                    # M2 = \u03a3 n_e * r2_e + \u03a3 n_e*(n_e-1)/2 * r1_e^2\n                                    counts = {'C':c, 'H':h, 'N':n, 'O':o, 'P':p, 'S':s}\n                                    m1_calc = 0.0\n                                    m2_calc = 0.0\n                                    for el, count in counts.items():\n                                        if count > 0:\n                                            m1_calc += count * iso[el]['r1']\n                                            m2_calc += count * iso[el]['r2']\n                                            m2_calc += (count * (count - 1) / 2.0) * (iso[el]['r1']**2)\n                                    \n                                    score = abs(error_ppm) + 100.0 * abs(m1_meas - m1_calc) + 100.0 * abs(m2_meas - m2_calc)\n                                    \n                                    formula = format_formula(counts)\n                                    candidates.append({\n                                        'id': row_id,\n                                        'formula': formula,\n                                        'calc_mass': m_final,\n                                        'error_ppm': error_ppm,\n                                        'score': score\n                                    })\n                                    total_candidates += 1\n                                elif m_final > target_mass * 1.0001:\n                                    break\n        \n        # Sort candidates: score asc, then formula asc\n        candidates.sort(key=lambda x: (x['score'], x['formula']))\n        \n        # Add rank\n        for i, cand in enumerate(candidates):\n            cand['rank'] = i + 1\n            all_results.append(cand)\n\n    # Prepare output\n    out_df = pd.DataFrame(all_results)\n    if not out_df.empty:\n        out_df = out_df[['id', 'rank', 'formula', 'calc_mass', 'error_ppm', 'score']]\n        out_df.to_csv(args.output, sep='\\t', index=False)\n    else:\n        # Empty output with header\n        pd.DataFrame(columns=['id', 'rank', 'formula', 'calc_mass', 'error_ppm', 'score']).to_csv(args.output, sep='\\t', index=False)\n\n    # Count blocks for stdout\n    # A block is defined by the original input IDs. Since we processed row by row, \n    # the number of blocks is the number of rows in the input file.\n    num_blocks = len(df)\n    print(f\"blocks={num_blocks} candidates={total_candidates}\")\n\nif __name__ == \"__main__\":\n    solve()\n```",
+  "wall_clock_elapsed_s": 54.2,
+  "wall_clock_agent_s": 54.2,
+  "finished": "2026-09-19T12:06:18"
+ },
+ "single_shot_blocks": 1,
+ "grader_rc": 0,
+ "criteria": {
+  "ranked.tsv: header + 4 blocks in input order, ranks starting at 1": true,
+  "rank-1 formula correct in all four blocks": true,
+  "every rank-1 row has |error_ppm| <= 2.0 and score <= 0.5": true,
+  "every rank-1 row beats its block runner-up by >= 5 score units": true,
+  "rank-1 calc_mass matches the reference recomputed from the input (<=1e-5 Da)": true,
+  "stdout reports blocks and candidates": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "formula_finder.py": "45587494880781f94ac9fc58c9ee174b35de6701dfd627b77d4c57ca0d5bdd93"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 54.2,
+ "iterations": 0,
+ "tokens": {
+  "input": 1324,
+  "output": 3021
+ },
+ "workers": 1,
+ "content": {
+  "fields": {
+   "blocks": {
+    "want": 4,
+    "found": [
+     4.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "candidates": {
+    "want": 35,
+    "found": [
+     35.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 2,
+  "precise_passed": 2,
+  "present": 2,
+  "total": 2,
+  "files_seen": [
+   "ranked.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

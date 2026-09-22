@@ -1,0 +1,128 @@
+{
+ "experiment": "A",
+ "tool": "pca_s",
+ "variant": "L3",
+ "rep": 3,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/pca_untargeted/ablation/L3.md",
+ "prompt_sha256": "a33e76be7dd2e2bb5a9c18273218f55dfcf1216b2560b6bc37636dc5e4a02721",
+ "started": "2026-09-17T20:54:46",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.6-35b-local",
+  "prompt_sha256": "a33e76be7dd2e2bb5a9c18273218f55dfcf1216b2560b6bc37636dc5e4a02721",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-17T20:54:46",
+  "max_iters": 80,
+  "max_wall": 1800.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 7,
+  "assistant_turns": 8,
+  "tokens": {
+   "input": 33790,
+   "output": 2001
+  },
+  "tool_calls": 7,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "wall_clock_elapsed_s": 84.6,
+  "wall_clock_agent_s": 84.6,
+  "finished": "2026-09-17T20:56:11"
+ },
+ "grader_rc": 0,
+ "criteria": {
+  "scores.tsv: header + 60 rows in features.csv column order, groups match groups.csv": true,
+  "stdout: features_in=200 features_kept=184": true,
+  "pc1_var 0.1558 +/- 0.01 and pc2_var 0.1008 +/- 0.01": true,
+  "PC1 and PC2 correlate with the reference at |r| >= 0.999": true,
+  "first sample's PC1 and PC2 are positive (sign rule)": true
+ },
+ "passed": 5,
+ "total": 5,
+ "code_sha256": {
+  "pca.py": "1d04fa0a03a758a33c2b846c3981f9aff60e6c5b75e3dd49cada43f38a55b6bc"
+ },
+ "missing_artifacts": [],
+ "wall_clock_agent_s": 84.6,
+ "iterations": 7,
+ "tokens": {
+  "input": 33790,
+  "output": 2001
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "features_in": {
+    "want": 200,
+    "found": [
+     200.0
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "features_kept": {
+    "want": 184,
+    "found": [
+     184.0
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "pc1_var": {
+    "want": 0.1558332619688065,
+    "found": [
+     0.1558
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "pc2_var": {
+    "want": 0.10081553978329552,
+    "found": [
+     0.1008
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 4,
+  "precise_passed": 4,
+  "present": 4,
+  "total": 4,
+  "files_seen": [
+   "scores.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

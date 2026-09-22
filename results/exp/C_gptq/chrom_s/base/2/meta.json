@@ -1,0 +1,135 @@
+{
+ "experiment": "C_gptq",
+ "tool": "chrom_s",
+ "variant": "base",
+ "rep": 2,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/chrom_integration/PROMPT.md",
+ "prompt_sha256": "17528c8ef68f13d29f217e339c5e15db3f0a01a39e04f3f0e3fdccc4c07f6bb4",
+ "started": "2026-09-18T10:11:53",
+ "failure_mode": "wall_clock_cap",
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.8-27b-gptq",
+  "prompt_sha256": "17528c8ef68f13d29f217e339c5e15db3f0a01a39e04f3f0e3fdccc4c07f6bb4",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-18T10:11:53",
+  "max_iters": 120,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 15,
+  "assistant_turns": 15,
+  "tokens": {
+   "input": 73266,
+   "output": 7751
+  },
+  "tool_calls": 15,
+  "refused_commands": 0,
+  "failure_mode": "wall_clock_cap",
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "qwen3.8-27b-gptq"
+  ],
+  "fingerprints": [
+   "vllm-0.27.2rc1.dev77+gac7509e2b-22f0c859"
+  ],
+  "model_substituted": false,
+  "wall_clock_elapsed_s": 5438.4,
+  "wall_clock_agent_s": 5438.4,
+  "finished": "2026-09-18T11:42:32"
+ },
+ "grader_rc": 0,
+ "criteria": {
+  "peaks.tsv: header + exactly 10 rows sorted by rt_apex_s, columns in order": true,
+  "all ten reference apexes present within 5%, in seconds": true,
+  "apex heights within 5% of the reference recomputed from chrom.csv": true,
+  "baseline -4.797 +/- 0.5 and sigma 0.615 +/- 20%": true,
+  "stdout reports points, baseline, sigma and peaks": true,
+  "re-running chrom_integrate.py on a peak-injected chrom.csv reproduces the reference peak set for that input": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "chrom_integrate.py": "fc781492bf63a21818bfe45849e441ada0f48cbc07f932a595b6387d8842d50e"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 5438.4,
+ "iterations": 15,
+ "tokens": {
+  "input": 73266,
+  "output": 7751
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "n_peaks": {
+    "want": 10,
+    "found": [
+     10.0
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "baseline": {
+    "want": -4.79722023,
+    "found": [
+     -4.7972
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "sigma": {
+    "want": 0.6154076155499999,
+    "found": [
+     0.6154
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 3,
+  "precise_passed": 3,
+  "present": 3,
+  "total": 3,
+  "files_seen": [
+   "chrom_inj.csv",
+   "peaks.tsv",
+   "peaks_inj.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

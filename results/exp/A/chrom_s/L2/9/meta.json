@@ -1,0 +1,120 @@
+{
+ "experiment": "A",
+ "tool": "chrom_s",
+ "variant": "L2",
+ "rep": 9,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/chrom_integration/ablation/L2.md",
+ "prompt_sha256": "b4a230b1ef23c74053f7686068586e4e161e6957a2ea7916597c6ef041868d6e",
+ "started": "2026-09-17T22:33:37",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.6-35b-local",
+  "prompt_sha256": "b4a230b1ef23c74053f7686068586e4e161e6957a2ea7916597c6ef041868d6e",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-17T22:33:37",
+  "max_iters": 80,
+  "max_wall": 1800.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 15,
+  "assistant_turns": 16,
+  "tokens": {
+   "input": 141559,
+   "output": 7143
+  },
+  "tool_calls": 15,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "wall_clock_elapsed_s": 238.9,
+  "wall_clock_agent_s": 238.9,
+  "finished": "2026-09-17T22:37:36"
+ },
+ "grader_rc": 1,
+ "criteria": {
+  "peaks.tsv: header + exactly 10 rows sorted by rt_apex_s, columns in order": false,
+  "all ten reference apexes present within 5%, in seconds": true,
+  "apex heights within 5% of the reference recomputed from chrom.csv": true,
+  "baseline -4.797 +/- 0.5 and sigma 0.615 +/- 20%": false,
+  "stdout reports points, baseline, sigma and peaks": false,
+  "re-running chrom_integrate.py on a peak-injected chrom.csv reproduces the reference peak set for that input": false
+ },
+ "passed": 2,
+ "total": 6,
+ "code_sha256": {
+  "chrom_integrate.py": "7df161e4aafb1d4f05217914703942fc038a997d87cd52f1e61eaa9a7335a8b7"
+ },
+ "missing_artifacts": [],
+ "wall_clock_agent_s": 238.9,
+ "iterations": 15,
+ "tokens": {
+  "input": 141559,
+  "output": 7143
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "n_peaks": {
+    "want": 10,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "baseline": {
+    "want": -4.79722023,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "sigma": {
+    "want": 0.6154076155499999,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   }
+  },
+  "method_passed": 0,
+  "precise_passed": 0,
+  "present": 0,
+  "total": 3,
+  "files_seen": [
+   "peaks.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

@@ -1,0 +1,7 @@
+PASS results.tsv: header + 4 rows in q1..q4 order, columns in order
+PASS best_match: caffeine, sulfamethoxazole, nicotine, NO_MATCH
+PASS scores 0.7473 / 0.6669 / 0.8706 / 0.0138 (+/- 0.0001)
+PASS matched_peaks 6/4/6/2 and total_library_peaks 7/6/8/6
+PASS stdout: queries: 4  called: 3  no_match: 1
+PASS re-running libsearch.py on a library with one entry removed reproduces the reference result for that library
+6/6 passed

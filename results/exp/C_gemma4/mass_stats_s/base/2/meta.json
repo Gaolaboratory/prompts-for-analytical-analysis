@@ -1,0 +1,125 @@
+{
+ "experiment": "C_gemma4",
+ "tool": "mass_stats_s",
+ "variant": "base",
+ "rep": 2,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/mass_stats/PROMPT.md",
+ "prompt_sha256": "b1d9c5ff84350ec07b3e123325edcd42404c34a158ea4cd2717a4c55a10cc07d",
+ "started": "2026-09-19T07:40:22",
+ "failure_mode": "no_artifact",
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "gemma4",
+  "prompt_sha256": "b1d9c5ff84350ec07b3e123325edcd42404c34a158ea4cd2717a4c55a10cc07d",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-19T07:40:22",
+  "max_iters": 120,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 1,
+  "assistant_turns": 2,
+  "tokens": {
+   "input": 1972,
+   "output": 20
+  },
+  "tool_calls": 1,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "gemma4"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "wall_clock_elapsed_s": 3.8,
+  "wall_clock_agent_s": 3.8,
+  "finished": "2026-09-19T07:40:26"
+ },
+ "grader_rc": 1,
+ "criteria": {
+  "stats.tsv: header + 618 rows sorted by p_value, columns in order": false,
+  "stdout reports tested=618 filtered=0 significant=253, and the significant column matches the reference on every row": false,
+  "t and p_value match the reference within 1e-6 relative on every row": false,
+  "df within 1e-6 relative and log2fc within 1e-9 relative on every row": false,
+  "q_value within 1e-6 relative, with the top-8 BH plateau reproduced": false,
+  "top 10 features by p_value are the reference ten, in order": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {},
+ "missing_artifacts": [
+  "stats.py"
+ ],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 3.8,
+ "iterations": 1,
+ "tokens": {
+  "input": 1972,
+  "output": 20
+ },
+ "workers": 6,
+ "content": {
+  "fields": {
+   "tested": {
+    "want": 618,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "filtered": {
+    "want": 0,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "significant": {
+    "want": 253,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   }
+  },
+  "method_passed": 0,
+  "precise_passed": 0,
+  "present": 0,
+  "total": 3,
+  "files_seen": [
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

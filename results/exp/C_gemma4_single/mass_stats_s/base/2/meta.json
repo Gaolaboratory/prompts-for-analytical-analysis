@@ -1,0 +1,127 @@
+{
+ "experiment": "C_gemma4_single",
+ "tool": "mass_stats_s",
+ "variant": "base",
+ "rep": 2,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "single_shot",
+ "prompt_path": "examples/mass_stats/PROMPT.md",
+ "prompt_sha256": "b1d9c5ff84350ec07b3e123325edcd42404c34a158ea4cd2717a4c55a10cc07d",
+ "endpoint": "http://llm-host:35212/v1",
+ "started": "2026-09-19T12:08:58",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35212/v1",
+  "model": "gemma4",
+  "prompt_sha256": "b1d9c5ff84350ec07b3e123325edcd42404c34a158ea4cd2717a4c55a10cc07d",
+  "wrapper_sha256": "139312757611a0e8b9ba3dd1eef1fdbe4841a951231ec19f851a0b121757148e",
+  "arm": "single_shot",
+  "started": "2026-09-19T12:08:58",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16000,
+  "temperature": null,
+  "iterations": 0,
+  "assistant_turns": 1,
+  "tokens": {
+   "input": 808,
+   "output": 1474
+  },
+  "tool_calls": 0,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "single_shot_reply": "```python\nimport sys\nimport argparse\nimport numpy as np\nimport pandas as pd\nfrom scipy import stats\n\ndef main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"csv_file\")\n    parser.add_argument(\"groups_file\")\n    parser.add_argument(\"-o\", \"--output\", required=True)\n    args = parser.parse_args()\n\n    # Load data\n    df_quant = pd.read_csv(args.csv_file)\n    df_groups = pd.read_csv(args.groups_file, sep='\\t')\n\n    # Map groups\n    # groups.tsv: pinned_column (sample name), group (CTRL/EXP)\n    group_map = dict(zip(df_groups['pinned_column'], df_groups['group']))\n    \n    samples = df_quant.columns[1:]\n    ctrl_samples = [s for s in samples if group_map.get(s) == 'CTRL']\n    exp_samples = [s for s in samples if group_map.get(s) == 'EXP']\n\n    results = []\n    tested_count = 0\n    filtered_count = 0\n    significant_count = 0\n\n    for _, row in df_quant.iterrows():\n        fid = row['feature_id']\n        vals = row[samples].values.astype(float)\n        \n        # Get indices for groups\n        ctrl_idx = [i for i, s in enumerate(samples) if s in ctrl_samples]\n        exp_idx = [i for i, s in enumerate(samples) if s in exp_samples]\n        \n        ctrl_vals_raw = vals[ctrl_idx]\n        exp_vals_raw = vals[exp_idx]\n\n        # Filter: at least 3 valid (non-NaN/non-zero) in each group\n        # Requirement says \"valid values\". In metabolomics, 0 is often used for missing.\n        # Given the context of log2, we check for values > 0.\n        ctrl_valid = ctrl_vals_raw[ctrl_vals_raw > 0]\n        exp_valid = exp_vals_raw[exp_vals_raw > 0]\n\n        if len(ctrl_valid) < 3 or len(exp_valid) < 3:\n            filtered_count += 1\n            continue\n\n        tested_count += 1\n        \n        # Transform\n        log2_ctrl = np.log2(ctrl_valid)\n        log2_exp = np.log2(exp_valid)\n\n        # T-test (Welch's)\n        # scipy.stats.ttest_ind with equal_var=False returns (statistic, pvalue)\n        # To get df, we use the formula for Welch-Satterthwaite\n        t_stat, p_val = stats.ttest_ind(log2_exp, log2_ctrl, equal_var=False)\n        \n        # Calculate Welch-Satterthwaite degrees of freedom manually to be precise\n        # or use the fact that we need the df specifically.\n        # Welch-Satterthwaite formula:\n        # df = (s1^2/n1 + s2^2/n2)^2 / [ (s1^2/n1)^2/(n1-1) + (s2^2/n2)^2/(n2-1) ]\n        n1, n2 = len(log2_exp), len(log2_ctrl)\n        v1, v2 = np.var(log2_exp, ddof=1), np.var(log2_ctrl, ddof=1)\n        \n        if v1 == 0 and v2 == 0:\n            # Handle edge case of zero variance\n            df_val = float(n1 + n2 - 2) \n        else:\n            num = (v1/n1 + v2/n2)**2\n            den = (v1/n1)**2 / (n1 - 1) + (v2/n2)**2 / (n2 - 1)\n            df_val = num / den\n\n        log2fc = np.mean(log2_exp) - np.mean(log2_ctrl)\n        \n        results.append({\n            'feature_id': fid,\n            'log2fc': log2fc,\n            't': t_stat,\n            'df': df_val,\n            'p_value': p_val\n        })\n\n    if not results:\n        print(\"tested=0 filtered=0 significant=0\")\n        return\n\n    res_df = pd.DataFrame(results)\n\n    # Benjamini-Hochberg\n    m = len(res_df)\n    res_df = res_df.sort_values('p_value').reset_index(drop=True)\n    # ranks are 1-indexed\n    res_df['rank'] = res_df.index + 1\n    res_df['q_value'] = res_df['p_value'] * m / res_df['rank']\n    \n    # Monotone sweep from largest rank down\n    q_values = res_df['q_value'].values\n    for i in range(m - 2, -1, -1):\n        q_values[i] = min(q_values[i], q_values[i+1])\n    \n    res_df['q_value'] = np.clip(q_values, 0, 1)\n\n    # Significant: q < 0.05 AND |log2fc| >= 1\n    res_df['significant'] = ((res_df['q_value'] < 0.05) & (res_df['log2fc'].abs() >= 1)).astype(int)\n    \n    significant_count = res_df['significant'].sum()\n\n    # Sort by ascending p_value for output\n    res_df = res_df.sort_values('p_value')\n    \n    # Prepare final columns\n    output_cols = ['feature_id', 'log2fc', 't', 'df', 'p_value', 'q_value', 'significant']\n    res_df[output_cols].to_csv(args.output, sep='\\t', index=False)\n\n    print(f\"tested={tested_count} filtered={filtered_count} significant={significant_count}\")\n\nif __name__ == \"__main__\":\n    main()\n```",
+  "wall_clock_elapsed_s": 27.2,
+  "wall_clock_agent_s": 27.2,
+  "finished": "2026-09-19T12:09:26"
+ },
+ "single_shot_blocks": 1,
+ "grader_rc": 1,
+ "criteria": {
+  "stats.tsv: header + 618 rows sorted by p_value, columns in order": false,
+  "stdout reports tested=618 filtered=0 significant=253, and the significant column matches the reference on every row": false,
+  "t and p_value match the reference within 1e-6 relative on every row": false,
+  "df within 1e-6 relative and log2fc within 1e-9 relative on every row": false,
+  "q_value within 1e-6 relative, with the top-8 BH plateau reproduced": false,
+  "top 10 features by p_value are the reference ten, in order": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {
+  "stats.py": "a82a6d8000ea3394b853df2496f580dbfad49d44c12668d597dbe28abea39824"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 27.2,
+ "iterations": 0,
+ "tokens": {
+  "input": 808,
+  "output": 1474
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "tested": {
+    "want": 618,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "filtered": {
+    "want": 0,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "significant": {
+    "want": 253,
+    "found": [],
+    "n_found": 0,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   }
+  },
+  "method_passed": 0,
+  "precise_passed": 0,
+  "present": 0,
+  "total": 3,
+  "files_seen": [
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

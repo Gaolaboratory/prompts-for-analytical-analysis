@@ -3,7 +3,6 @@
 Standard library only (no `numpy`, `pyteomics`, `matchms`). Write two files:
 
 - `libsearch.py` — the search tool.
-- `make_test_data.py` — exactly the script below; run it to produce the test files.
 
 `python3 libsearch.py queries.txt library.txt -o results.tsv` — match each query MS/MS
 spectrum against every library entry and write a ranked result table, one row per query,
@@ -15,6 +14,16 @@ query_id	best_match	score	matched_peaks	total_library_peaks
 
 Write it **tab-separated** (real `\t`) with Unix newlines and the header above; `score` with
 exactly 4 decimals. Print one summary line **to stdout**: `queries: 4  called: 3  no_match: 1`.
+
+## Dependencies
+
+None — this is a base module. Other prompts depend on it.
+
+## Data
+
+Run `python3 make_test_data.py` (shipped beside this prompt) to write `library.txt` and `queries.txt`. It is the
+oracle: the numbers below hold only for its exact output. Don't edit it and
+don't generate the data any other way.
 
 ## The file format
 
@@ -47,62 +56,6 @@ the 300 vs 350 pair is outside ±0.5, so 2 peaks match and the score must be
 **0.1276** (hand-check: `(50+200)² / (1400·350) = 62500/490000 = 0.127551`).
 Do not write the file parser until this prints correctly.
 
-## Test data generator
-
-```python
-#!/usr/bin/env python3
-"""Deterministic generator for the spectral-library-search test data. Std-lib only."""
-
-def lcg(state):
-    while True:
-        state = (1103515245 * state + 12345) % 2147483648
-        yield state / 2147483648.0
-
-LIBRARY = [
-    ("caffeine",        [(42.1, 15), (58.0, 100), (69.0, 20), (82.0, 35),
-                         (109.1, 55), (138.1, 60), (163.1, 10), (195.1, 90)]),
-    ("acetaminophen",   [(43.0, 40), (65.0, 20), (80.9, 10), (92.0, 15),
-                         (93.0, 60), (109.0, 45), (110.0, 35), (152.1, 80)]),
-    ("sulfamethoxazole",[(65.0, 30), (92.0, 70), (99.0, 25), (108.0, 85),
-                         (124.0, 20), (156.0, 90), (188.0, 50), (254.1, 75)]),
-    ("nicotine",        [(42.0, 35), (84.1, 100), (117.0, 15), (119.1, 20),
-                         (130.1, 25), (132.1, 40), (133.0, 10), (163.1, 60)]),
-]
-
-def write_spectra(path, entries, comment):
-    lines = [comment, ""]
-    for name, peaks in entries:
-        lines.append(">NAME %s" % name)
-        for i, (mz, inten) in enumerate(peaks):
-            sep = "  " if i == 0 else " "   # real files mix spacing
-            lines.append("%.4f%s%s" % (mz, sep, inten))
-        lines.append("")
-    with open(path, "w") as fh:
-        fh.write("\n".join(lines).rstrip() + "\n")
-
-write_spectra("library.txt", LIBRARY, "# minimal text spectral library")
-
-rnd = lcg(20260824)
-queries = []
-for qid, (name, peaks) in zip(("q1", "q2", "q3"), LIBRARY[:3]):
-    out = []
-    for mz, inten in peaks:
-        jmz = mz + (next(rnd) - 0.5) * 0.2
-        jint = inten * (0.75 + 0.5 * next(rnd))
-        if jint < 12.0:            # low-intensity peaks are dropped
-            continue
-        out.append((jmz, round(jint, 1)))
-    for _ in range(2):             # noise peaks
-        out.append((round(60.0 + next(rnd) * 340.0, 4), round(3.0 + next(rnd) * 8.0, 1)))
-    out.sort()
-    queries.append((qid, out))
-
-queries.append(("q4", [(90.2, 50.0), (131.1, 30.0), (176.1, 80.0),
-                       (220.2, 25.0), (300.1, 60.0)]))
-
-write_spectra("queries.txt", queries, "# query spectra")
-print("wrote library.txt, queries.txt")
-```
 
 ## Acceptance criteria
 

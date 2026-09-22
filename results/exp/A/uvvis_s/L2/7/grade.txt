@@ -1,0 +1,8 @@
+# ramped run produced no readable lambda_max/epsilon
+FAIL bands.tsv: header + exactly one band row, columns in order, no CR
+PASS lambda_max 317 +/- 3 nm
+FAIL epsilon within 2% of 9283
+PASS fwhm within 2 nm of the reference recomputed from the input
+FAIL stdout reports points, bands, lambda_max and epsilon
+FAIL re-running uvvis.py on an absorbance-tilted input reproduces the reference lambda_max and epsilon for that input
+2/6 passed

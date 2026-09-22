@@ -1,0 +1,92 @@
+{
+ "experiment": "B",
+ "tool": "pca_s",
+ "variant": "amb-orient",
+ "rep": 4,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/pca_untargeted/variants/amb-orient.md",
+ "prompt_sha256": "b5fc3479a15d4417daa22f8b3c146316edf8daeaf8c4788619f120a9537ee735",
+ "started": "2026-09-18T02:35:14",
+ "failure_mode": "harness_timeout",
+ "driver": {},
+ "grader_rc": 1,
+ "criteria": {
+  "scores.tsv: header + 60 rows in features.csv column order, groups match groups.csv": true,
+  "stdout: features_in=200 features_kept=184": true,
+  "pc1_var 0.1558 +/- 0.01 and pc2_var 0.1008 +/- 0.01": false,
+  "PC1 and PC2 correlate with the reference at |r| >= 0.999": false,
+  "first sample's PC1 and PC2 are positive (sign rule)": true
+ },
+ "passed": 3,
+ "total": 5,
+ "code_sha256": {
+  "pca.py": "cf2f219cc7f37fcfb8baecb90b0abbf4694848418102a16908dfa98cc9b67e9b"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": true,
+ "wall_clock_agent_s": null,
+ "iterations": null,
+ "tokens": null,
+ "workers": 4,
+ "content": {
+  "fields": {
+   "features_in": {
+    "want": 200,
+    "found": [
+     200.0
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "features_kept": {
+    "want": 184,
+    "found": [
+     184.0
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "pc1_var": {
+    "want": 0.1558332619688065,
+    "found": [
+     0.3426
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": false,
+    "precise": false,
+    "note": "wrong"
+   },
+   "pc2_var": {
+    "want": 0.10081553978329552,
+    "found": [
+     0.0783
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": false,
+    "precise": false,
+    "note": "wrong"
+   }
+  },
+  "method_passed": 2,
+  "precise_passed": 2,
+  "present": 4,
+  "total": 4,
+  "files_seen": [
+   "scores.tsv",
+   "stderr.log",
+   "stdout.log",
+   "test_scores.tsv"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

@@ -1,0 +1,134 @@
+{
+ "experiment": "C_gemma4_single",
+ "tool": "uvvis_s",
+ "variant": "base",
+ "rep": 2,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "single_shot",
+ "prompt_path": "examples/uvvis_spectrum/PROMPT.md",
+ "prompt_sha256": "58af7bf128a147d3b886462af28bfd6ba0582ded001ff027b42d471ecf57e034",
+ "started": "2026-09-19T09:51:03",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35211/v1",
+  "model": "gemma4",
+  "prompt_sha256": "58af7bf128a147d3b886462af28bfd6ba0582ded001ff027b42d471ecf57e034",
+  "wrapper_sha256": "139312757611a0e8b9ba3dd1eef1fdbe4841a951231ec19f851a0b121757148e",
+  "arm": "single_shot",
+  "started": "2026-09-19T09:51:03",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16000,
+  "temperature": null,
+  "iterations": 0,
+  "assistant_turns": 1,
+  "tokens": {
+   "input": 614,
+   "output": 1197
+  },
+  "tool_calls": 0,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "single_shot_reply": "```python\nimport sys\nimport numpy as np\nimport pandas as pd\nfrom scipy.signal import argrelextrema\nfrom scipy.interpolate import interp1d\n\ndef solve():\n    if len(sys.argv) < 2:\n        return\n\n    input_file = sys.argv[1]\n    output_file = sys.argv[2] if len(sys.argv) > 2 else None\n\n    # Load data\n    df = pd.read_csv(input_file)\n    # The prompt specifies the second column is molar absorptivity (epsilon)\n    wavelengths = df.iloc[:, 0].values\n    epsilon = df.iloc[:, 1].values\n\n    # Filter window: 250-700 nm\n    mask = (wavelengths >= 250) & (wavelengths <= 700)\n    w_win = wavelengths[mask]\n    e_win = epsilon[mask]\n\n    if len(w_win) == 0:\n        return\n\n    win_max = np.max(e_win)\n    threshold = 0.2 * win_max\n\n    # Find local maxima\n    # argrelextrema finds indices where value is greater than neighbors\n    max_idx = argrelextrema(e_win, np.greater)[0]\n    \n    detected_bands = []\n\n    for idx in max_idx:\n        val = e_win[idx]\n        if val >= threshold:\n            l_max = w_win[idx]\n            eps_max = val\n            \n            # Calculate FWHM using linear interpolation\n            half_max = eps_max / 2.0\n            \n            # Find the two points where epsilon crosses half_max\n            # We look for the crossing to the left and to the right of the peak index\n            \n            # Left crossing\n            left_idx = -1\n            for i in range(idx, 0, -1):\n                if e_win[i-1] <= half_max <= e_win[i]:\n                    # Interpolate: x = x0 + (x1 - x0) * (y - y0) / (y1 - y0)\n                    x0, x1 = w_win[i-1], w_win[i]\n                    y0, y1 = e_win[i-1], e_win[i]\n                    l_left = x0 + (x1 - x0) * (half_max - y0) / (y1 - y0)\n                    left_idx = i\n                    break\n            \n            # Right crossing\n            right_idx = -1\n            for i in range(idx, len(e_win) - 1):\n                if e_win[i] >= half_max >= e_win[i+1]:\n                    # Interpolate\n                    x0, x1 = w_win[i], w_win[i+1]\n                    y0, y1 = e_win[i], e_win[i+1]\n                    l_right = x0 + (x1 - x0) * (half_max - y0) / (y1 - y0)\n                    right_idx = i\n                    break\n            \n            if left_idx != -1 and right_idx != -1:\n                fwhm = l_right - l_left\n                detected_bands.append({\n                    'lambda_max_nm': l_max,\n                    'epsilon': eps_max,\n                    'fwhm_nm': fwhm\n                })\n\n    # Output results\n    if output_file:\n        out_df = pd.DataFrame(detected_bands)\n        header = \"lambda_max_nm\\tepsilon\\tfwhm_nm\"\n        if not out_df.empty:\n            # Ensure tab separation and no CR (standard unix newline)\n            out_df.to_csv(output_file, sep='\\t', index=False, header=True, lineterminator='\\n')\n            # The requirement asks for exactly the header line plus data rows.\n            # pandas to_csv with header=True provides this.\n        else:\n            with open(output_file, 'w') as f:\n                f.write(header + '\\n')\n\n    # Stdout: points=<n> bands=<n> lambda_max=<x> epsilon=<x>\n    # Note: The prompt implies 'points' is total input points, 'bands' is detected count.\n    # For lambda_max and epsilon, we use the first detected band if available.\n    \n    n_points = len(wavelengths)\n    n_bands = len(detected_bands)\n    \n    l_out = 0.0\n    e_out = 0.0\n    if n_bands > 0:\n        l_out = detected_bands[0]['lambda_max_nm']\n        e_out = detected_bands[0]['epsilon']\n\n    # Formatting decimals to match expected precision/style if needed, \n    # but standard float printing is usually fine.\n    print(f\"points={n_points} bands={n_bands} lambda_max={l_out} epsilon={e_out}\")\n\nif __name__ == \"__main__\":\n    solve()\n```",
+  "wall_clock_elapsed_s": 30.7,
+  "wall_clock_agent_s": 30.7,
+  "finished": "2026-09-19T09:51:33"
+ },
+ "single_shot_blocks": 1,
+ "grader_rc": 1,
+ "criteria": {
+  "bands.tsv: header + exactly one band row, columns in order, no CR": true,
+  "lambda_max 317 +/- 3 nm": true,
+  "epsilon within 2% of 9283": true,
+  "fwhm within 2 nm of the reference recomputed from the input": true,
+  "stdout reports points, bands, lambda_max and epsilon": true,
+  "re-running uvvis.py on an absorbance-tilted input reproduces the reference lambda_max and epsilon for that input": false
+ },
+ "passed": 5,
+ "total": 6,
+ "code_sha256": {
+  "uvvis.py": "b6127a7e16809b997bdb5d41122d44a6409bc627a0ff7de781301cdae9ae7ae6"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 30.7,
+ "iterations": 0,
+ "tokens": {
+  "input": 614,
+  "output": 1197
+ },
+ "workers": 1,
+ "content": {
+  "fields": {
+   "lambda_max": {
+    "want": 317.01526,
+    "found": [
+     317.01526,
+     317.02
+    ],
+    "n_found": 2,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "epsilon": {
+    "want": 9283.38841,
+    "found": [
+     9283.38841,
+     9283.39
+    ],
+    "n_found": 2,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "fwhm": {
+    "want": 66.6976840137051,
+    "found": [
+     66.7
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "bands": {
+    "want": 1,
+    "found": [
+     1.0
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 4,
+  "precise_passed": 4,
+  "present": 4,
+  "total": 4,
+  "files_seen": [
+   "bands.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

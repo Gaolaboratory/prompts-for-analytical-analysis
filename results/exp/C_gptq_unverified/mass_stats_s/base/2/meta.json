@@ -1,0 +1,94 @@
+{
+ "experiment": "C_gptq",
+ "tool": "mass_stats_s",
+ "variant": "base",
+ "rep": 2,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/mass_stats/PROMPT.md",
+ "prompt_sha256": "b1d9c5ff84350ec07b3e123325edcd42404c34a158ea4cd2717a4c55a10cc07d",
+ "started": "2026-09-17T17:08:34",
+ "failure_mode": null,
+ "driver": {},
+ "grader_rc": 0,
+ "criteria": {
+  "stats.tsv: header + 618 rows sorted by p_value, columns in order": true,
+  "stdout reports tested=618 filtered=0 significant=253, and the significant column matches the reference on every row": true,
+  "t and p_value match the reference within 1e-6 relative on every row": true,
+  "df within 1e-6 relative and log2fc within 1e-9 relative on every row": true,
+  "q_value within 1e-6 relative, with the top-8 BH plateau reproduced": true,
+  "top 10 features by p_value are the reference ten, in order": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "stats.py": "be0ce1fab111c79eb9297f9cb42b83654455309652eee3716622b8163bcf29e3"
+ },
+ "missing_artifacts": [],
+ "wall_clock_agent_s": null,
+ "iterations": null,
+ "tokens": null,
+ "workers": 6,
+ "content": {
+  "fields": {
+   "tested": {
+    "want": 618,
+    "found": [
+     618.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "filtered": {
+    "want": 0,
+    "found": [
+     0.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "significant": {
+    "want": 253,
+    "found": [
+     253.0
+    ],
+    "n_found": 1,
+    "sources": [
+     "stdout.log",
+     "stderr.log"
+    ],
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 3,
+  "precise_passed": 3,
+  "present": 3,
+  "total": 3,
+  "files_seen": [
+   "stats.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d",
+ "reclassified": "driver killed before unwinding; full pass, which more iterations could not improve, so the score stands. Timing/token telemetry missing.",
+ "telemetry_missing": true
+}

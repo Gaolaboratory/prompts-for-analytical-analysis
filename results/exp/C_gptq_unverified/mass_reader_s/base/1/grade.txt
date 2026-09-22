@@ -1,0 +1,7 @@
+PASS fasta: 48 records, 19929 residues, first sp|P00509|AAT_ECOLI/396
+PASS bsa: 40 spectra (10 MS1 / 30 MS2), ids spectrum=1011..spectrum=2471
+PASS bsa: rt_first 1501.414 s, rt_last 1590.187 s
+PASS bsa: first MS2 spectrum=2442, precursor 457.72397, z=2, charges {2,3}
+PASS thermo: 2 MS1 x 19914 peaks, rt 0.2961/0.3561 s (minutes rule)
+PASS tic totals within 0.1% (45709750.4 / 138763684.2) and the mandated one-line stdout summary for the bsa file
+6/6 passed

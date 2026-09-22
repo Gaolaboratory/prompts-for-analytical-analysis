@@ -1,0 +1,114 @@
+{
+ "experiment": "C_gemma4_single",
+ "tool": "titration_s",
+ "variant": "base",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "single_shot",
+ "prompt_path": "examples/titration/PROMPT.md",
+ "prompt_sha256": "4b7b216bad351518adebc0c0c4ee49244f3f8ed4e56f7fddc18025f99ace0079",
+ "started": "2026-09-18T08:34:15",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "gemma4",
+  "prompt_sha256": "4b7b216bad351518adebc0c0c4ee49244f3f8ed4e56f7fddc18025f99ace0079",
+  "wrapper_sha256": "139312757611a0e8b9ba3dd1eef1fdbe4841a951231ec19f851a0b121757148e",
+  "arm": "single_shot",
+  "started": "2026-09-18T08:34:16",
+  "max_iters": 80,
+  "max_wall": 900.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 32000,
+  "temperature": null,
+  "iterations": 0,
+  "assistant_turns": 1,
+  "tokens": {
+   "input": 723,
+   "output": 1025
+  },
+  "tool_calls": 0,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "gemma4"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "single_shot_reply": "```python\nimport sys\nimport argparse\nimport pandas as pd\nimport numpy as np\nfrom scipy.interpolate import interp1d\n\n# Constants\nV0 = 25.00  # mL\nC_TITRANT = 0.1000  # M\n\ndef main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"input_file\")\n    parser.add_argument(\"-o\", \"--output\", required=True)\n    args = parser.parse_args()\n\n    # Load data\n    df = pd.read_csv(args.input_file)\n    v = df['titrant_volume_mL'].values\n    ph = df['pH'].values\n    n = len(v)\n\n    # 1. Smoothing via centered moving average (width 5)\n    # We use a kernel for a centered moving average.\n    # To handle edges, we pad or use a truncated approach.\n    # The prompt specifies: \"a centered moving average of width 5, truncated at the edges\"\n    # This usually implies using valid indices or adjusting weights.\n    # We'll implement it using a simple convolution-based window.\n    \n    smoothed_ph = np.zeros(n)\n    for i in range(n):\n        # Define window indices for centered width 5\n        start = max(0, i - 2)\n        end = min(n, i + 3)\n        # A centered moving average of width 5 usually uses a kernel of [0.2, 0.2, 0.2, 0.2, 0.2]\n        # But at edges, we normalize by the actual number of points in the window.\n        window = ph[start:end]\n        smoothed_ph[i] = np.mean(window)\n\n    # 2. Differentiate smoothed curve\n    # \"Place each derivative value at the midpoint of its volume pair.\"\n    # \"Divide by the actual delta V of each pair\"\n    dv = np.diff(v)\n    dph = np.diff(smoothed_ph)\n    # Midpoints of volume pairs\n    v_mid = v[:-1] + dv / 2.0\n    # Derivatives dpH/dV\n    derivatives = dph / dv\n\n    # 3. Refine the maximum using parabola fitting\n    # Find index of max derivative\n    idx_max = np.argmax(derivatives)\n    \n    # We need three points around the peak: idx_max-1, idx_max, idx_max+1\n    # If the max is at the boundary, we shift to ensure we have 3 points.\n    if idx_max == 0:\n        idx_max = 1\n    elif idx_max == len(derivatives) - 1:\n        idx_max = len(derivatives) - 2\n        \n    x_p = v_mid[idx_max-1 : idx_max+2]\n    y_p = derivatives[idx_max-1 : idx_max+2]\n    \n    # Fit parabola: y = ax^2 + bx + c\n    coeffs = np.polyfit(x_p, y_p, 2)\n    a, b, c = coeffs\n    # Vertex of parabola: x = -b / 2a\n    v_eq = -b / (2 * a)\n\n    # 4. pKa is the pH at Veq/2, interpolated on the raw curve\n    # Create interpolation function for the raw pH values\n    f_ph = interp1d(v, ph, kind='linear')\n    pka = float(f_ph(v_eq / 2.0))\n\n    # 5. analyte_concentration_M = C_titrant * Veq / V0\n    conc = (C_TITRANT * v_eq) / V0\n\n    # Output results.tsv\n    output_df = pd.DataFrame([[v_eq, pka, conc]], \n                             columns=['equivalence_volume_mL', 'pKa', 'analyte_concentration_M'])\n    output_df.to_csv(args.output, sep='\\t', index=False, line_terminator='\\n')\n\n    # Output stdout\n    # points=<n> Veq=<x> pKa=<x> conc=<x>\n    print(f\"points={n} Veq={v_eq:.4f} pKa={pka:.4f} conc={conc:.4f}\")\n\nif __name__ == \"__main__\":\n    main()\n```",
+  "wall_clock_elapsed_s": 33.0,
+  "wall_clock_agent_s": 33.0,
+  "finished": "2026-09-18T08:34:49"
+ },
+ "single_shot_blocks": 1,
+ "grader_rc": 1,
+ "criteria": {
+  "tsv: header + 1 row, 3 columns in order, LF only": false,
+  "Veq 25.0 +/- 0.5 mL": false,
+  "pKa 4.74 +/- 0.10": false,
+  "concentration 0.100 M +/- 5%": false,
+  "stdout: points/Veq/pKa/conc each present with a numeric value": false,
+  "matches titration_ref recomputed from the input CSV, as given and perturbed (Veq +/-0.05 mL, pKa +/-0.02, conc +/-0.2%)": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {
+  "titration.py": "a43533aae1c559ac02977409046482f10f24e0b9a5a51583b6e9bda44626766d"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 33.0,
+ "iterations": 0,
+ "tokens": {
+  "input": 723,
+  "output": 1025
+ },
+ "workers": 6,
+ "content": {
+  "fields": {
+   "veq": {
+    "want": 24.997665110072916,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "pka": {
+    "want": 4.744918278852552,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "conc": {
+    "want": 0.09999066044029167,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   }
+  },
+  "method_passed": 0,
+  "precise_passed": 0,
+  "present": 0,
+  "total": 3,
+  "files_seen": [
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

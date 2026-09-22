@@ -1,0 +1,123 @@
+{
+ "experiment": "C_gptq",
+ "tool": "uvvis_s",
+ "variant": "base",
+ "rep": 2,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/uvvis_spectrum/PROMPT.md",
+ "prompt_sha256": "58af7bf128a147d3b886462af28bfd6ba0582ded001ff027b42d471ecf57e034",
+ "started": "2026-09-18T08:51:27",
+ "failure_mode": "no_artifact",
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.8-27b-gptq",
+  "prompt_sha256": "58af7bf128a147d3b886462af28bfd6ba0582ded001ff027b42d471ecf57e034",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-18T08:51:27",
+  "max_iters": 120,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 2,
+  "assistant_turns": 3,
+  "tokens": {
+   "input": 4037,
+   "output": 316
+  },
+  "tool_calls": 2,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "qwen3.8-27b-gptq"
+  ],
+  "fingerprints": [
+   "vllm-0.27.2rc1.dev77+gac7509e2b-22f0c859"
+  ],
+  "model_substituted": false,
+  "wall_clock_elapsed_s": 2321.7,
+  "wall_clock_agent_s": 2321.7,
+  "finished": "2026-09-18T09:30:08"
+ },
+ "grader_rc": 1,
+ "criteria": {
+  "bands.tsv: header + exactly one band row, columns in order, no CR": false,
+  "lambda_max 317 +/- 3 nm": false,
+  "epsilon within 2% of 9283": false,
+  "fwhm within 2 nm of the reference recomputed from the input": false,
+  "stdout reports points, bands, lambda_max and epsilon": false,
+  "re-running uvvis.py on an absorbance-tilted input reproduces the reference lambda_max and epsilon for that input": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {},
+ "missing_artifacts": [
+  "uvvis.py"
+ ],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 2321.7,
+ "iterations": 2,
+ "tokens": {
+  "input": 4037,
+  "output": 316
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "lambda_max": {
+    "want": 317.01526,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "epsilon": {
+    "want": 9283.38841,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "fwhm": {
+    "want": 66.6976840137051,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   },
+   "bands": {
+    "want": 1,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   }
+  },
+  "method_passed": 0,
+  "precise_passed": 0,
+  "present": 0,
+  "total": 4,
+  "files_seen": [
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

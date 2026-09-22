@@ -1,0 +1,82 @@
+{
+ "experiment": "C_gptq",
+ "tool": "mass_reader_s",
+ "variant": "base",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/mass_reader/PROMPT.md",
+ "prompt_sha256": "5959e39952ebb85e0868ba3ecaf1bfcdf179a9617c1763fac6d1db97de5649ef",
+ "started": "2026-09-18T12:43:00",
+ "failure_mode": "wall_clock_cap",
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.8-27b-gptq",
+  "prompt_sha256": "5959e39952ebb85e0868ba3ecaf1bfcdf179a9617c1763fac6d1db97de5649ef",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-18T12:43:00",
+  "max_iters": 120,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 10,
+  "assistant_turns": 10,
+  "tokens": {
+   "input": 51308,
+   "output": 3582
+  },
+  "tool_calls": 10,
+  "refused_commands": 0,
+  "failure_mode": "wall_clock_cap",
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "qwen3.8-27b-gptq"
+  ],
+  "fingerprints": [
+   "vllm-0.27.2rc1.dev77+gac7509e2b-22f0c859"
+  ],
+  "model_substituted": false,
+  "wall_clock_elapsed_s": 5611.4,
+  "wall_clock_agent_s": 5611.4,
+  "finished": "2026-09-18T14:16:31"
+ },
+ "grader_rc": 1,
+ "criteria": {
+  "fasta: 48 records, 19929 residues, first sp|P00509|AAT_ECOLI/396": false,
+  "bsa: 40 spectra (10 MS1 / 30 MS2), ids spectrum=1011..spectrum=2471": false,
+  "bsa: rt_first 1501.414 s, rt_last 1590.187 s": false,
+  "bsa: first MS2 spectrum=2442, precursor 457.72397, z=2, charges {2,3}": false,
+  "thermo: 2 MS1 x 19914 peaks, rt 0.2961/0.3561 s (minutes rule)": false,
+  "tic totals within 0.1% (45709750.4 / 138763684.2) and the mandated one-line stdout summary for the bsa file": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {},
+ "missing_artifacts": [
+  "fasta_reader.py",
+  "mzml_reader.py"
+ ],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 5611.4,
+ "iterations": 10,
+ "tokens": {
+  "input": 51308,
+  "output": 3582
+ },
+ "workers": 4
+}

@@ -1,0 +1,94 @@
+{
+ "experiment": "C_gemma4",
+ "tool": "mass_reader_s",
+ "variant": "base",
+ "rep": 2,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/mass_reader/PROMPT.md",
+ "prompt_sha256": "5959e39952ebb85e0868ba3ecaf1bfcdf179a9617c1763fac6d1db97de5649ef",
+ "endpoint": "http://llm-host:35212/v1",
+ "started": "2026-09-19T12:29:38",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35212/v1",
+  "model": "gemma4",
+  "prompt_sha256": "5959e39952ebb85e0868ba3ecaf1bfcdf179a9617c1763fac6d1db97de5649ef",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-19T12:29:38",
+  "max_iters": 60,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 20,
+  "assistant_turns": 21,
+  "tokens": {
+   "input": 282560,
+   "output": 13032
+  },
+  "tool_calls": 20,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "wall_clock_elapsed_s": 579.3,
+  "wall_clock_agent_s": 579.3,
+  "finished": "2026-09-19T12:39:18"
+ },
+ "grader_rc": 0,
+ "criteria": {
+  "fasta: 48 records, 19929 residues, first sp|P00509|AAT_ECOLI/396": true,
+  "bsa: 40 spectra (10 MS1 / 30 MS2), ids spectrum=1011..spectrum=2471": true,
+  "bsa: rt_first 1501.414 s, rt_last 1590.187 s": true,
+  "bsa: first MS2 spectrum=2442, precursor 457.72397, z=2, charges {2,3}": true,
+  "thermo: 2 MS1 x 19914 peaks, rt 0.2961/0.3561 s (minutes rule)": true,
+  "tic totals within 0.1% (45709750.4 / 138763684.2) and the mandated one-line stdout summary for the bsa file": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "fasta_reader.py": "1a7324514dc0affd349701486a69c5b4d95ba6f14822c186aa8f21d5c30288f5",
+  "mzml_reader.py": "a354c56b858255262f518851d6ef7d3d2526177930350659e8971c526db3ec98"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 579.3,
+ "iterations": 20,
+ "tokens": {
+  "input": 282560,
+  "output": 13032
+ },
+ "workers": 4
+}

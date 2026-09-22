@@ -1,0 +1,34 @@
+{
+ "experiment": "E",
+ "tool": "features_s",
+ "variant": "base",
+ "rep": 4,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/feature_extraction/PROMPT.md",
+ "prompt_sha256": "365302043d4946b6194f7f6a53bf37262492840448e9d73c78cee4a83e18f846",
+ "started": "2026-09-17T23:42:26",
+ "failure_mode": "harness_timeout",
+ "driver": {},
+ "grader_rc": 0,
+ "criteria": {
+  "features.tsv: header + N rows, 7 columns in order": true,
+  "120 <= N <= 480": true,
+  "at least 5 of the 10 reference features matched": true,
+  "every apex_intensity > 0 and rt_start <= rt_apex <= rt_end": true,
+  "stdout: ms1_scans=286": true,
+  "at least 70 of the recomputed reference's top 100 features matched, and stdout features=N equals the row count": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "features.py": "09a49bf44a3a8be8ef01bbe5df0ab023e39ee82045a314beef11c570917136d9"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": true,
+ "wall_clock_agent_s": null,
+ "iterations": null,
+ "tokens": null,
+ "workers": 4
+}

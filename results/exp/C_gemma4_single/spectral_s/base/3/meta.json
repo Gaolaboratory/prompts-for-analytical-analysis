@@ -1,0 +1,74 @@
+{
+ "experiment": "C_gemma4_single",
+ "tool": "spectral_s",
+ "variant": "base",
+ "rep": 3,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "single_shot",
+ "prompt_path": "examples/spectral_library/PROMPT.md",
+ "prompt_sha256": "3b0ff48a40893cab72d401afcdd233fb9c7ec53644111eb2d6d7f551f53c710a",
+ "started": "2026-09-19T09:57:53",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35211/v1",
+  "model": "gemma4",
+  "prompt_sha256": "3b0ff48a40893cab72d401afcdd233fb9c7ec53644111eb2d6d7f551f53c710a",
+  "wrapper_sha256": "139312757611a0e8b9ba3dd1eef1fdbe4841a951231ec19f851a0b121757148e",
+  "arm": "single_shot",
+  "started": "2026-09-19T09:57:53",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16000,
+  "temperature": null,
+  "iterations": 0,
+  "assistant_turns": 1,
+  "tokens": {
+   "input": 838,
+   "output": 1584
+  },
+  "tool_calls": 0,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "single_shot_reply": "```python\nimport sys\nimport argparse\nimport numpy as np\nimport pandas as pd\n\ndef parse_file(filename):\n    records = []\n    current_name = None\n    current_peaks = []\n\n    with open(filename, 'r') as f:\n        lines = f.readlines()\n\n    i = 0\n    while i < len(lines):\n        line = lines[i].strip()\n        if not line or line.startswith('#'):\n            i += 1\n            continue\n        \n        if line.startswith('>'):\n            # If we had a previous record, save it\n            if current_name is not None:\n                records.append({'name': current_name, 'peaks': np.array(current_peaks)})\n                current_peaks = []\n            \n            # Extract name from \">NAME <name>\"\n            # The format is \">NAME <name>\", we want the part inside <...>\n            # or just the part after > if it's simple. \n            # Based on requirement: \">NAME <name>\"\n            parts = line.split('<')\n            if len(parts) > 1:\n                name = parts[1].split('>')[0].strip()\n            else:\n                name = line[1:].strip()\n            current_name = name\n            i += 1\n        else:\n            try:\n                parts = line.split()\n                if len(parts) == 2:\n                    mz = float(parts[0])\n                    intensity = float(parts[1])\n                    current_peaks.append([mz, intensity])\n            except ValueError:\n                pass\n            i += 1\n            \n    if current_name is not None:\n        records.append({'name': current_name, 'peaks': np.array(current_peaks)})\n        \n    return records\n\ndef solve():\n    parser = argparse.ArgumentParser()\n    parser.add_argument('queries', help='queries.txt')\n    parser.add_argument('library', help='library.txt')\n    parser.add_argument('-o', '--output', help='results.tsv')\n    args = parser.parse_args()\n\n    queries = parse_file(args.queries)\n    library = parse_file(args.library)\n\n    results = []\n    no_match_count = 0\n    called_count = 0\n\n    for q_rec in queries:\n        q_name = q_rec['name']\n        q_peaks = q_rec['peaks']\n        if len(q_peaks) == 0:\n            continue\n            \n        q_mz = q_peaks[:, 0]\n        q_int = q_peaks[:, 1]\n        sum_iq = np.sum(q_int)\n\n        best_score = -1.0\n        best_lib_idx = -1\n        best_matched_count = 0\n        best_total_lib_peaks = 0\n\n        for l_idx, l_rec in enumerate(library):\n            l_peaks = l_rec['peaks']\n            if len(l_peaks) == 0:\n                continue\n            \n            l_mz = l_peaks[:, 0]\n            l_int = l_peaks[:, 1]\n            sum_il = np.sum(l_int)\n            total_lib_peaks = len(l_peaks)\n\n            # Candidate pairs\n            # Using broadcasting to find |delta m/z| <= 0.5\n            # q_mz[:, None] is (N, 1), l_mz[None, :] is (1, M)\n            # diff is (N, M)\n            diff = np.abs(q_mz[:, np.newaxis] - l_mz[np.newaxis, :])\n            mask = diff <= 0.5\n            \n            # Get indices of candidates\n            q_indices, l_indices = np.where(mask)\n            \n            if len(q_indices) == 0:\n                score = 0.0\n                matched_count = 0\n            else:\n                # Sort candidates by sqrt(Iq * Il) descending\n                products = np.sqrt(q_int[q_indices] * l_int[l_indices])\n                \n                # Sort indices of the 'products' array\n                sorted_idx = np.argsort(-products)\n                \n                used_q = set()\n                used_l = set()\n                matched_count = 0\n                sum_sqrt_prod = 0.0\n                \n                for idx in sorted_idx:\n                    qi = q_indices[idx]\n                    li = l_indices[idx]\n                    if qi not in used_q and li not in used_l:\n                        used_q.add(qi)\n                        used_l.add(li)\n                        matched_count += 1\n                        sum_sqrt_prod += products[idx]\n                \n                if sum_iq > 0 and sum_il > 0:\n                    score = (sum_sqrt_prod**2) / (sum_iq * sum_il)\n                else:\n                    score = 0.0\n\n            if score > best_score:\n                best_score = score\n                best_lib_idx = l_idx\n                best_matched_count = matched_count\n                best_total_lib_peaks = total_lib_peaks\n\n        if best_lib_idx != -1:\n            called_count += 1\n            match_name = library[best_lib_idx]['name']\n            if best_score < 0.5:\n                match_name = \"NO_MATCH\"\n                no_match_count += 1\n            \n            results.append({\n                'query': q_name,\n                'best_match': match_name,\n                'score': f\"{best_score:.4f}\",\n                'matched_peaks': best_matched_count,\n                'total_library_peaks': best_total_lib_peaks\n            })\n        else:\n            # Should not happen with valid inputs\n            pass\n\n    # Output TSV\n    df = pd.DataFrame(results)\n    # Note: The requirement says score is float to 4 decimals. \n    # Pandas might convert it to object if we use string formatting inside the dict.\n    # We'll fix the score type for the dataframe if needed.\n    df['score'] = pd.to_numeric(df['score'])\n    \n    # Re-format score to 4 decimals for output\n    output_df = df.copy()\n    output_df['score'] = output_df['score'].map(lambda x: f\"{x:.4f}\")\n\n    output_df.to_csv(args.output, sep='\\t', index=False)\n\n    print(f\"queries: {len(queries)}  called: {called_count}  no_match: {no_match_count}\")\n\nif __name__ == \"__main__\":\n    solve()\n```",
+  "wall_clock_elapsed_s": 66.1,
+  "wall_clock_agent_s": 66.1,
+  "finished": "2026-09-19T09:58:59"
+ },
+ "single_shot_blocks": 1,
+ "grader_rc": 1,
+ "criteria": {
+  "results.tsv: header + 4 rows in q1..q4 order, columns in order": false,
+  "best_match: caffeine, sulfamethoxazole, nicotine, NO_MATCH": false,
+  "scores 0.7473 / 0.6669 / 0.8706 / 0.0138 (+/- 0.0001)": false,
+  "matched_peaks 6/4/6/2 and total_library_peaks 7/6/8/6": false,
+  "stdout: queries: 4  called: 3  no_match: 1": false,
+  "re-running libsearch.py on a library with one entry removed reproduces the reference result for that library": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {
+  "libsearch.py": "fc1378355c8d2a45b7b9e00e568bd8839fc10df5bbcbdd82f05f4bd203b8d099"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 66.1,
+ "iterations": 0,
+ "tokens": {
+  "input": 838,
+  "output": 1584
+ },
+ "workers": 1
+}

@@ -1,0 +1,7 @@
+FAIL features.tsv: header + N rows, 7 columns in order
+FAIL 120 <= N <= 480
+FAIL at least 5 of the 10 reference features matched
+FAIL every apex_intensity > 0 and rt_start <= rt_apex <= rt_end
+PASS stdout: ms1_scans=286
+FAIL at least 70 of the recomputed reference's top 100 features matched, and stdout features=N equals the row count
+1/6 passed

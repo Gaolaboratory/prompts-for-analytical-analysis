@@ -1,0 +1,619 @@
+feature_id	metabolite_identification	mass_to_charge	retention_time_min
+MET_001	Oleamide	282.27885	8.775
+MET_002	Norsalsolinol	166.08617	1.791
+MET_003	Linoleamide	280.26331	8.359
+MET_004	L-Isoleucine	132.10187	1.097
+MET_005	Choline	104.10694	0.584
+MET_006	(R)-3-(3-chlorophenyl)-  -alanine	200.04721	3.266
+MET_007	L-Norleucine	132.10189	1.026
+MET_008	L-Proline	116.07061	0.634
+MET_009	Hexadecanamide	256.26339	8.611
+MET_010	SN-GLYCERO-3-PHOSPHOCHOLINE	258.11004	0.987
+MET_011	L-Arginine	175.11897	0.515
+MET_012	L-Acetylcarnitine	204.12297	0.685
+MET_013	Betaine	118.08627	0.619
+MET_014	12-Oxo phytodienoic acid	275.2004	5.66
+MET_015	  -Aminobutyric acid (GABA)	104.07064	1.158
+MET_016	trans-3-Indoleacrylic acid	188.07057	3.209
+MET_017	Arg-Gly-Asp	174.08727	0.684
+MET_018	C17-Sphinganine	288.28962	5.797
+MET_019	Palmitic Acid	274.27396	5.562
+MET_020	Octyl hydrogen phthalate	279.15903	7.795
+MET_021	Succinyladenosine	384.1149	2.832
+MET_022	L-Saccharopine	277.13932	0.597
+MET_023	L-Glutamine	147.07646	0.602
+MET_024	L-Valine	118.0863	0.854
+MET_025	3-(1-Nitroso-2-pyrrolidinyl)pyridine 1-oxide	387.18014	6.222
+MET_026	N6,N6,N6-Trimethyl-L-lysine	189.15977	0.537
+MET_027	octadec-9-ynoic acid	263.23687	8.34
+MET_028	5'-S-Methyl-5'-thioadenosine	298.09681	3.212
+MET_029	4-Guanidinobutyric acid	146.09245	0.675
+MET_030	Adenylsuccinic acid	464.08147	1.288
+MET_031	L-Lysine	147.11291	0.508
+MET_032	Thiamine	265.11176	0.512
+MET_033	L-Threonine	120.06552	0.611
+MET_034	Butyryl-carnitine	232.15432	2.687
+MET_035	Cyclo(L-Pro-L-OMet)	245.09537	1.839
+MET_036	Ornithine	133.09722	0.509
+MET_037	D-Seryl-L-leucine	219.13394	2.379
+MET_038	Alanyltyrosine	253.11834	4.203
+MET_039	Adenosine	268.10402	0.69
+MET_040	Glycylproline	173.09205	0.682
+MET_041	Thr-Val	219.13393	1.904
+MET_042	Spermidine	146.16529	0.478
+MET_043	L-(-)-methionine	150.05832	0.918
+MET_044	Elaidamide	563.55096	8.771
+MET_045	(1S,7R)-Octahydro-1,6,7,8-indolizinetetrol	190.10739	0.692
+MET_046	Erucamide	338.34177	7.213
+MET_047	1-(2-Hydroxyethyl)-2,2,6,6-tetramethyl-4-piperidinol	202.1802	0.688
+MET_048	Kanosamine	162.07609	0.685
+MET_049	Cystathionine	223.07463	0.592
+MET_050	1-O-(2R-hydroxy-hexadecyl)-sn-glycerol	350.32643	8.382
+MET_051	PLH	183.61041	1.637
+MET_052	guanidinopropionic acid	132.07673	0.615
+MET_053	9-Oxo-10(E),12(E)-octadecadienoic acid	295.22681	5.931
+MET_054	PS(18:3(9Z,12Z,15Z)/0:0)	520.26714	7.475
+MET_055	URIDINE 5'-DIPHOSPHATE	405.00949	0.911
+MET_056	N-Acetyl-3,4-Dihydroxy-L-Phenylalanine	240.08668	2.909
+MET_057	5-Aminolevulinic acid	132.06555	0.608
+MET_058	Oxymorphol	304.15043	3.166
+MET_059	3'-Adenosine monophosphate (3'-AMP)	348.07025	0.918
+MET_060	(+/-)12(13)-DiHOME	297.24241	7.105
+MET_061	Enigmol	302.30538	6.027
+MET_062	L-Pyroglutamic acid	130.04986	0.931
+MET_063	D-myo-Inositol-1,5-diphosphate	322.9927	0.773
+MET_064	2-Amino-4-chloro-3,5-dimethylphenol	154.04183	3.266
+MET_065	Leucylproline	229.15472	3.57
+MET_066	3-(propan-2-yl)-octahydropyrrolo[1,2-a]pyrazine-1,4-dione	229.1547	3.569
+MET_067	Glycylprolylalanine	244.12911	0.686
+MET_068	Nicotinamide adenine dinucleotide (NAD+)	664.11569	0.647
+MET_069	4-Aminobutanamide	103.08666	0.58
+MET_070	L-Isoleucyl-L-threonine	233.14962	2.551
+MET_071	Hydroxynybomycin	315.09528	0.589
+MET_072	GUANOSINE 5'-DIPHOSPHO-MANNOSE	606.08435	0.813
+MET_073	5-hydroxy-4-methoxy-5,6-dihydro-2H-pyran-2-one	145.04963	0.404
+MET_074	MBP	205.08593	7.795
+MET_075	N-ETHYL-N-METHYLCATHINONE	192.13834	3.138
+MET_076	2-Aminoadipic acid	162.07606	0.63
+MET_077	Hypotaurine	110.027	0.615
+MET_078	8R-Hydroxy-4Z,6E,10Z-hexadecatrienoic acid	289.17592	2.341
+MET_079	Uracil	113.03453	0.917
+MET_080	Guanine	152.05668	1.026
+MET_081	GUANOSINE 5'-MONOPHOSPHATE	364.06532	0.904
+MET_082	Ile-val	231.1704	3.923
+MET_083	L-Valyl-L-cysteine	221.09536	0.918
+MET_084	dihydralazine	191.1026	0.68
+MET_085	Prolylleucine	229.15469	2.944
+MET_086	pentane-1,2,3,4,5-pentol	135.06518	0.64
+MET_087	3-Succinoylpyridine	180.06565	3.821
+MET_088	GUANOSINE 3',5'-CYCLIC MONOPHOSPHATE	346.05464	0.975
+MET_089	Glycyl-L-leucine	189.12343	2.305
+MET_090	Nicotinic acid	124.03929	0.918
+MET_091	Riboflavin	377.14577	3.796
+MET_092	(4E,8E,10E-d18:3)sphingosine	296.25843	7.42
+MET_093	S-Adenosylhomocysteine	193.06791	0.918
+MET_094	L-Ergothioneine	230.0957	0.656
+MET_095	Acexamic acid	174.11217	0.679
+MET_096	5  -Dihydrotestosterone	291.23194	6.588
+MET_097	Diaminopimelic acid	191.10261	0.616
+MET_098	Trigonelline	138.05506	3.544
+MET_099	Acetylcholine	146.11757	0.612
+MET_100	N-Acetylneuraminic acid	310.11322	0.619
+MET_101	MIC substitute	205.08169	0.62
+MET_102	Glycylglutamic acid	205.0817	0.62
+MET_103	Penicillatide A	227.13913	3.755
+MET_104	N-Acetyl-D-galactosamine	222.09713	0.648
+MET_105	Biotin sulfoxide	261.09042	1.471
+MET_106	dodecanamide	200.2009	7.122
+MET_107	C8E5	368.30072	6.771
+MET_108	Inosine	269.08808	1.045
+MET_109	4-Hydroxy-6-methyl-2-pyrone	127.03903	0.378
+MET_110	N6-Acetyl-L-lysine	189.12334	0.684
+MET_111	N3,N4-Dimethyl-L-arginine	203.15013	0.593
+MET_112	Ncgc00385962-01_C16H24O3_	247.16661	9.233
+MET_113	Pro-ile	229.15474	3.612
+MET_114	Ile-Glu	261.14461	2.052
+MET_115	L-Isoleucyl-L-serine	219.13389	1.108
+MET_116	4-Methyl-5-thiazoleethanol	144.04788	1.494
+MET_117	Glutathione	307.0833	1.875
+MET_118	Nicotinic acid adenine dinucleotide	333.05357	0.879
+MET_119	2-(Dimethylamino)nicotinic acid	167.0816	3.577
+MET_120	N-Acetylornithine	175.10767	0.646
+MET_121	Hypoxanthine	137.04584	1.046
+MET_122	19-Noretiocholanolone	259.20557	5.77
+MET_123	Nicotinamide	123.05527	0.658
+MET_124	L-Carnitine	162.11244	0.598
+MET_125	Ethyl-2,2-diethoxythylcyanoacetate	252.12319	3.725
+MET_126	4-(acetyloxy)-7-hydroxy-6',7-dimethyl-6-oxo-4,5-dihydro-1h-spiro[cyclopenta[c]pyran-3,2'-oxan]-3'-yl acetate	369.157	5.77
+MET_127	Asp-Ile	247.12886	2.602
+MET_128	Asp-Val	233.11312	1.053
+MET_129	Ile-Ile	245.18604	3.51
+MET_130	N-Benzylformamide	136.07581	3.935
+MET_131	(R)-4'-phosphopantothenic acid	300.08436	1.191
+MET_132	Palmitoleic Acid	277.21619	6.93
+MET_133	N-ACETYL-GLUTAMIC ACID	190.07101	0.979
+MET_134	Cyclo(glycyl-N~5~-acetyl-N~5~-hydroxyornithyl-N~5~-acetyl-N~5~-hydroxyornithyl-N~5~-acetyl-N~5~-hydroxyornithylglycylseryl)	359.67185	3.294
+MET_135	4-Hydroxycoumarin	163.03899	5.561
+MET_136	(3S)-3,6-Diamino-6-oxohexanoic acid	183.07653	1.059
+MET_137	  -Nicotinamide mononucleotide	335.06362	0.626
+MET_138	Adenine	136.06175	0.657
+MET_139	Creatinine	114.06615	0.599
+MET_140	cyclo(Arg-Phe)	304.17695	3.032
+MET_141	pro-glu-arg	401.21441	1.123
+MET_142	S-succinylcysteine	238.03791	0.662
+MET_143	Ethyl propylphosphonate	181.09711	1.837
+MET_144	4-guanidinobutanamide	145.10846	0.61
+MET_145	N-Succinyl-5-aminoimidazole-4-carboxamide ribose	375.11461	1.076
+MET_146	Thr-Leu	233.14958	3.313
+MET_147	Ala-Glu-Lys	329.18204	1.521
+MET_148	D-Fucitol	189.07578	0.695
+MET_149	Ethylenediaminetetraacetic acid	293.09794	0.742
+MET_150	Ophthalmic acid	290.13452	0.92
+MET_151	Glycyl-D-phenylalanine	223.10777	3.128
+MET_152	Diprotin B	328.22327	3.787
+MET_153	Obscuraminol A	278.24785	7.372
+MET_154	Isonicotinamide	123.05529	0.894
+MET_155	pro-phe	263.13918	3.743
+MET_156	2-METHYLMETHCATHINONE	178.12272	9.369
+MET_157	9-amino-nonanoic acid	174.14893	4.103
+MET_158	1-Phenyl-1H-1,2,4-triazole-3,5-diamine	176.09161	0.913
+MET_159	L-Isoleucyl-L-aspartic acid	247.12877	1.104
+MET_160	2'-Deoxyadenosine	252.10912	0.992
+MET_161	N,N'-bis[(S)-1-methoxycarbonylethyl]fumaric diamide	287.12704	0.624
+MET_162	Glu-Phe	295.12891	3.531
+MET_163	N,N-Diethyl-1,6-hexanediamine	173.20124	9.266
+MET_164	3-(2-methylpropyl)-octahydropyrrolo[1,2-a]pyrazine-1,4-dione	211.14421	4.128
+MET_165	19-NOREPIANDROSTERONE	259.2056	5.931
+MET_166	(+)-epogymnolactam	189.12343	1.973
+MET_167	5-(4-morpholino)-2-nitroanisole	239.10276	3.783
+MET_168	Heptadecanoic Acid	293.24769	8.022
+MET_169	N-  -L-Acetyl-arginine	217.12943	0.669
+MET_170	Pipecolic acid	130.08625	1.142
+MET_171	Anthranilic acid	138.05506	2.767
+MET_172	(2S)-2-{[(2R)-2-Ammonio-4-methylpentanoyl]amino}-4-methylpentanoate	245.18604	4.224
+MET_173	S-Adenosylmethionine	399.14454	0.503
+MET_174	PC(16:0/0:0)	496.33985	7.328
+MET_175	  -L-Glutamyl-L-glutamic acid	277.10298	0.674
+MET_176	2-(2,6-Dimethylphenoxy)acetohydrazide	195.11285	4.411
+MET_177	Gln-Leu	260.1603	1.783
+MET_178	Ala-Phe	237.12343	3.521
+MET_179	beta-Alanylleucine	203.13901	2.275
+MET_180	N-[3-[5,8-bis[3-[acetyl(hydroxy)amino]propyl]-14-(hydroxymethyl)-3,6,9,12,15,18-hexaoxo-1,4,7,10,13,16-hexazacyclooctadec-2-yl]propyl]-N-hydroxyacetamide	718.33621	3.291
+MET_181	2,5-Dimethyl-3-(2-methylbutyl)pyrazine	179.15434	6.499
+MET_182	Caprolactam	114.09135	3.312
+MET_183	4-Hydroxyproline	132.06558	1.181
+MET_184	PyroGlu-Val-Lys	357.21312	3.265
+MET_185	Glycylglycine	133.05945	0.577
+MET_186	L-Kynurenine	209.09213	1.706
+MET_187	Monoisobutyl phthalic acid	223.09654	5.862
+MET_188	5-(6-hydroxy-6-methyloctyl)-2,5-dihydrofuran-2-one	244.19071	5.425
+MET_189	glu-val-arg	202.11862	1.936
+MET_190	1-oleoyl-sn-glycero-3-phosphoethanolamine	480.30865	7.453
+MET_191	Ethyl 2-acetamido-3-oxobutanoate	210.07597	0.686
+MET_192	2,4-dihydroxyheptadec-16-en-1-yl acetate	311.25826	8.02
+MET_193	3-{2-[(1R,4aS,5R,6R,8aS)-6-hydroxy-5-(hydroxymethyl)-5,8a-dimethyl-2-methylidene-decahydronaphthalen-1-yl]-1-hydroxyethyl}-2,5-dihydrofuran-2-one	333.20374	6.073
+MET_194	11-Deoxy prostaglandin F1  	323.25815	8.811
+MET_195	Nicotinamide adenine dinucleotide phosphate (NADP+)	372.5449	0.79
+MET_196	5-Acetamido-4-oxo-hex-5-enoic acid	186.07609	1.144
+MET_197	Pyridoxamine	169.09719	1.911
+MET_198	cyclo(phenylalanyl-prolyl)	245.12849	4.407
+MET_199	N-Butylbenzenesulfonamide	214.08969	6.093
+MET_200	(5aR,10aR)-Octahydro-5H,10H-dipyrrolo[1,2-a:1',2'-d]pyrazine-5,10-dione	195.11288	3.164
+MET_201	N,N-Diethylethanolamine	118.12268	9.227
+MET_202	MFCD06200851	291.23205	7.897
+MET_203	Methyl (1-(cyclohexylmethyl)-1H-indole-3-carbonyl)-L-valinate	388.25447	3.783
+MET_204	4-hydroxy-6-[2-(2-methyl-1,2,4a,5,6,7,8,8a-octahydronaphthalen-1-yl)ethyl]oxan-2-one	293.21123	5.052
+MET_205	LPK	179.12847	1.613
+MET_206	3S_2349_Tetrahydro_1h_pyrido_34b_indole_carboxylic_acid	217.09726	3.63
+MET_207	7-ethyl-8-hydroxy-6-methoxy-2,3-dimethylchromone	249.11215	6.15
+MET_208	Ala-Val	189.12343	1.717
+MET_209	MFCD00063866	208.09687	4.337
+MET_210	D-Valyl-L-glutamic acid	247.12879	1.024
+MET_211	RMH	222.11254	9.399
+MET_212	O-Propanoylcarnitine	218.13864	1.123
+MET_213	Isoleucylprolylisoleucine	342.23896	4.03
+MET_214	ile-thr-arg	195.12889	1.055
+MET_215	decanamide	172.16967	6.316
+MET_216	L-Isoleucyl-L-alanine	203.13903	3.199
+MET_217	4-Hydroxybenzaldehyde	123.04399	0.937
+MET_218	16-hydroxyprednisolone	377.19189	1.136
+MET_219	Timonacic	134.02699	0.668
+MET_220	Diisopropylphosphate	183.07816	4.86
+MET_221	Leucyl-Alanine	203.13896	1.154
+MET_222	Guanosine 5'-diphosphate (GDP)	444.03171	0.812
+MET_223	Val-Leu	231.17033	3.317
+MET_224	asp-val-lys	343.19772	3.104
+MET_225	3-Hydroxy-N-(1-hydroxy-4-methyl-2-pentanyl)-5-oxo-6-phenylhexanamide	304.1867	3.149
+MET_226	Phenicaberan	340.15043	3.164
+MET_227	1,7,8-trihydroxy-3-methyl-1,2,3,4,7,12-hexahydrotetraphen-12-one	311.12389	3.892
+MET_228	N-(3-carboxypropanoyl)-N-hydroxycadaverine	219.13385	0.919
+MET_229	6-(7-methyloctyl)-1H,3H,4H,6H-furo[3,4-c]furan-1-one	253.17982	7.126
+MET_230	8-{2-[(1E)-3-Hydroxy-1-penten-1-yl]-5-oxo-3-cyclopenten-1-yl}octanoic acid	291.19554	5.51
+MET_231	leu-asp-lys	188.11557	1.836
+MET_232	Ser-Val	246.14482	1.007
+MET_233	5-Oxoprolylproline	227.10266	2.33
+MET_234	9,10-epoxy-13-hydroxy-11-octadecenoic acid	313.23722	7.181
+MET_235	3'-Dephosphocoenzyme A	344.58165	3.08
+MET_236	3-[(7S,8R)-5-Hydroxy-2,2,7,8-tetramethyl-6-oxo-7,8-dihydro-2H,6H-pyrano[3,2-g]chromen-10-yl]-3-phenylpropanoic acid	423.18001	3.753
+MET_237	Tributyl phosphate	267.17195	7.353
+MET_238	Glulisine A	226.15499	0.958
+MET_239	5-Tetradecynoic acid	242.21148	6
+MET_240	Flavin mononucleotide	439.10162	3.536
+MET_241	PI(18:2(9Z,12Z)/0:0)	597.30344	7.157
+MET_242	N-Acetyl-g-hydroxyvaline lactone	175.10777	1
+MET_243	cyclo(2-Hydroxy-Pro-L-Leu)	227.13899	1.007
+MET_244	15-Hexadecynoic acid	235.20561	7.69
+MET_245	2-AMINOMETHYL-4-METHYL-PENTANOIC ACID	146.11764	2.307
+MET_246	fenoxycarb	302.13464	0.685
+MET_247	MFCD02670245	272.25847	5.666
+MET_248	L-Histidinol	142.09749	0.489
+MET_249	Sulfamethazine	279.09337	5.985
+MET_250	Neolymphostin C	353.16213	7.363
+MET_251	N6-METHYLLYSINE	161.12846	0.511
+MET_252	Phe-ser	253.11836	2.113
+MET_253	tyr-val	281.1497	3.549
+MET_254	2'-O-Methyladenosine	282.11969	1.352
+MET_255	MFCD03094040	239.10268	1.253
+MET_256	Gly-Tyr	239.10261	1.259
+MET_257	(3S,8aS)-3-[(1R)-1-Hydroxyethyl]hexahydropyrrolo[1,2-a]pyrazine-1,4-dione	199.10776	1.543
+MET_258	phe-thr	267.13408	3.371
+MET_259	2-Aminoacetophenone	136.07567	0.749
+MET_260	MFCD00021308	171.14924	4.957
+MET_261	4-Hydroxy-6-[2-(2-methyl-1,2,4a,5,6,7,8,8a-octahydro-1-naphthalenyl)ethyl]tetrahydro-2H-pyran-2-one	275.20061	5.051
+MET_262	LUMICHROME	243.0877	4.604
+MET_263	N-(2-Hydroxy-3-methylbutanoyl)valine	218.13867	2.767
+MET_264	(1beta,2alpha,9xi,11beta,12alpha,15beta)-1,2,11,12,14,15-Hexahydroxypicras-4-en-16-one	381.18691	1.64
+MET_265	Tiglylcarnitine	244.15439	3.379
+MET_266	FLAVIN ADENINE DINUCLEOTIDE	786.16473	3.537
+MET_267	(6E)-7-(4-Methoxy-3-methyl-2-oxo-2H-pyran-6-yl)-5-methyl-6-octenoic acid	295.14994	0.51
+MET_268	(+/-)8(9)-EET	303.23195	8.613
+MET_269	18-HETE	303.23192	8.62
+MET_270	PEG-4	195.12265	2.479
+MET_271	Ethyl 3,4-diaminobenzoate	181.09724	4.151
+MET_272	H-GLU-VAL-OH	247.12887	1.588
+MET_273	(-)-Camphor	153.12744	5.098
+MET_274	4-(Hydroxymethyl)cyclohexanol	113.09616	3.726
+MET_275	N2-Methylguanosine	298.11464	1.371
+MET_276	N-Methyl-L-histidine	192.07682	3.125
+MET_277	Amides, C12-18, N-(hydroxyethyl)	286.27416	5.904
+MET_278	13(S)-HOTrE	295.22671	7.019
+MET_279	3,3'-(3,7,12,17-Tetramethyl-8,13-divinyl-2,18-porphyrindiyl)dipropanoic acid	563.26528	8.721
+MET_280	5-(1-Hydroxyethyl)dihydro-2(3H)-furanone	113.05971	1.073
+MET_281	3-Hexynoic acid	113.05968	1.073
+MET_282	(2s)-1-[(5s)-5-amino-5-carboxypentyl]-5-oxopyrrolidine-2-carboxylic acid	259.1289	1.609
+MET_283	2,3-Dinor-11-prostaglandin F2	349.19864	4.951
+MET_284	Met-Val	249.12686	3.688
+MET_285	Pestarhamnose A	281.13828	6.647
+MET_286	MFCD00044582	180.10196	3.464
+MET_287	Valylvaline	217.15474	3.571
+MET_288	Ethosuximide	142.08621	0.936
+MET_289	5-Oxo-D-prolyl-L-valine	229.11823	3.29
+MET_290	10-Nitrooleate	310.23767	7.345
+MET_291	Miglitol	190.10739	1.058
+MET_292	1,2-dihydroxyheptadec-16-yn-4-yl acetate	349.235	6.777
+MET_293	cys-pro-arg	188.0916	0.919
+MET_294	glu-tyr	311.12383	2.135
+MET_295	TKK	393.28619	6.55
+MET_296	Prenisteine	190.08976	3.655
+MET_297	Spermine	203.22298	0.515
+MET_298	(6E)-7-(2H-1,3-benzodioxol-5-yl)-1-(piperidin-1-yl)hept-6-en-1-one	316.18667	2.792
+MET_299	Methyl N-[(2-nitrophenyl)sulfonyl]glycinate	275.03334	1.28
+MET_300	Decamethylcyclopentasiloxane	371.10164	0.236
+MET_301	N6-Isopentenyladenosine	336.16685	4.261
+MET_302	(  )13-HpODE	295.22673	6.589
+MET_303	RG1300000	299.25811	7.423
+MET_304	Pilocarpine	209.12847	4.428
+MET_305	(3aR,5aR,9bR)-3a-hydroxy-5a,9-dimethyl-3-methylidene-2H,3H,3aH,4H,5H,5aH,6H,7H,8H,9bH-naphtho[1,2-b]furan-2-one	271.12883	1.134
+MET_306	Gln-Glu	276.11885	0.683
+MET_307	N-Aceyl-L-tyrosine	224.09187	3.931
+MET_308	Butenylcarnitine	230.1386	1.908
+MET_309	Diethyl {[(2-methoxyphenyl)amino]methylene}malonate	294.13375	3.483
+MET_310	Propanamide, 2-hydroxy-N-[2-[(8S)-1,6,7,8-tetrahydro-2H-indeno[5,4-b]furan-8-yl]ethyl]-	276.15539	1.075
+MET_311	MM3670000	300.20181	3.504
+MET_312	Glu-Leu	261.14452	2.55
+MET_313	Ser-Phe	253.11839	3.007
+MET_314	3-(5-Isobutyl-3,6-dioxo-2-piperazinyl)propanoic acid	260.16052	1.2
+MET_315	Ile-Gln	260.16045	1.203
+MET_316	N-Benzoylisoleucine	236.12814	3.372
+MET_317	Sphingofungin G	412.26959	4.496
+MET_318	Testosterone	289.21622	6.938
+MET_319	(8S)-8-Amino-7-oxononanoic acid	188.12821	4.043
+MET_320	Dendryphiellic acid B	188.12821	4.042
+MET_321	Asp-Met	265.08537	1.264
+MET_322	2-Hydroxy-3-[(9Z,12Z)-9,12-octadecadienoyloxy]propyl 2-(trimethylammonio)ethyl phosphate	520.33789	7.058
+MET_323	nitecapone	248.05882	3.732
+MET_324	MFCD00089604	215.08755	0.515
+MET_325	(11E,15Z)-9,10,13-trihydroxyoctadeca-11,15-dienoic acid	351.21435	5.19
+MET_326	N-Acetyldopamine	196.09683	1.001
+MET_327	2-Amino-1,3,4-octadecanetriol	318.30029	5.484
+MET_328	cyclo(Pro-Arg)	254.16114	1.021
+MET_329	2,3,5,6-Tetramethylpyrazine	137.10739	4.599
+MET_330	(2E,4E)-N-(2-methylpropyl)dodeca-2,4-dienamide	252.23229	7.625
+MET_331	17-Estradiol	273.18501	4.95
+MET_332	D-Methionyl-L-threonine	251.10609	1.388
+MET_333	(2s,4r)-2-(2-methylpropyl)azetidine-2,4-dicarboxylic acid	202.10744	1.174
+MET_334	3,6,9,12-tetraoxatridecan-1-ol	209.13835	3.365
+MET_335	ile-asp-lys	188.11552	1.4
+MET_336	gamma-Glutamylleucine	261.14445	3.238
+MET_337	Asp-Tyr	297.10798	1.861
+MET_338	pro-gln	261.15555	0.633
+MET_339	acetoxyacetanilide	194.08116	2.91
+MET_340	1-palmitoyl-2-hydroxy-sn-glycero-3-phosphoethanolamine	454.29327	7.13
+MET_341	16-acetyl-9-hydroxy-4-(2-methylpropyl)-2,5,16-triazatetracyclo[7.7.0.0?,?   .0?a?   ,?a? ?]hexadeca-10,12,14-triene-3,6-dione	375.19908	5.104
+MET_342	Destruxin A5	606.38477	6.094
+MET_343	2-(2-amino-3-methylbutanamido)-3-phenylpropanoic acid	265.15476	3.602
+MET_344	1-(3-ethyl-2,4-dihydroxy-6-methoxyphenyl)butan-1-one	221.11722	6.15
+MET_345	1,5-Hexanediamine	117.13866	9.4
+MET_346	5-Aminovaleric acid	118.08628	0.268
+MET_347	8-Isoprostaglandin F1  	339.25302	8.802
+MET_348	Asn-Ile	246.14477	2.055
+MET_349	GSK-J4	418.22237	6.224
+MET_350	RZ2670000	239.14881	3.273
+MET_351	Diethyl 5-methyl-3-phenyl-1H-pyrrole-2,4-dicarboxylate	302.13462	0.996
+MET_352	lys-ser	234.14481	0.498
+MET_353	L-Isoleucyl-D-tyrosine	295.16527	3.206
+MET_354	(2R)-2-[(Ammonioacetyl)amino]-3-(1H-indol-3-yl)propanoate	262.11868	3.514
+MET_355	5-Methyl-5-[4-(3-methylbutoxy)phenyl]-2,4-imidazolidinedione	277.1548	3.948
+MET_356	phe-gln	294.14487	2.346
+MET_357	2-[3,4-bis[[(2S,3R,4S,5S,6R)-3,4,5-trihydroxy-6-(hydroxymethyl)oxan-2-yl]oxy]phenyl]-5,7-dihydroxychromen-4-one	628.19442	8.829
+MET_358	C17 Sphingosine	286.27418	5.817
+MET_359	MEVALONOLACTONE	131.07031	1.388
+MET_360	D-Aspartatic acid	134.04495	0.484
+MET_361	Octahydro-2H-pyrido[1,2-a]pyrazine	141.13866	9.258
+MET_362	methyl 2-[(3S,6R)-4,6-diethyl-6-[(E,2R)-2-ethylhex-3-enyl]-3H-1,2-dioxin-3-yl]acetate	325.23732	7.155
+MET_363	4-Acetylphenylalanine	208.0968	1.422
+MET_364	KJ9800000	399.25074	7.622
+MET_365	Phe-glu	295.12885	1.931
+MET_366	pro-asp-lys	359.19221	3.028
+MET_367	4-(Carboxymethyl)phenylalanine	224.09174	3.299
+MET_368	Arg-Ile	288.20307	1.058
+MET_369	val-asp-arg	389.21453	0.991
+MET_370	VLK	359.26536	3.103
+MET_371	2-Thio-acetyl MAGE	357.27871	6.218
+MET_372	Sphinganine-1-phosphocholine	467.3631	6.654
+MET_373	(2S)-4-(Methylsulfanyl)-2-{[(2S)-2-pyrrolidiniumylcarbonyl]amino}butanoate	247.11108	1.32
+MET_374	Tetranor-12(S)-HETE	249.18493	7.481
+MET_375	2-Acetamido-5-oxopentanoic acid	174.07616	1.108
+MET_376	DLK	188.11548	1.246
+MET_377	L-Isoleucyl-D-phenylalanine	279.17045	4.309
+MET_378	N2_N2-Dimethylguanosine	312.13033	2.806
+MET_379	Carquinostatin B	354.16606	3.348
+MET_380	tyr-ile	295.16536	3.777
+MET_381	tyr-glu	311.12392	1.142
+MET_382	Tyr-Phe	329.14984	4.001
+MET_383	Oleoyl ethanolamide	308.29492	9.217
+MET_384	Sparteine	235.21671	8.569
+MET_385	8-aminocaprylic acid	160.13327	3.654
+MET_386	Gly-His	213.0981	0.505
+MET_387	PI(18:3(9Z,12Z,15Z)/0:0)	595.28724	5.67
+MET_388	Penicimumide	226.21652	7.367
+MET_389	1,2-Dihydroxy-16-heptadecyn-4-one	283.22539	8.869
+MET_390	D-Valyl-L-methionine	249.12685	3.504
+MET_391	6-Pentyl-2H-pyran-2-one	167.10662	5.935
+MET_392	2-acetamido-3-(4-methoxyphenyl)propanoic acid	238.10737	3.07
+MET_393	L-(-)-Carvone	151.11176	4.944
+MET_394	Cyclic ADP-ribose	542.06857	0.891
+MET_395	PE(0:0/18:3(9Z,12Z,15Z))	476.27744	6.567
+MET_396	(Diethylamino)(oxo)acetic acid	146.08123	0.509
+MET_397	  -Lactose	360.15028	1.15
+MET_398	4-[5-[[4-[5-[acetyl(hydroxy)amino]pentylamino]-4-oxobutanoyl]-hydroxyamino]pentylamino]-4-oxobutanoic acid	478.29284	6.906
+MET_399	(9Z,12Z)-15-Hydroxy-9,12-octadecadienoic acid	279.23184	5.96
+MET_400	ile-leu-arg	201.14711	3.063
+MET_401	Glu-Val-Phe	394.19749	4.248
+MET_402	Thromboxane B1	395.24049	8.059
+MET_403	7-(2-hydroxypropan-2-yl)-1,4a-dimethyl-decahydronaphthalen-1-ol	258.24259	6.217
+MET_404	Gly-Gly-Leu	246.14488	1.32
+MET_405	actarit	211.10769	1.209
+MET_406	KKK	385.29324	7.953
+MET_407	(2Z,4E,6Z)-7-[2-[(1E,3E)-4-carboxybuta-1,3-dienyl]phenyl]hepta-2,4,6-trienoic acid	297.10822	3.87
+MET_408	val-ala	189.12345	1.472
+MET_409	5-Oxoprolylphenylalanine	277.11838	4.117
+MET_410	2,3-Dinor-8-epi-prostaglandin F2	349.19861	5.121
+MET_411	THI	213.08706	1.381
+MET_412	methyl 2-({9-[3,4-dihydroxy-5-(hydroxymethyl)oxolan-2-yl]-6-hydroxy-3h-purin-2-ylidene}amino)propanoate	370.13596	3.181
+MET_413	(+/-)-Dihydrojasmonic Acid	213.14853	6.589
+MET_414	indole	159.09159	3.209
+MET_415	Linoleoyl ethanolamide	324.28973	8.016
+MET_416	Promethazine N-oxide	301.13916	1.032
+MET_417	5-Hydroxyindole-3-acetic acid	192.06556	1.716
+MET_418	N-Acetyl-D-leucine	174.11252	4.043
+MET_419	(R)-palmitic monoisopropanolamide	314.30552	6.354
+MET_420	O-Desmethyltramadol	250.17778	5.922
+MET_421	MFCD00079086	185.1285	3.837
+MET_422	Ile-His	269.16088	1.634
+MET_423	Penipacid D	237.08696	1.085
+MET_424	thr-val-leu	332.21818	3.827
+MET_425	9-Oxo-ODE	295.22677	7.615
+MET_426	Ethyl 2-methyl-3-oxo-1,2,3,4-tetrahydro-6-quinoxalinecarboxylate	235.10766	4.204
+MET_427	amycomicin	370.25887	4.444
+MET_428	3-acetyl-13-deoxyphomenome	291.15519	2.945
+MET_429	Dihydrocodeine	302.17109	3.381
+MET_430	cyclo(val-glu)	229.11829	3.482
+MET_431	Pro-tyr	279.13399	1.581
+MET_432	Asn-Phe	280.12921	3.081
+MET_433	Myrmicacin	189.14852	5.101
+MET_434	Levetiracetam	171.11287	3.419
+MET_435	Phe-Asp	281.11322	1.543
+MET_436	D-Sphingosine	300.28969	6.133
+MET_437	Triethylene glycol	151.09651	1.273
+MET_438	met-ala	221.09572	1.957
+MET_439	Colletopiperazine	309.08704	5.138
+MET_440	Phenylacetic acid	154.08629	4.255
+MET_441	Norfenefrine	154.08629	4.253
+MET_442	Corticosterone	347.21913	6.783
+MET_443	2-amino-7-hydroxyoctanoic acid	176.12813	2.39
+MET_444	N-(3-Aminopropyl)acetamide	117.10226	3.585
+MET_445	2E,6Z-dodecadienoic acid	179.14298	7.168
+MET_446	3-sec-Butyl-6-methyl-2,5-piperazinedione	185.1285	3.744
+MET_447	Phenylpiracetam	219.11287	3.932
+MET_448	Acetophenone	121.06474	6.22
+MET_449	N2-(1-Methoxycarbonylethyl)guanosine	370.13603	3.114
+MET_450	Tetranor-12R-HETE	249.18476	7.048
+MET_451	Ethyl 4-[2-hydroxy-3-(isopropylamino)propoxy]-3-methyl-1-benzofuran-2-carboxylate	318.16589	3.233
+MET_452	N-(2-Amino-4-ethoxyphenyl)acetamide	195.11283	2.926
+MET_453	2-Ethyl-7-Hydroxy-6,7-Dihydro-5H-Indolizin-3-One	180.10193	4.42
+MET_454	pro-ile-arg	193.13144	2.124
+MET_455	2-[2-(2-acetamido-4-methylpentanamido)propanamido]-3-hydroxypropanoic acid	332.18202	3.681
+MET_456	2-Phenylglycine	152.07055	2.914
+MET_457	7-hydroxy-1,4a-dimethyl-9-oxo-7-(propan-2-yl)-1,2,3,4,4a,4b,5,6,7,9,10,10a-dodecahydrophenanthrene-1-carboxylic acid	335.22014	6.585
+MET_458	  -Linolenoyl Ethanolamide	322.27417	7.61
+MET_459	MFCD19705130	308.22206	6.839
+MET_460	1-(2-Hydroxyethyl)-3-Methyl-6,7-Dihydro-5~{h}-Indazol-4-One	195.11286	3.857
+MET_461	APK	315.20414	3.672
+MET_462	L-Tyrosyl-L-Threonine	283.12905	1.446
+MET_463	Met-Glu	279.10098	1.203
+MET_464	17-6-keto Prostaglandin F1	351.21429	5.671
+MET_465	MFCD00040478	173.12846	2.38
+MET_466	1 ?-Methylzeatin	234.1336	3.468
+MET_467	SFE 1:0/21:2(2Z,3Me)	244.22715	5.878
+MET_468	N-Acetylserotonin	219.11286	3.837
+MET_469	Phytosphingosine	318.30031	6.071
+MET_470	FUROSINE	255.13393	2.955
+MET_471	Dopamine	154.08632	3.421
+MET_472	Gln-Phe	294.14503	3.159
+MET_473	methyl (Z)-3-(3,4-dihydroxyphenyl)-2-formamidoacrylate	238.07107	2.912
+MET_474	N-Acetyl-L-methionine	192.06903	3.452
+MET_475	Cyclo(Pro-Met)	229.10062	3.846
+MET_476	4-(2-Oxo-2,3-dihydro-1H-benzimidazol-1-yl)butanoic acid	221.09182	1.231
+MET_477	2-Pyridylacetic Acid	138.05491	0.916
+MET_478	Glycylglycyl-L-valine	232.12911	1.005
+MET_479	Verrucarol	267.15909	6.265
+MET_480	12-hydroxyjasmonic acid	227.12646	2.858
+MET_481	5-Hydroxy-10,10-dimethyl-6-methylenebicyclo[7.2.0]undecan-2-one	223.16918	7.105
+MET_482	N-{[1-(5-Fluoropentyl)-1H-indazol-3-yl]carbonyl}-L-valine	332.18169	2.663
+MET_483	beta-Ala-Phe	269.14957	3.365
+MET_484	Sedanolide	177.1274	5.77
+MET_485	leu-gly-leu	302.20756	3.983
+MET_486	Ile-Lys	260.19686	1.615
+MET_487	Met-Ile	263.14254	3.995
+MET_488	2-Carene-4-methanol	184.16959	4.854
+MET_489	2-Amino-9,13-dimethyl heptadecanoic acid	314.30537	6.614
+MET_490	3-[(4-hydroxyphenyl)methyl]-octahydropyrrolo[1,2-a]pyrazine-1,4-dione	261.1234	3.484
+MET_491	3-Amino-1-(2-amino-3-hydroxyphenyl)-1-propanone	181.09726	4.082
+MET_492	N-ACETYL-DL-LEUCINE	174.11249	4.139
+MET_493	6-Methyl-3-cyano-4-trifluoromethyl-pyridyl-2-one	203.04194	3.267
+MET_494	Andrographolide	333.20387	6.521
+MET_495	Tridecanamide	214.21656	7.505
+MET_496	4-Fluoro-5-(4-morpholinyl)-1,2-benzenediamine	212.11828	3.951
+MET_497	phe-met	297.1269	4.062
+MET_498	TCS 2510	384.23833	4.84
+MET_499	N-Acetylisonipecotic acid	172.09686	3.941
+MET_500	5'-O-Acetyladenosine	310.11466	2.64
+MET_501	(4aR,5R,6R)-6-hydroxy-4a,5-dimethyl-3-(prop-1-en-2-yl)-2,4a,5,6,7,8-hexahydronaphthalen-2-one	215.14314	5.661
+MET_502	Phe-leu	279.17041	3.809
+MET_503	Asp-Trp	320.12416	3.605
+MET_504	Monomethyl sebacate	199.13295	6.777
+MET_505	Cyclo-(glycyl-L-prolyl-L-glutamyl)	284.12409	2.324
+MET_506	diethatyl-ethyl	312.13437	6.481
+MET_507	Bis-tris methane	210.13365	9.29
+MET_508	MFCD00006820	189.07573	5.108
+MET_509	Trp-Trp	391.18181	3.027
+MET_510	Ser-Tyr	269.11379	1.366
+MET_511	Threoninamide	101.07089	0.583
+MET_512	val-val-lys	345.24982	1.24
+MET_513	2-(5-Chloro-1,3-benzothiazol-2-yl)ethanamine	254.0509	0.485
+MET_514	Homopyrone B	269.1134	3.729
+MET_515	MFCD00020424	313.15469	4.433
+MET_516	2-Cyclopropyl-4-methyl-5-pyrimidinecarboxylic acid	179.08149	4.243
+MET_517	asp-ala-lys	333.17673	0.999
+MET_518	Cis-Zeatin-riboside	352.16191	3.513
+MET_519	Aurantiamide acetate	445.21248	6.571
+MET_520	(6,7-Dimethoxy-1,2,3,4-tetrahydro-1-isoquinolinyl)acetic acid	252.1232	3.947
+MET_521	5-Oxoprolyltyrosine	293.11338	3.372
+MET_522	Tetrahydroindol 1	210.11243	3.306
+MET_523	Trematosphone A	367.14129	5.936
+MET_524	7  -demethoxyrostratin C	455.09679	3.71
+MET_525	EBPC	262.10735	4.951
+MET_526	MONOLINOLENIN	353.26873	7.917
+MET_527	Isophorone	139.11179	4.104
+MET_528	Citreoviridin putative annotated in Paecelomyces	425.19213	3.315
+MET_529	{5-[(3Z,6Z)-2,12-Dihydroxy-3,6-dodecadien-1-yl]tetrahydro-2-furanyl}acetic acid	309.2061	4.952
+MET_530	3,3-Dimethylcyclohexanone	127.11176	4.521
+MET_531	8-{(2S,3R)-3-[(2Z)-2-Octen-1-yl]-2-oxiranyl}octanoic acid	279.23196	6.37
+MET_532	4-Hydroxytamoxifen	388.22347	3.844
+MET_533	Aflatoxin G2	331.08131	5.409
+MET_534	2-Hydroxyphenylalanine	182.08127	3.658
+MET_535	(9Z,12Z)-15-Hydroxy-16-methoxy-9,12-octadecadienoic acid	309.24259	7.897
+MET_536	2-Acetamidooctanoic acid	202.14374	4.428
+MET_537	1,4-dihydroxy-1,4-dimethyl-7-(propan-2-ylidene)-decahydroazulen-6-one	270.20642	5.004
+MET_538	(1E,4E)-1,5-bis(4-methoxyphenyl)penta-1,4-dien-3-one	295.12894	1.497
+MET_539	5-Oxoprolylmethionine	261.09039	3.367
+MET_540	Cordycedipeptide A	228.13438	2.921
+MET_541	7-(2-aminophenyl)heptanoic acid	204.13823	7.448
+MET_542	TRIS(3-CHLOROPROPYL)PHOSPHATE	327.00824	6.467
+MET_543	Lisdexamfetamine	264.20705	5.145
+MET_544	3-Phenylpropionitrile	132.08077	3.209
+MET_545	leu-cys	235.10768	2.538
+MET_546	Diethyl glutamate	204.123	4.188
+MET_547	L-Prolyl-L-threonine	217.11834	1.165
+MET_548	Brasilane E	456.25928	4.887
+MET_549	N-(4-Methoxyphenyl)-10-undecenamide	290.21141	6.977
+MET_550	2-Amino-2-methyloctanoic acid	174.14889	3.988
+MET_551	2-Hydroxy-6-methyl-4-oxo-1,4-dihydro-3-pyridinecarboxamide	169.06086	3.444
+MET_552	KPH	363.21419	6.074
+MET_553	Phe-Tyr	329.1498	3.858
+MET_554	(E)-3,10-Dihydroxy-4,9-dimethyldodec-6-enedioic acid	289.16451	6.635
+MET_555	2,5-DIMETHOXY-3,4-DIMETHYLPHENETHYLAMINE	210.14883	5.869
+MET_556	INDOLE-3-ACETAMIDE	175.08656	4.149
+MET_557	L-alpha-lysophosphatidylcholine	468.30815	6.639
+MET_558	Diazaquinomycin G	369.18257	7.141
+MET_559	Nootkatone	219.17439	4.947
+MET_560	L-Hydroxyprolyl-L-Leucine	245.14962	2.728
+MET_561	Dihydrexidine	268.12927	3.459
+MET_562	(5E)-7-methylidene-10-oxo-4-(propan-2-yl)undec-5-enoic acid	270.20627	5.834
+MET_563	cyclo(Met-Val)	231.11631	4.13
+MET_564	NNK	375.19907	5.032
+MET_565	5,6-DHET	339.25298	6.879
+MET_566	9-Hydroxy-8,8-dimethyl-2-oxo-9,10-dihydro-2H,8H-pyrano[2,3-f]chromen-10-yl (2Z)-2-methyl-2-butenoate	362.15601	3.095
+MET_567	Phytosphingosine-1-P	398.26668	6.455
+MET_568	N6-Threonylcarbamoyladenosine	413.14187	3.395
+MET_569	5b-Androstan-3b,17b-diol	275.23287	5.107
+MET_570	Picrotoxinin	293.09899	5.054
+MET_571	N-Carbamoyl-L-phenylalanine	209.0921	4.065
+MET_572	1,7-bis(4-hydroxyphenyl)heptan-3-one	281.14959	4.845
+MET_573	Cycloheximide	282.17005	4.266
+MET_574	2,5,8,11-Tetramethyl-3,6,9,12-tetraoxapentadecane-1,14-diol	309.22721	4.849
+MET_575	4-Hydroxynonenal	157.12232	4.103
+MET_576	MFCD00065806	339.19571	9.259
+MET_577	1-(3,4-dihydroxyphenyl)-6,7-dihydroxy-1,2-dihydronaphthalene-2,3-dicarboxylic acid	341.06563	4.532
+MET_578	Ethyl 2-amino-5-(dimethylcarbamoyl)-4-methyl-3-thiophenecarboxylate	279.07635	5.835
+MET_579	(2s,5r)-4-hydroxy-5-(1h-indol-3-yl)-1h,2h,5h,6h-azepino[4,5-b]indole-2-carboxylic acid	360.13443	6.686
+MET_580	(  )15-HETE	321.24242	6.39
+MET_581	Jenamidine C	267.13398	4.548
+MET_582	(5Z)-13-(3-Pentyl-2-oxiranyl)-5-tridecenoic acid	325.27378	7.7
+MET_583	3-(2-Hydroxyethyl)indole	162.09135	4.826
+MET_584	ELK	371.22883	2.691
+MET_585	2-oxo-tetradecanoic acid	243.19552	5.999
+MET_586	2H5H0Q47FL	391.28443	6.376
+MET_587	ile-met	263.14262	3.823
+MET_588	9,16-dihydroxy-6-(hydroxymethyl)-2,6,11-trimethyl-15-oxatetracyclo[8.7.0.0?,?   .0?a?,?a? ?]heptadec-12-en-14-one	333.20351	5.575
+MET_589	Palmitoleamide	286.27416	7.988
+MET_590	L-Alanyl-L-tryptophan	276.13425	3.702
+MET_591	Pelargonidin	271.06016	5.357
+MET_592	(4-Chloro-5-methyl-3-nitro-pyrazol-1-yl)-acetic acid	220.00965	4.349
+MET_593	cordysinin c	213.10232	3.925
+MET_594	8Z,11Z,14Z-Eicosatrienoic acid	307.26337	7.7
+MET_595	(E)-2-decenamide	170.15392	4.496
+MET_596	MU2485000	269.09214	6.106
+MET_597	(1R,2R,4R,5S,9S,10S,12S,13R,16R)-2,12,16-trihydroxy-5,9-bis(hydroxymethyl)-5-methyl-14-methylidenetetracyclo[11.2.1.01,10.04,9]hexadecan-15-one	367.20931	4.615
+MET_598	Diosmetin	301.07067	5.434
+MET_599	Ascochalasin	466.29155	4.173
+MET_600	Daidzein	255.06524	4.917
+MET_601	3-(2-Ethylhexyloxy)propylamine	188.20088	4.969
+MET_602	Jasmonal	185.13244	6.138
+MET_603	7-Oxododecanoic acid	215.16413	5.279
+MET_604	C14 sphingosine	244.22706	5.166
+MET_605	Deoxynybomycin	283.10767	5.947
+MET_606	2,6-di-tert-butyl-4-(morpholin-4-ylmethyl)phenol	306.24288	5.13
+MET_607	(5S)-5-Butyl-5-ethyldihydro-2(3H)-furanone	171.1381	7.932
+MET_608	(2s,3r,4r,5s,6r)-2-(4-hydroxy-2-methoxyphenoxy)-6-(hydroxymethyl)-5-methoxyoxane-3,4-diol	317.12451	4.311
+MET_609	Vanilloloside	317.12457	4.313
+MET_610	Paeciloxanthone	325.13955	4.394
+MET_611	ETHYL 2-(2-CHLOROACETAMIDO)-4,5,6,7-TETRAHYDROBENZO(B)THIOPHENE-3-CARBOXYLATE	284.05311	0.992
+MET_612	3-hydroxy-estra-1,3,5(10),6,8-pentaen-17-one	267.13409	4.138
+MET_613	N-{4-[(4-Amino-1-piperidinyl)sulfonyl]phenyl}acetamide	298.11866	4.763
+MET_614	Citral	153.12742	4.499
+MET_615	MFCD00229093	247.11107	3.682
+MET_616	1-(2-Pyrimidinyl)-3-piperidinamine	179.12782	3.421
+MET_617	MFCD08271826	262.10784	3.551
+MET_618	L-Tyrosyl-L-Asparagine	296.12444	3.736

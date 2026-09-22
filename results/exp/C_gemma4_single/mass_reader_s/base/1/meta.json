@@ -1,0 +1,78 @@
+{
+ "experiment": "C_gemma4_single",
+ "tool": "mass_reader_s",
+ "variant": "base",
+ "rep": 1,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "single_shot",
+ "prompt_path": "examples/mass_reader/PROMPT.md",
+ "prompt_sha256": "5959e39952ebb85e0868ba3ecaf1bfcdf179a9617c1763fac6d1db97de5649ef",
+ "endpoint": "http://llm-host:35211/v1",
+ "started": "2026-09-19T12:09:38",
+ "failure_mode": "no_artifact",
+ "driver": {
+  "endpoint": "http://llm-host:35211/v1",
+  "model": "gemma4",
+  "prompt_sha256": "5959e39952ebb85e0868ba3ecaf1bfcdf179a9617c1763fac6d1db97de5649ef",
+  "wrapper_sha256": "139312757611a0e8b9ba3dd1eef1fdbe4841a951231ec19f851a0b121757148e",
+  "arm": "single_shot",
+  "started": "2026-09-19T12:09:38",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16000,
+  "temperature": null,
+  "iterations": 0,
+  "assistant_turns": 1,
+  "tokens": {
+   "input": 1392,
+   "output": 2774
+  },
+  "tool_calls": 0,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "single_shot_reply": "```python\n# fasta_reader.py\n\ndef read_fasta(path):\n    \"\"\"Reads a FASTA file and returns a list of (record_id, sequence) tuples.\"\"\"\n    records = []\n    current_id = None\n    current_seq = []\n    \n    with open(path, 'r') as f:\n        for line in f:\n            line = line.strip()\n            if not line:\n                continue\n            if line.startswith('>'):\n                if current_id:\n                    records.append((current_id, \"\".join(current_seq)))\n                # The record_id is the first whitespace token of the header line\n                current_id = line[1:].split()[0]\n                current_seq = []\n            else:\n                current_seq.append(line)\n        \n        if current_id:\n            records.append((current_id, \"\".join(current_seq)))\n            \n    return records\n```\n\n```python\n# mzml_reader.py\nimport sys\nimport xml.etree.ElementTree as ET\nimport base64\nimport zlib\nimport numpy as np\n\ndef read_mzml(path):\n    \"\"\"Reads an mzML file and returns a list of dicts containing spectrum data.\"\"\"\n    tree = ET.parse(path)\n    root = tree.getroot()\n    ns = {'ns': 'http://psi.hupo.org/ms/mzml'}\n    \n    spectra_data = []\n    \n    # Find all spectrum elements\n    for spec in root.findall('.//ns:spectrum', ns):\n        spec_id = spec.get('id')\n        \n        # Initialize defaults\n        ms_level = None\n        rt = None\n        precursor_mz = None\n        precursor_charge = None\n        mz_array = np.array([], dtype=np.float64)\n        intensity_array = np.array([], dtype=np.float64)\n        \n        # Parse cvParams for ms_level and rt\n        # Scan list / scan / scan start time\n        # We look for MS:1000016 (scan start time)\n        # We look for MS:1000511 (ms level)\n        \n        # To get RT, we need to find the scan start time within the spectrum's hierarchy\n        # Note: ms level is often in cvParam\n        # rt is in scanList/scan/cvParam[MS:1000016]\n        \n        # Finding ms level\n        cv_params = spec.findall('.//ns:cvParam', ns)\n        for cp in cv_params:\n            acc = cp.get('accession')\n            if acc == 'MS:1000511':\n                ms_level = int(cp.get('value'))\n            \n        # Finding RT\n        # The prompt implies rt is inside scanList/scan. \n        # Since we are iterating through spectrum elements, we can look for MS:1000016 in the ancestors or children.\n        # Actually, in mzML, the scan start time is a cvParam of the 'scan' element.\n        # We'll search the whole spec element for MS:1000016 as a fallback.\n        rt_param = spec.find('.//ns:cvParam[@accession=\"MS:1000016\"]', ns)\n        if rt_param is not None:\n            rt = float(rt_param.get('value'))\n            unit = rt_param.get('unit')\n            if unit == 'UO:0000031': # minutes\n                rt *= 60.0\n                \n        # Precursor info\n        precursor = spec.find('.//ns:precursor/ns:selectedIonList/ns:selectedIon', ns)\n        if precursor is not None:\n            p_mz_param = precursor.find('.//ns:cvParam[@accession=\"MS:1000744\"]', ns)\n            p_ch_param = precursor.find('.//ns:cvParam[@accession=\"MS:1000041\"]', ns)\n            if p_mz_param is not None:\n                precursor_mz = float(p_mz_param.get('value'))\n            if p_ch_param is not None:\n                precursor_charge = int(p_ch_param.get('value'))\n\n        # Binary Data (m/z and intensity)\n        binary_data_list = spec.findall('.//ns:binaryDataArray', ns)\n        for bd in binary_data_list:\n            # Determine encoding\n            # Check cvParams for compression and type\n            is_zlib = False\n            is_64bit = False\n            is_32bit = False\n            \n            # The prompt says cvParams are flags. We check if accession is present.\n            # We need to look at cvParam inside the binaryDataArray or parent.\n            # Usually, these are cvParam children of the binaryDataArray or the spectrum.\n            # Let's search the scope of the binary data.\n            \n            # Check for compression/type in the parent or current element\n            parent = spec # fallback\n            # The cvParams describing binary data are usually in the binaryDataArray element itself\n            # or the spectrum element.\n            search_scope = spec.findall('.//ns:cvParam', ns)\n            \n            for cp in search_scope:\n                acc = cp.get('accession')\n                if acc == 'MS:1000574': is_zlib = True\n                if acc == 'MS:1000523': is_64bit = True\n                if acc == 'MS:1000521': is_32bit = True\n            \n            # Wait, the specification says \"test whether the accession is present\".\n            # Let's check all cvParams in the spectrum for these.\n            # Also, we need to know WHICH array is mz and which is intensity.\n            # In mzML, binaryDataArray elements are ordered. Usually mz is first, then intensity.\n            # But they are identified by their position in the binaryDataList or index.\n            # A more robust way: find the binaryDataArray that corresponds to mz and intensity.\n            # In standard mzML, they are parallel arrays.\n            pass\n\n        # Refined binary data parsing\n        # We need to find mz array and intensity array.\n        # In many files, they are two separate binaryDataArray elements.\n        # Let's find all binaryDataArray elements and use them.\n        # To distinguish mz from intensity, we look at the index or common patterns.\n        # However, the prompt implies we just need to extract them.\n        # In mzML, mz is index 0 and intensity is index 1 in the binaryDataArray list.\n        \n        bda_elements = spec.findall('.//ns:binaryDataArray', ns)\n        # We need to identify which is which. Typically mz is first.\n        # Also need to check compression/type for each.\n        # To be safe, we check cvParams for the specific binary data.\n        \n        # The spec says: MS:1000514 is m/z, MS:1000515 is intensity.\n        # These are cvParams that describe the binaryDataArray.\n        \n        arrays = [] # list of (type, data_array)\n        \n        # Let's find all cvParams that link to a binaryDataArray.\n        # In mzML, the binaryDataArray itself contains the binary data.\n        # The cvParam with accession MS:1000514/515 is a child of the binaryDataArray.\n        \n        for bda in bda_elements:\n            # Check if this bda is mz or intensity\n            is_mz = False\n            is_int = False\n            for cp in bda.findall('./ns:cvParam', ns):\n                if cp.get('accession') == 'MS:1000514': is_mz = True\n                if cp.get('accession') == 'MS:1000515': is_int = True\n            \n            # If not found in children, check parent/spectrum cvParams? \n            # Standard mzML puts them as children of the binaryDataArray.\n            # If not found, we assume order (0=mz, 1=int) but that's risky.\n            # Let's check if the binaryDataArray has a cvParam child.\n            if not (is_mz or is_int):\n                # Fallback to index-based if the file is simple\n                idx = bda_elements.index(bda)\n                if idx == 0: is_mz = True\n                elif idx == 1: is_int = True\n\n            if is_mz or is_int:\n                # Check type and compression\n                # Note: these are flags in cvParams\n                comp_flag = False\n                dtype = '<f8' # default 64\n                \n                # The prompt says \"test whether the accession is present\" in cvParams.\n                # This applies to the binary data encoding.\n                # We check the spectrum's cvParams or the bda's cvParams.\n                for cp in spec.findall('.//ns:cvParam', ns):\n                    acc = cp.get('accession')\n                    if acc == 'MS:1000574': comp_flag = True\n                    if acc == 'MS:1000523': dtype = '<f8'\n                    if acc == 'MS:1000521': dtype = '<f4'\n\n                raw_64 = bda.text\n                if raw_64:\n                    raw_bytes = base64.b64decode(raw_64.strip())\n                    if comp_flag:\n                        raw_bytes = zlib.decompress(raw_bytes)\n                    \n                    if dtype == '<f8':\n                        arr = np.frombuffer(raw_bytes, dtype='<f8')\n                    else:\n                        arr = np.frombuffer(raw_bytes, dtype='<f4')\n                    arrays.append((is_mz, arr))\n\n        # Sort arrays to ensure mz is index 0 and intensity is index 1\n        mz_arr = np.array([], dtype=np.float64)\n        int_arr = np.array([], dtype=np.float64)\n        for is_mz, arr in arrays:\n            if is_mz: mz_arr = arr\n            else: int_arr = arr\n            \n        spectra_data.append({\n            'id': spec_id,\n            'ms_level': ms_level,\n            'rt': rt,\n            'precursor_mz': precursor_mz,\n            'precursor_charge': precursor_charge,\n            'mz': mz_arr,\n            'intensity': int_arr\n        })\n        \n    return spectra_data\n\nif __name__ == \"__main__\":\n    if len(sys.argv) < 2:\n        sys.exit(1)\n    \n    path = sys.argv[1]\n    data = read_mzml(path)\n    \n    n = len(data)\n    ms1 = sum(1 for d in data if d['ms_level'] == 1)\n    ms2 = sum(1 for d in data if d['ms_level'] == 2)\n    \n    rts = [d['rt'] for d in data if d['rt'] is not None]\n    rt_first = rts[0] if rts else 0\n    rt_last = rts[-1] if rts else 0\n    \n    total_tic = 0.0\n    for d in data:\n        total_tic += np.sum(d['intensity'])\n        \n    print(f\"spectra={n} ms1={ms1} ms2={ms2} rt_first={rt_first:.3f} rt_last={rt_last:.3f} tic={total_tic:.1f}\")\n```",
+  "wall_clock_elapsed_s": 76.0,
+  "wall_clock_agent_s": 76.0,
+  "finished": "2026-09-19T12:10:54"
+ },
+ "single_shot_note": "2 artifacts expected; single-shot extraction writes only the largest code block",
+ "single_shot_blocks": 2,
+ "grader_rc": 1,
+ "criteria": {
+  "fasta: 48 records, 19929 residues, first sp|P00509|AAT_ECOLI/396": false,
+  "bsa: 40 spectra (10 MS1 / 30 MS2), ids spectrum=1011..spectrum=2471": false,
+  "bsa: rt_first 1501.414 s, rt_last 1590.187 s": false,
+  "bsa: first MS2 spectrum=2442, precursor 457.72397, z=2, charges {2,3}": false,
+  "thermo: 2 MS1 x 19914 peaks, rt 0.2961/0.3561 s (minutes rule)": false,
+  "tic totals within 0.1% (45709750.4 / 138763684.2) and the mandated one-line stdout summary for the bsa file": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {
+  "fasta_reader.py": "4270f79446ef44303d2fb801e36af49620c7c01b738ccddc7c1e535e9e3a993e"
+ },
+ "missing_artifacts": [
+  "mzml_reader.py"
+ ],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 76.0,
+ "iterations": 0,
+ "tokens": {
+  "input": 1392,
+  "output": 2774
+ },
+ "workers": 4
+}

@@ -1,0 +1,7 @@
+FAIL psms.tsv: header + rows, columns in order, decoy encoded 0/1, protein is the bare record id (no whitespace), every qvalue in [0,1]
+PASS stdout reports spectra=1200, with_candidate=1025 and the reference target/decoy peptide counts
+PASS target PSMs at q<=0.01 between 16 and 20 (reference 18)
+PASS decoy fraction among best hits within 0.05 of 0.333
+PASS the unfiltered rerun reports fewer 1% FDR PSMs than the filtered run
+PASS at least 5 of the reference's 7 named UPS1 proteins have >= 2 best-hit spectra
+5/6 passed

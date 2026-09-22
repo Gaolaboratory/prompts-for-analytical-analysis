@@ -1,0 +1,75 @@
+{
+ "experiment": "C_gemma4_single",
+ "tool": "features_s",
+ "variant": "base",
+ "rep": 2,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "single_shot",
+ "prompt_path": "examples/feature_extraction/PROMPT.md",
+ "prompt_sha256": "365302043d4946b6194f7f6a53bf37262492840448e9d73c78cee4a83e18f846",
+ "endpoint": "http://llm-host:35211/v1",
+ "started": "2026-09-19T12:10:55",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35211/v1",
+  "model": "gemma4",
+  "prompt_sha256": "365302043d4946b6194f7f6a53bf37262492840448e9d73c78cee4a83e18f846",
+  "wrapper_sha256": "139312757611a0e8b9ba3dd1eef1fdbe4841a951231ec19f851a0b121757148e",
+  "arm": "single_shot",
+  "started": "2026-09-19T12:10:55",
+  "max_iters": 80,
+  "max_wall": 2700.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16000,
+  "temperature": null,
+  "iterations": 0,
+  "assistant_turns": 1,
+  "tokens": {
+   "input": 1092,
+   "output": 2271
+  },
+  "tool_calls": 0,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "single_shot_reply": "```python\nimport sys\nimport argparse\nimport numpy as np\nimport pandas as pd\nfrom mzml_reader import read_mzml\n\ndef get_mad(data):\n    if len(data) == 0:\n        return 0.0\n    median = np.median(data)\n    diff = np.abs(data - median)\n    mad = np.median(diff)\n    return mad\n\ndef solve():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"input\", help=\"Input mzML file\")\n    parser.add_argument(\"-o\", \"--output\", required=True, help=\"Output TSV file\")\n    args = parser.parse_args()\n\n    spectra = read_mzml(args.input)\n    \n    # Filter MS1 scans\n    ms1_scans = []\n    for i, spec in enumerate(spectra):\n        if spec.get(\"ms_level\") == 1:\n            # We need mz, intensity, and retention time\n            # Assuming mzml_reader provides these keys in the dict\n            # Based on standard mzML reading patterns\n            mz = np.array(spec.get(\"m/z\", []), dtype=np.float64)\n            intense = np.array(spec.get(\"intensity\", []), dtype=np.float64)\n            rt = spec.get(\"retention_time\", 0.0)\n            if len(mz) > 0:\n                ms1_scans.append({\n                    \"scan_idx\": i,\n                    \"mz\": mz,\n                    \"intense\": intense,\n                    \"rt\": rt\n                })\n\n    num_ms1 = len(ms1_scans)\n    print(f\"ms1_scans={num_ms1}\", end=\"\")\n\n    # 1. Sort sticks and group into windows\n    # A \"stick\" is an (m/z, intensity, scan_index, rt) tuple\n    all_sticks = []\n    for s in ms1_scans:\n        for m, it in zip(s[\"mz\"], s[\"intense\"]):\n            if it > 0:\n                all_sticks.append({'mz': m, 'intense': it, 'scan_idx': s[\"scan_idx\"], 'rt': s[\"rt\"]})\n    \n    # Sort sticks by m/z\n    all_sticks.sort(key=lambda x: x['mz'])\n    \n    windows = []\n    if all_sticks:\n        curr_window = [all_sticks[0]]\n        curr_mean_mz = all_sticks[0]['mz']\n        \n        for i in range(1, len(all_sticks)):\n            stick = all_sticks[i]\n            # Check windowing criteria\n            # 1. Within 0.01 of running mean\n            # 2. No stick from same scan\n            same_scan = any(s['scan_idx'] == stick['scan_idx'] for s in curr_window)\n            \n            if abs(stick['mz'] - curr_mean_mz) <= 0.01 and not same_scan:\n                curr_window.append(stick)\n                # Update running mean\n                curr_mean_mz = sum(s['mz'] for s in curr_window) / len(curr_window)\n            else:\n                windows.append(curr_window)\n                curr_window = [stick]\n                curr_mean_mz = stick['mz']\n        windows.append(curr_window)\n\n    # Keep windows seen in >= 5 distinct scans\n    valid_windows = []\n    for w in windows:\n        distinct_scans = len(set(s['scan_idx'] for s in w))\n        if distinct_scans >= 5:\n            valid_windows.append(w)\n\n    # 2. Keep top 200 windows by maximum stick intensity\n    valid_windows.sort(key=lambda w: max(s['intense'] for s in w), reverse=True)\n    top_windows = valid_windows[:200]\n\n    features_list = []\n    \n    # 3. Build EICs and detect features\n    for window in top_windows:\n        # EIC across all MS1 scans\n        # We need to map scan_idx to index in ms1_scans to align RTs\n        # However, it's easier to just iterate through the MS1 scans and check window sticks\n        window_scans_data = [] # list of (rt, intensity, mz_sum_int, count)\n        \n        # Pre-map sticks for this window for speed\n        # We need intensity and weighted mz for the final calculation\n        window_dict = {} # scan_idx -> (intensity, weighted_mz_sum)\n        for s in window:\n            idx = s['scan_idx']\n            if idx not in window_dict:\n                window_dict[idx] = [0.0, 0.0]\n            window_dict[idx][0] += s['intense']\n            window_dict[idx][1] += (s['mz'] * s['intense'])\n\n        # Build EIC array corresponding to ms1_scans order\n        eic_intensities = []\n        eic_rts = []\n        eic_weighted_mzs = []\n        \n        for s in ms1_scans:\n            idx = s['scan_idx']\n            if idx in window_dict:\n                eic_intensities.append(window_dict[idx][0])\n                eic_rts.append(s['rt'])\n                eic_weighted_mzs.append(window_dict[idx][1] / window_dict[idx][0])\n            else:\n                eic_intensities.append(0.0)\n                eic_rts.append(s['rt'])\n                eic_weighted_mzs.append(0.0) # Should not be used for 0 intensity\n        \n        eic_intensities = np.array(eic_intensities)\n        eic_rts = np.array(eic_rts)\n        eic_weighted_mzs = np.array(eic_weighted_mzs)\n\n        # 4. Threshold: median + 5*MAD on non-zero intensities\n        nz_indices = eic_intensities > 0\n        nz_intensities = eic_intensities[nz_indices]\n        \n        if len(nz_intensities) < 1:\n            continue\n            \n        thresh = np.median(nz_intensities) + 5.0 * get_mad(nz_intensities)\n        \n        # 5. Feature detection\n        # Find runs of scans >= threshold\n        mask = eic_intensities >= thresh\n        \n        # To bridge single-scan dips: \n        # A dip is allowed if it is surrounded by >= thresh scans\n        # We can use morphological closing or simple logic:\n        # If mask[i-1] and mask[i+1] are true but mask[i] is false, make mask[i] true.\n        if len(mask) > 2:\n            for i in range(1, len(mask) - 1):\n                if not mask[i] and mask[i-1] and mask[i+1]:\n                    mask[i] = True\n\n        # Group consecutive True values\n        from itertools import groupby\n        for val, group in groupby(enumerate(mask), key=lambda x: x[1]):\n            if val: # This is a run of True\n                indices = [g[0] for g in group]\n                if len(indices) >= 3:\n                    # This is a feature\n                    run_ints = eic_intensities[indices]\n                    run_rts = eic_rts[indices]\n                    run_mzs = eic_weighted_mzs[indices]\n                    \n                    apex_idx = np.argmax(run_ints)\n                    \n                    # Intensity-weighted mean m/z\n                    feat_mz = np.sum(run_mzs * run_ints) / np.sum(run_ints)\n                    feat_rt_apex = run_rts[apex_idx]\n                    feat_rt_start = run_rts[0]\n                    feat_rt_end = run_rts[-1]\n                    feat_apex_int = run_ints[apex_idx]\n                    \n                    features_list.append({\n                        'mz': feat_mz,\n                        'rt_apex': feat_rt_apex,\n                        'rt_start': feat_rt_start,\n                        'rt_end': feat_rt_end,\n                        'apex_intensity': feat_apex_int,\n                        'n_scans': len(indices)\n                    })\n\n    # Final Output Formatting\n    df = pd.DataFrame(features_list)\n    if not df.empty:\n        df['feature_id'] = range(1, len(df) + 1)\n        # Sort by descending apex_intensity\n        df = df.sort_values('apex_intensity', ascending=False)\n        # Reorder columns\n        cols = ['feature_id', 'mz', 'rt_apex', 'rt_start', 'rt_end', 'apex_intensity', 'n_scans']\n        df = df[cols]\n        df.to_csv(args.output, sep='\\t', index=False)\n    else:\n        # Create empty file with header\n        pd.DataFrame(columns=['feature_id', 'mz', 'rt_apex', 'rt_start', 'rt_end', 'apex_intensity', 'n_scans']).to_csv(args.output, sep='\\t', index=False)\n\n    print(f\" windows={len(top_windows)} features={len(df) if not df.empty else 0}\")\n\nif __name__ == \"__main__\":\n    solve()\n```",
+  "wall_clock_elapsed_s": 314.8,
+  "wall_clock_agent_s": 314.8,
+  "finished": "2026-09-19T12:16:10"
+ },
+ "single_shot_blocks": 1,
+ "grader_rc": 1,
+ "criteria": {
+  "features.tsv: header + N rows, 7 columns in order": false,
+  "120 <= N <= 480": false,
+  "at least 5 of the 10 reference features matched": false,
+  "every apex_intensity > 0 and rt_start <= rt_apex <= rt_end": false,
+  "stdout: ms1_scans=286": false,
+  "at least 70 of the recomputed reference's top 100 features matched, and stdout features=N equals the row count": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {
+  "features.py": "4fade2f2bb4f16b810ba64b76334e9f7dff14b92ccabe842e01dd65fab07c78d"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 314.8,
+ "iterations": 0,
+ "tokens": {
+  "input": 1092,
+  "output": 2271
+ },
+ "workers": 4
+}

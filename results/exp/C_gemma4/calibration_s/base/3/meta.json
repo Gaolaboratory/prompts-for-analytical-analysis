@@ -1,0 +1,160 @@
+{
+ "experiment": "C_gemma4",
+ "tool": "calibration_s",
+ "variant": "base",
+ "rep": 3,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/calibration/PROMPT.md",
+ "prompt_sha256": "5e1ba3c1d76ab2d590788d9ed0cf47dd3cf915d2876c3561d170905d59cf3cca",
+ "started": "2026-09-19T07:12:38",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "gemma4",
+  "prompt_sha256": "5e1ba3c1d76ab2d590788d9ed0cf47dd3cf915d2876c3561d170905d59cf3cca",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-19T07:12:39",
+  "max_iters": 120,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 8,
+  "assistant_turns": 9,
+  "tokens": {
+   "input": 26162,
+   "output": 4446
+  },
+  "tool_calls": 8,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "gemma4"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "wall_clock_elapsed_s": 101.7,
+  "wall_clock_agent_s": 101.7,
+  "finished": "2026-09-19T07:14:20"
+ },
+ "grader_rc": 0,
+ "criteria": {
+  "results.tsv: header + exactly one data row, columns in order, no CR": true,
+  "slope and intercept match the NIST certified values (<=1e-9 relative)": true,
+  "residual_sd and r_squared match the NIST certified values (<=1e-9 relative)": true,
+  "lod and loq match the reference recomputed from norris.csv (<=1e-6 relative)": true,
+  "stdout reports all seven fields": true,
+  "re-running calibrate.py on a perturbed norris.csv reproduces the reference fit for that input": true
+ },
+ "passed": 6,
+ "total": 6,
+ "code_sha256": {
+  "calibrate.py": "bb093984e415e485f2544ca5bf096e29ac559950563b520adfa0fd719e447bda"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 101.7,
+ "iterations": 8,
+ "tokens": {
+  "input": 26162,
+  "output": 4446
+ },
+ "workers": 2,
+ "content": {
+  "fields": {
+   "slope": {
+    "want": 1.0021168180204547,
+    "found": [
+     1.00211681802
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "intercept": {
+    "want": -0.26232307377388303,
+    "found": [
+     -0.262323073774
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "residual_sd": {
+    "want": 0.8847963961443813,
+    "found": [
+     0.884796396144
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "r_squared": {
+    "want": 0.9999937458837117,
+    "found": [
+     0.999993745884
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "lod": {
+    "want": 2.9136604183973094,
+    "found": [
+     2.913660418397
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "loq": {
+    "want": 8.829273995143362,
+    "found": [
+     8.829273995143
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   }
+  },
+  "method_passed": 6,
+  "precise_passed": 6,
+  "present": 6,
+  "total": 6,
+  "files_seen": [
+   "results.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

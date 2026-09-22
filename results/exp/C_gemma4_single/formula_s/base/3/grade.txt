@@ -1,0 +1,7 @@
+FAIL ranked.tsv: header + 4 blocks in input order, ranks starting at 1
+FAIL rank-1 formula correct in all four blocks
+FAIL every rank-1 row has |error_ppm| <= 2.0 and score <= 0.5
+FAIL every rank-1 row beats its block runner-up by >= 5 score units
+FAIL rank-1 calc_mass matches the reference recomputed from the input (<=1e-5 Da)
+FAIL stdout reports blocks and candidates
+0/6 passed

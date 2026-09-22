@@ -1,0 +1,103 @@
+{
+ "experiment": "C_gemma4",
+ "tool": "features_s",
+ "variant": "base",
+ "rep": 2,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/feature_extraction/PROMPT.md",
+ "prompt_sha256": "365302043d4946b6194f7f6a53bf37262492840448e9d73c78cee4a83e18f846",
+ "endpoint": "http://llm-host:35211/v1",
+ "started": "2026-09-19T12:39:19",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:35211/v1",
+  "model": "gemma4",
+  "prompt_sha256": "365302043d4946b6194f7f6a53bf37262492840448e9d73c78cee4a83e18f846",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-19T12:39:19",
+  "max_iters": 60,
+  "max_wall": 5400.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 30,
+  "assistant_turns": 31,
+  "tokens": {
+   "input": 747458,
+   "output": 27147
+  },
+  "tool_calls": 30,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "served_models": [
+   "/home/ygao/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/c099eb48e663fd284577b04978a94ffccb261841/gemma-4-26B-A4B-it-UD-IQ4_NL.gguf"
+  ],
+  "fingerprints": [
+   "b10751-3466812d1"
+  ],
+  "model_substituted": false,
+  "wall_clock_elapsed_s": 4013.6,
+  "wall_clock_agent_s": 4013.6,
+  "finished": "2026-09-19T13:46:12"
+ },
+ "grader_rc": 1,
+ "criteria": {
+  "features.tsv: header + N rows, 7 columns in order": false,
+  "120 <= N <= 480": false,
+  "at least 5 of the 10 reference features matched": false,
+  "every apex_intensity > 0 and rt_start <= rt_apex <= rt_end": false,
+  "stdout: ms1_scans=286": true,
+  "at least 70 of the recomputed reference's top 100 features matched, and stdout features=N equals the row count": false
+ },
+ "passed": 1,
+ "total": 6,
+ "code_sha256": {
+  "features.py": "b7d6b4562e02ff5d83d4b3d7f5f605b0b31888aa578e7d204c13b9abadfe0c8f"
+ },
+ "missing_artifacts": [],
+ "harness_timeout": false,
+ "wall_clock_agent_s": 4013.6,
+ "iterations": 30,
+ "tokens": {
+  "input": 747458,
+  "output": 27147
+ },
+ "workers": 4
+}

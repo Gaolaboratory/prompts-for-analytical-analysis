@@ -1,0 +1,130 @@
+{
+ "experiment": "A",
+ "tool": "titration_s",
+ "variant": "L1",
+ "rep": 2,
+ "mode": "solo",
+ "harness": "agent_driver",
+ "arm": "agentic",
+ "prompt_path": "examples/titration/ablation/L1.md",
+ "prompt_sha256": "78ee98334e48b4b44215b4c2f4f28044b8691412962bada40da056efbaccf8b9",
+ "started": "2026-09-17T17:23:19",
+ "failure_mode": null,
+ "driver": {
+  "endpoint": "http://llm-host:4000/v1",
+  "model": "qwen3.6-35b-local",
+  "prompt_sha256": "78ee98334e48b4b44215b4c2f4f28044b8691412962bada40da056efbaccf8b9",
+  "wrapper_sha256": "bbf568dcd22228a9aa1b7c353d3442542494685334d9d2ce67ea57655d8e9448",
+  "arm": "agentic",
+  "started": "2026-09-17T17:23:19",
+  "max_iters": 80,
+  "max_wall": 1800.0,
+  "max_output_tokens": 400000,
+  "max_tokens": 16384,
+  "temperature": null,
+  "iterations": 21,
+  "assistant_turns": 22,
+  "tokens": {
+   "input": 167014,
+   "output": 10332
+  },
+  "tool_calls": 21,
+  "refused_commands": 0,
+  "failure_mode": null,
+  "finish_reasons": [
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "tool_calls",
+   "stop"
+  ],
+  "throttled_s": 0.0,
+  "wall_clock_elapsed_s": 1248.6,
+  "wall_clock_agent_s": 1248.6,
+  "finished": "2026-09-17T17:44:07"
+ },
+ "grader_rc": 1,
+ "criteria": {
+  "tsv: header + 1 row, 3 columns in order, LF only": false,
+  "Veq 25.0 +/- 0.5 mL": false,
+  "pKa 4.74 +/- 0.10": false,
+  "concentration 0.100 M +/- 5%": false,
+  "stdout: points/Veq/pKa/conc each present with a numeric value": false,
+  "matches titration_ref recomputed from the input CSV, as given and perturbed (Veq +/-0.05 mL, pKa +/-0.02, conc +/-0.2%)": false
+ },
+ "passed": 0,
+ "total": 6,
+ "code_sha256": {
+  "titration.py": "e7bef777f60f98628e9a10359646f8323d0ca77be4dac6df13c5968af7254563"
+ },
+ "missing_artifacts": [],
+ "wall_clock_agent_s": 1248.6,
+ "iterations": 21,
+ "tokens": {
+  "input": 167014,
+  "output": 10332
+ },
+ "workers": 4,
+ "content": {
+  "fields": {
+   "veq": {
+    "want": 24.997665110072916,
+    "found": [
+     24.878
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": false,
+    "precise": false,
+    "note": "wrong"
+   },
+   "pka": {
+    "want": 4.744918278852552,
+    "found": [
+     4.741
+    ],
+    "n_found": 1,
+    "present": true,
+    "method": true,
+    "precise": true,
+    "note": "ok"
+   },
+   "conc": {
+    "want": 0.09999066044029167,
+    "found": [],
+    "n_found": 0,
+    "present": false,
+    "method": false,
+    "precise": false,
+    "note": "absent"
+   }
+  },
+  "method_passed": 1,
+  "precise_passed": 1,
+  "present": 2,
+  "total": 3,
+  "files_seen": [
+   "results.tsv",
+   "stderr.log",
+   "stdout.log"
+  ]
+ },
+ "content_probe_version": "e0e83e01136d"
+}

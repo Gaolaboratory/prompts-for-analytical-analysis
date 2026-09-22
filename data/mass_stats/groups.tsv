@@ -1,0 +1,7 @@
+pinned_column	original_sample_name	group	genotype	description
+CTRL_1	Vd991_1	CTRL	wild type (Vd991)	Verticillium dahliae wild-type strain Vd991, mycelium, biological replicate 1
+CTRL_2	Vd991_2	CTRL	wild type (Vd991)	Verticillium dahliae wild-type strain Vd991, mycelium, biological replicate 2
+CTRL_3	Vd991_3	CTRL	wild type (Vd991)	Verticillium dahliae wild-type strain Vd991, mycelium, biological replicate 3
+EXP_1	V10498_1	EXP	knockout mutant (VdGGCT)	V. dahliae VdGGCT knockout mutant strain V10498, mycelium, biological replicate 1
+EXP_2	V10498_2	EXP	knockout mutant (VdGGCT)	V. dahliae VdGGCT knockout mutant strain V10498, mycelium, biological replicate 2
+EXP_3	V10498_3	EXP	knockout mutant (VdGGCT)	V. dahliae VdGGCT knockout mutant strain V10498, mycelium, biological replicate 3

@@ -108,3 +108,7 @@ values, not a graded pass/fail tier.
 4. The prompt (~6.5 KB) must fit the context budget of the smallest model claimed, with headroom
    for tool output and iteration; measure and record peak context use.
 5. Archive raw tool output (`results.tsv`, stdout) alongside the grader verdict.
+
+**Tier (c) executed 2026-08-26:** PASS — published acetic-acid/NaOH teaching table via
+`data/titration/`; Veq 24.999 mL, pKa 4.745, conc 0.10000 M on the local LLM. See
+`EXAMPLE_DATA.md`.
